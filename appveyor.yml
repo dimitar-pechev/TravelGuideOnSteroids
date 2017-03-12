@@ -1,0 +1,14 @@
+configuration: Release
+environment:
+  COVERALLS_REPO_TOKEN:
+    secure: JP1SPyMZt9wSLYQ+xfnG3Gwv/mhm4Xp8FimSH8HjOyq2VLJiOg8s+1UaJanzQO/S
+before_build:
+  - nuget restore
+  
+build:
+  project: TravelGuide.sln
+  verbosity: minimal
+  publish_wap: true
+
+after_test:
+  - cmd: runtests.cmd
