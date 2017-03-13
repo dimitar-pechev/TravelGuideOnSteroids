@@ -51,9 +51,9 @@ namespace TravelGuide.Auth
             // This is similar to the RememberMe option when you log in.
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
-            // app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+              appId: "765954726889523",
+              appSecret: "f68e55d5533abfdc2c9e43db45b016e3");
         }
     }
 }

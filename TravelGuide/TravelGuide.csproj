@@ -220,7 +220,14 @@
     <Compile Include="ViewModels\ManageViewModels\SetPasswordViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\landing-page-kotor-1920-1080.png" />
+    <Content Include="App_Themes\IconsSocial\1487474216_facebook.png" />
+    <Content Include="App_Themes\IconsSocial\1487474227_linkedin.png" />
+    <Content Include="App_Themes\IconsSocial\1487474240_youtube.png" />
+    <Content Include="App_Themes\IconsSocial\1487474244_google.png" />
+    <Content Include="App_Themes\IconsSocial\1487474262_twitter2.png" />
+    <Content Include="App_Themes\IconsSocial\fb-art.png" />
+    <Content Include="App_Themes\landing-page-kotor-1920-960.png" />
+    <Content Include="App_Themes\logo-transparent.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\materialize\css\materialize.css" />

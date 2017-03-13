@@ -2973,8 +2973,6 @@ ul.staggered-list li {
 }
 
 footer.page-footer {
-  margin-top: 20px;
-  padding-top: 20px;
   background-color: #ee6e73;
 }
 
@@ -4633,7 +4631,6 @@ small {
   color: #ffab40;
   margin-right: 20px;
   transition: color .3s ease;
-  text-transform: uppercase;
 }
 
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-floating):hover {
@@ -4852,7 +4849,6 @@ small {
   line-height: 36px;
   outline: 0;
   padding: 0 2rem;
-  text-transform: uppercase;
   vertical-align: middle;
   -webkit-tap-highlight-color: transparent;
 }

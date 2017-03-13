@@ -26,13 +26,35 @@
             </div>
         </div>
     </div>
-    <div class="body-content">
+    <div class="body-content" id="main">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
+    <footer class="page-footer footer footer-content text-center black">
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <p class="text-white">&copy; @DateTime.Now.Year Travel Guide Extravaganza  </p>
+            </div>
+            <div class="col-md-4">
+                <a href="https://www.facebook.com" class="icon-social">
+                    <img src="/App_Themes/IconsSocial/1487474216_facebook.png" alt="facebook-icon" />
+                </a>
+                <a href="https://www.youtube.com" class="icon-social">
+                    <img src="/App_Themes/IconsSocial/1487474240_youtube.png" alt="youtube-icon" />
+                </a>
+                <a href="https://wwww.linkedin.com" class="icon-social">
+                    <img src="/App_Themes/IconsSocial/1487474227_linkedin.png" alt="linked-in-icon" />
+                </a>
+                <a href="https://wwww.plus.google.com" class="icon-social">
+                    <img src="/App_Themes/IconsSocial/1487474244_google.png" alt="google-plus-icon" />
+                </a>
+                <a href="https://www.twitter.com" class="icon-social">
+                    <img src="/App_Themes/IconsSocial/1487474262_twitter2.png" alt="twitter-icon" />
+                </a>
+            </div>
+        </div>
+    </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/materialize")
