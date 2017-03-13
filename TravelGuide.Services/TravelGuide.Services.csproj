@@ -93,12 +93,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Account\UserService.cs" />
+    <Compile Include="Account\Contracts\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TravelGuide.Data\TravelGuide.Data.csproj">
+      <Project>{2CB1E34A-EC52-414D-AFB2-60F72252154D}</Project>
+      <Name>TravelGuide.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TravelGuide.Models\TravelGuide.Models.csproj">
+      <Project>{A77F1B1E-3B0D-480A-91EB-A520C0A08CD2}</Project>
+      <Name>TravelGuide.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

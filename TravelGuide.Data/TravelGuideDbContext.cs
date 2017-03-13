@@ -1,18 +1,24 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using TravelGuide.Data.Contracts;
 using TravelGuide.Models;
 
 namespace TravelGuide.Data
 {
-    public class TravelGuideDbContext : IdentityDbContext<User>
+    public class TravelGuideContext : IdentityDbContext<User>, ITravelGuideContext
     {
-        public TravelGuideDbContext()
+        public TravelGuideContext()
             : base("TravelGuideMvc")
         {
         }
 
-        public static TravelGuideDbContext Create()
+        public static TravelGuideContext Create()
         {
-            return new TravelGuideDbContext();
+            return new TravelGuideContext();
+        }
+
+        void ITravelGuideContext.SaveChanges()
+        {
+            this.SaveChanges();
         }
     }
 }

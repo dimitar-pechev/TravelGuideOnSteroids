@@ -19,7 +19,7 @@ namespace TravelGuide.Auth
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new UserStore<User>(context.Get<TravelGuideDbContext>()));
+            var manager = new ApplicationUserManager(new UserStore<User>(context.Get<TravelGuideContext>()));
 
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<User>(manager)
