@@ -542,3 +542,7 @@
 .login-credentials {
     margin-bottom: 20%;
 }
+
+.field-get-username {
+    margin: 40px 0;
+}

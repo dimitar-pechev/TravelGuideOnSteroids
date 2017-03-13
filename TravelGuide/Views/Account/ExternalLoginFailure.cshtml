@@ -1,8 +1,20 @@
 ﻿@{
     ViewBag.Title = "Login Failure";
 }
-
-<hgroup>
-    <h2>@ViewBag.Title.</h2>
-    <h3 class="text-danger">Unsuccessful login with service.</h3>
-</hgroup>
+<div class="container">
+    <div class="row card-only">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-6 col-md-offset-3 text-center">
+                <div class="card login-form">
+                    <div class="card-content card-login">
+                        <h4>Login failed</h4>
+                        <div class="login-credentials">
+                            <p class="text-danger text-center">Unsuccessful login attempt with Оacebook. Please, try again later.</p>
+                        </div>
+                        <p>@Html.ActionLink("Return to Sign in page", "Login", null, new { @class = "btn btn-success btn-login" })</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
