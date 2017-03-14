@@ -206,6 +206,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\ViewEnginesConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -221,6 +222,7 @@
     <Compile Include="ViewModels\ManageViewModels\SetPasswordViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Themes\Articles\destinations-heading.png" />
     <Content Include="App_Themes\IconsSocial\1487474216_facebook.png" />
     <Content Include="App_Themes\IconsSocial\1487474227_linkedin.png" />
     <Content Include="App_Themes\IconsSocial\1487474240_youtube.png" />
@@ -324,6 +326,8 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Articles\Index.cshtml" />
+    <Content Include="Views\Articles\_ArticlesListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

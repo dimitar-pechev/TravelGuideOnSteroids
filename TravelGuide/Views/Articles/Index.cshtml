@@ -1,0 +1,24 @@
+﻿@model IEnumerable<TravelGuide.Models.Articles.Article>
+
+@{
+    ViewBag.Title = "Destinations";
+}
+<div class="row discover-heading">
+    <img src="~/App_Themes/Articles/destinations-heading.png" class="img-responsive" alt="heading" />
+</div>
+
+<div class="container destinations-container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4 text-center">
+            @Html.Label("Search cities and countries:", new { @for = "SearchBarDiscover", @class = "search-label-discover" })
+            @Html.TextBox("SearchBarDiscover")
+            <asp:TextBox runat="server" ID="SearchBarDiscover" OnTextChanged="SearchBarDiscover_TextChanged" />
+        </div>
+        <div class="col-md-4 text-right">
+
+        </div>
+    </div>
+    <div class="row" id="destinations-entries-container">
+        @Html.Partial("_ArticlesListPartial", Model)
+    </div>    
+</div>
