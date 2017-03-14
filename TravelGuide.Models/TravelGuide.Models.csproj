@@ -86,7 +86,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstractions\Comment.cs" />
+    <Compile Include="Abstractions\Like.cs" />
     <Compile Include="Account\User.cs" />
+    <Compile Include="Articles\Article.cs" />
+    <Compile Include="Articles\ArticleComment.cs" />
+    <Compile Include="Articles\ArticleLike.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

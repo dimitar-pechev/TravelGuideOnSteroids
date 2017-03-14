@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using System.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using TravelGuide.Data.Contracts;
 using TravelGuide.Models;
+using TravelGuide.Models.Articles;
 
 namespace TravelGuide.Data
 {
@@ -10,6 +12,8 @@ namespace TravelGuide.Data
             : base("TravelGuideMvc")
         {
         }
+
+        public IDbSet<Article> Articles { get; set; }
 
         public static TravelGuideContext Create()
         {
