@@ -217,6 +217,7 @@
     <Compile Include="ViewModels\AccountViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModels\RegisterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ArticlesViewModels\CreateArticleViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels\IndexViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels\SetPasswordViewModel.cs" />

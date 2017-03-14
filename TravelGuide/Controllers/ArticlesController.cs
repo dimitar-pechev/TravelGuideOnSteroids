@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using TravelGuide.Models.Articles;
 using TravelGuide.Services.Articles.Contracts;
+using TravelGuide.ViewModels.ArticlesViewModels;
 
 namespace TravelGuide.Controllers
 {
     public class ArticlesController : Controller
     {
-        private const int PageSize = 1;
+        private const int PageSize = 3;
         private readonly IArticleService service;
 
         public ArticlesController(IArticleService service)
@@ -68,6 +70,20 @@ namespace TravelGuide.Controllers
         public ActionResult CreateArticle()
         {
             return this.View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateArticle(CreateArticleViewModel article)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(article);
+            }
+
+            var userId = this.User.Identity.GetUserId();
+            this.service.CreateArticle(userId, article.Title, article.City, article.Country, article.ContentMain, article.ContentMustSee, article.ContentBudgetTips, article.ContentAccomodation, article.PrimaryImageUrl, article.SecondImageUrl, article.ThirdImageUrl, article.CoverImageUrl);
+
+            return this.RedirectToAction("Index");
         }
 
         protected int GetPage(int? page, decimal pagesCount)

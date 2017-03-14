@@ -32,8 +32,6 @@
         margin: 0;
     }
 
-
-
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
     .jumbotron {
@@ -545,4 +543,12 @@
 
 .field-get-username {
     margin: 40px 0;
+}
+
+.btn-create {
+    margin-top: 10%;
+}
+
+textarea:focus {
+    border: 1px solid green;
 }
