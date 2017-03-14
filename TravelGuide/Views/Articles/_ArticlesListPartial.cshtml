@@ -41,8 +41,15 @@
             </li>
         }
         @for (int i = 1; i <= ViewBag.PagesCount; i++)
+        {
+            if (string.IsNullOrEmpty(ViewBag.Query))
             {
-            <li class="page-item"><a class="page-link" href="/Articles/Index?page=@i">@i</a></li>
+                <li class="page-item"><a class="page-link" href="/Articles/Index?page=@i">@i</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" href="/Articles/Index?page=@i&query=@ViewBag.Query">@i</a></li>
+            }
         }
 
         @if (ViewBag.CurrentPage >= ViewBag.PagesCount)
