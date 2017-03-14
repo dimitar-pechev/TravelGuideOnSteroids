@@ -65,6 +65,11 @@ namespace TravelGuide.Controllers
             return this.PartialView("_ArticlesListPartial", articles);
         }
 
+        public ActionResult CreateArticle()
+        {
+            return this.View();
+        }
+
         protected int GetPage(int? page, decimal pagesCount)
         {
             if (page == null || page < 1 || page > pagesCount)

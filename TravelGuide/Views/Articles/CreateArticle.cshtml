@@ -1,0 +1,73 @@
+﻿@model TravelGuide.Models.Articles.Article
+
+<div class="container">
+    <div class="card card-add-article">
+        <div class="card-content">
+            <h4 class="text-center">Add a New Article</h4>
+        </div>
+        <hr />
+        <div class="card-content">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <div class="input-field">
+                        @Html.LabelFor(m => m.Title)
+                        @Html.TextBoxFor(m => m.Title)
+                        @Html.ValidationMessageFor(m => m.Title, "")
+                    </div>
+
+                    <div class="input-field">
+                        @Html.LabelFor(m => m.Country)
+                        @Html.TextBoxFor(m => m.Country)
+                        @Html.ValidationMessageFor(m => m.Country, "")
+                    </div>
+
+                    <div class="input-field">
+                        @Html.LabelFor(m => m.City)
+                        @Html.TextBoxFor(m => m.City)
+                        @Html.ValidationMessageFor(m => m.City, "")
+                    </div>
+
+                    <div class="input-field">
+                        @Html.LabelFor(m => m.PrimaryImageUrl)
+                        @Html.TextBoxFor(m => m.PrimaryImageUrl)
+                        @Html.ValidationMessageFor(m => m.PrimaryImageUrl, "")
+                    </div>
+
+                    <div class="input-field">
+                        @Html.LabelFor(m => m.SecondImageUrl)
+                        @Html.TextBoxFor(m => m.SecondImageUrl)
+                        @Html.ValidationMessageFor(m => m.SecondImageUrl, "")
+                    </div>
+
+                    <div class="input-field">
+                        @Html.LabelFor(m => m.ThirdImageUrl)
+                        @Html.TextBoxFor(m => m.ThirdImageUrl)
+                        @Html.ValidationMessageFor(m => m.ThirdImageUrl, "")
+                    </div>
+
+                    <div class="input-field">
+                        @Html.LabelFor(m => m.CoverImageUrl)
+                        @Html.TextBoxFor(m => m.CoverImageUrl)
+                        @Html.ValidationMessageFor(m => m.CoverImageUrl, "")
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    @Html.TextAreaFor(m => m.ContentMain, new { @class = "form-control text-area-content", placeholder = "Main article content text goes here...", rows = "7" })
+                    @Html.ValidationMessageFor(m => m.ContentMain, "")
+
+                    @Html.TextAreaFor(m => m.ContentMustSee, new { @class = "form-control text-area-content", placeholder = "Must-see places info...", rows = "7" })
+                    @Html.ValidationMessageFor(m => m.ContentMustSee, "")
+
+                    @Html.TextAreaFor(m => m.ContentBudgetTips, new { @class = "form-control text-area-content", placeholder = "Budget tips info...", rows = "7" })
+                    @Html.ValidationMessageFor(m => m.ContentBudgetTips, "")
+
+                    @Html.TextAreaFor(m => m.ContentAccomodation, new { @class = "form-control text-area-content", placeholder = "Accomodation info...", rows = "7" })
+                    @Html.ValidationMessageFor(m => m.ContentAccomodation, "")
+                </div>
+            </div>
+            <div class="row text-center">
+                <input type="submit" value="Submit" class="btn btn-success btn-login" />
+            </div>
+        </div>
+    </div>
+</div>
