@@ -107,6 +107,14 @@
     <Compile Include="Services\Account\UserServiceTests\DeactivateAccount_Should.cs" />
     <Compile Include="Services\Account\UserServiceTests\GetById_Should.cs" />
     <Compile Include="Services\Account\UserServiceTests\UpdateUserInfo_Should.cs" />
+    <Compile Include="Services\Articles\ArticleServiceTests\AddComment_Should.cs" />
+    <Compile Include="Services\Articles\ArticleServiceTests\Constructor_Should.cs" />
+    <Compile Include="Services\Articles\ArticleServiceTests\CreateArticle_Should.cs" />
+    <Compile Include="Services\Articles\ArticleServiceTests\DeleteArticle_Should.cs" />
+    <Compile Include="Services\Articles\ArticleServiceTests\DeleteComment_Should.cs" />
+    <Compile Include="Services\Articles\ArticleServiceTests\EditArticle_Should.cs" />
+    <Compile Include="Services\Articles\ArticleServiceTests\GetArticleById_Should.cs" />
+    <Compile Include="Services\Articles\Mocks\ArticleServiceMock.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -137,6 +145,7 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
