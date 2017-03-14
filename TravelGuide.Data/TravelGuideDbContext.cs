@@ -16,9 +16,9 @@ namespace TravelGuide.Data
             return new TravelGuideContext();
         }
 
-        void ITravelGuideContext.SaveChanges()
+        public override int SaveChanges()
         {
-            this.SaveChanges();
+            return base.SaveChanges();
         }
     }
 }

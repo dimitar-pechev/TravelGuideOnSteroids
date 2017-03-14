@@ -82,7 +82,7 @@ namespace TravelGuide.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await this.SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await this.SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -93,7 +93,7 @@ namespace TravelGuide.Controllers
                     return this.RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    this.ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    this.ModelState.AddModelError(string.Empty, "Username and/or password incorrect");
                     return this.View(model);
             }
         }
@@ -111,7 +111,7 @@ namespace TravelGuide.Controllers
         {
             if (this.ModelState.IsValid)
             {
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = new User { UserName = model.UserName, Email = model.Email };
                 var result = await this.UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -200,7 +200,7 @@ namespace TravelGuide.Controllers
                     return this.View("ExternalLoginFailure");
                 }
 
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = new User { UserName = model.UserName, Email = model.Email };
                 var result = await this.UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

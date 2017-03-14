@@ -14,6 +14,7 @@ namespace TravelGuide
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             ViewEnginesConfig.RegisterEngines();
+            DatabaseConfig.InitializeDatabase();
         }
     }
 }

@@ -19,6 +19,11 @@
                                 Please enter a username for this site below and click the Register button to finish
                                 signing in.
                             </p>
+                            <div class="input-field">
+                                @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                            </div>
                             <div class="input-field field-get-username">
                                 @Html.LabelFor(m => m.Email, new { @class = "control-label" })
                                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })

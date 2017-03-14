@@ -7,6 +7,6 @@ namespace TravelGuide.Data.Contracts
     {
         IDbSet<User> Users { get; set; }
 
-        void SaveChanges();
+        int SaveChanges();
     }
 }

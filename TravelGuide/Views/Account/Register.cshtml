@@ -18,6 +18,11 @@
                             @Html.ValidationSummary("", new { @class = "text-danger" })
                             <div class="login-credentials">
                                 <div class="input-field">
+                                    @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field login-password-fieldbox">
                                     @Html.LabelFor(m => m.Email, new { @class = "control-label" })
                                     @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })

@@ -97,6 +97,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\TravelGuideContextTests\Constructor_Should.cs" />
+    <Compile Include="Data\TravelGuideContextTests\Create_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Services\Account\Mocks\UserServiceMock.cs" />
