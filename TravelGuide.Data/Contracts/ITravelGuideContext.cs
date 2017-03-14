@@ -8,6 +8,8 @@ namespace TravelGuide.Data.Contracts
     {
         IDbSet<Article> Articles { get; set; }
 
+        IDbSet<ArticleComment> Comments { get; set; }
+
         IDbSet<User> Users { get; set; }
 
         int SaveChanges();

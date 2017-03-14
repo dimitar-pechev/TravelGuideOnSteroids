@@ -87,6 +87,10 @@
   <ItemGroup>
     <Compile Include="Account\UserService.cs" />
     <Compile Include="Account\Contracts\IUserService.cs" />
+    <Compile Include="Articles\ArticleService.cs" />
+    <Compile Include="Articles\Contracts\IArticleService.cs" />
+    <Compile Include="Factories\IArticleCommentFactory.cs" />
+    <Compile Include="Factories\IArticleFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -103,9 +107,7 @@
       <Name>TravelGuide.Models</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Articles\Contracts\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -15,6 +15,8 @@ namespace TravelGuide.Data
 
         public IDbSet<Article> Articles { get; set; }
 
+        public IDbSet<ArticleComment> Comments { get; set; }
+
         public static TravelGuideContext Create()
         {
             return new TravelGuideContext();

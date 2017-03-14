@@ -1,16 +1,22 @@
+using System;
+using System.Web;
+using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using Ninject;
+using Ninject.Extensions.Factory;
+using Ninject.Web.Common;
+using TravelGuide.Data;
+using TravelGuide.Data.Contracts;
+using TravelGuide.Services;
+using TravelGuide.Services.Account.Contracts;
+using TravelGuide.Services.Articles;
+using TravelGuide.Services.Articles.Contracts;
+using TravelGuide.Services.Factories;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(TravelGuide.App_Start.NinjectConfig), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(TravelGuide.App_Start.NinjectConfig), "Stop")]
 
 namespace TravelGuide.App_Start
 {
-    using System;
-    using System.Web;
-    using Data;
-    using Data.Contracts;
-    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-    using Ninject;
-    using Ninject.Web.Common;
-
     public static class NinjectConfig
     {
         private static readonly Bootstrapper Bootstrapper = new Bootstrapper();
@@ -62,6 +68,12 @@ namespace TravelGuide.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<ITravelGuideContext>().To<TravelGuideContext>().InRequestScope();
+
+            kernel.Bind<IUserService>().To<UserService>();
+            kernel.Bind<IArticleService>().To<ArticleService>();
+
+            kernel.Bind<IArticleFactory>().ToFactory().InSingletonScope();
+            kernel.Bind<IArticleCommentFactory>().ToFactory().InSingletonScope();
         }
     }
 }
