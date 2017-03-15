@@ -127,7 +127,7 @@ namespace TravelGuide.Controllers
 
             return this.RedirectToAction("Details", new { id = article.Id });
         }
-        
+
         public ActionResult DeleteArticle(Guid? id)
         {
             if (id == null)

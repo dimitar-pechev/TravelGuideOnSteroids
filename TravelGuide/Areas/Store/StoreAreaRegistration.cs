@@ -17,8 +17,7 @@ namespace TravelGuide.Areas.Store
             context.MapRoute(
                 "Store_default",
                 "Store/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
-            );
+                new { action = "Index", id = UrlParameter.Optional });
         }
     }
 }

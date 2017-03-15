@@ -4,6 +4,8 @@ using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Extensions.Factory;
 using Ninject.Web.Common;
+using TravelGuide.Common;
+using TravelGuide.Common.Contracts;
 using TravelGuide.Data;
 using TravelGuide.Data.Contracts;
 using TravelGuide.Services;
@@ -11,10 +13,8 @@ using TravelGuide.Services.Account.Contracts;
 using TravelGuide.Services.Articles;
 using TravelGuide.Services.Articles.Contracts;
 using TravelGuide.Services.Factories;
-using TravelGuide.Common.Contracts;
-using TravelGuide.Common;
-using TravelGuide.Services.Store.Contracts;
 using TravelGuide.Services.Store;
+using TravelGuide.Services.Store.Contracts;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(TravelGuide.App_Start.NinjectConfig), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(TravelGuide.App_Start.NinjectConfig), "Stop")]
