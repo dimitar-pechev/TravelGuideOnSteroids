@@ -262,6 +262,24 @@
     max-width: 70%;
 }
 
+.modal-content {
+    padding: 3px !important;
+}
+
+.modal-body {
+    padding: 0 !important;
+}
+
+.icon-close {
+    position: absolute;
+    color: white;
+    top: 2%;
+    right: 2%;
+    font-size: 24px;
+    z-index: 999;
+    cursor: pointer;
+}
+
 .icon-social img {
     max-width: 35px;
 }

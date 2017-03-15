@@ -86,6 +86,18 @@ namespace TravelGuide.Controllers
             return this.RedirectToAction("Index");
         }
 
+        public ActionResult Details(Guid? id)
+        {
+            if (id == null)
+            {
+                return this.RedirectToAction("Index");
+            }
+
+            var article = this.service.GetArticleById((Guid)id);
+
+            return this.View(article);
+        }
+
         protected int GetPage(int? page, decimal pagesCount)
         {
             if (page == null || page < 1 || page > pagesCount)

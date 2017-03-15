@@ -2,22 +2,24 @@
 
 @foreach (var item in Model)
 {
-    <div class="card destination-card">
-        <div class="card-content col-md-3 card-destinations-image">
-            <img src="@item.PrimaryImageUrl" alt="@item.City" />
+    <a href="/articles/details/@item.Id" class="link-entry">
+        <div class="card destination-card">
+            <div class="card-content col-md-3 card-destinations-image">
+                <img src="@item.PrimaryImageUrl" alt="@item.City" />
+            </div>
+            <div class="card-content col-md-9 card-destinations-entry">
+                <h5 class="destinations-entry-city">@item.City, @item.Country</h5>
+                <br />
+                <h6 class="destinations-entry-title">@item.Title</h6>
+                <br />
+                <span class="destinations-entry-date">
+                    Posted on: @item.CreatedOn
+                </span>
+                <br />
+                <p class="destinations-entry-content">@item.ContentMain</p>
+            </div>
         </div>
-        <div class="card-content col-md-9 card-destinations-entry">
-            <h5 class="destinations-entry-city">@item.City, @item.Country</h5>
-            <br />
-            <h6 class="destinations-entry-title">@item.Title</h6>
-            <br />
-            <span class="destinations-entry-date">
-                Posted on: @item.CreatedOn
-            </span>
-            <br />
-            <p class="destinations-entry-content">@item.ContentMain</p>
-        </div>
-    </div>
+    </a>
 }
 
 <div class="text-center">
