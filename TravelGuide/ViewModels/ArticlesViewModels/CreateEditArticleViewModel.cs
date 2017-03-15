@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using TravelGuide.Common.Contracts;
 using TravelGuide.Models.Articles;
 
@@ -6,6 +7,8 @@ namespace TravelGuide.ViewModels.ArticlesViewModels
 {
     public class CreateEditArticleViewModel : IMapFrom<Article>
     {
+        public Guid Id { get; set; }
+
         [Required]
         [StringLength(30, MinimumLength = 3)]
         public string Title { get; set; }

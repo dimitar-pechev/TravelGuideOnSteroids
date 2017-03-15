@@ -32,7 +32,7 @@ namespace TravelGuide.Controllers
             }
             else
             {
-                articles = this.articleService.GetAllArticles();
+                articles = this.articleService.GetAllNotDeletedArticlesOrderedByDate();
             }
 
             var pagesCount = Math.Ceiling((decimal)articles.Count() / PageSize);
@@ -56,7 +56,7 @@ namespace TravelGuide.Controllers
             }
             else
             {
-                articles = this.articleService.GetAllArticles();
+                articles = this.articleService.GetAllNotDeletedArticlesOrderedByDate();
             }
 
             var pagesCount = Math.Ceiling((decimal)articles.Count() / PageSize);
@@ -113,6 +113,33 @@ namespace TravelGuide.Controllers
             var articleViewModel = this.mappingService.Map<CreateEditArticleViewModel>(article);
 
             return this.View(articleViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult EditArticle(CreateEditArticleViewModel article)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(article);
+            }
+
+            this.articleService.EditArticle(article.Id, article.Title, article.City, article.Country, article.ContentMain, article.ContentMustSee, article.ContentBudgetTips, article.ContentAccomodation, article.PrimaryImageUrl, article.SecondImageUrl, article.ThirdImageUrl, article.CoverImageUrl);
+
+            return this.RedirectToAction("Details", new { id = article.Id });
+        }
+        
+        public ActionResult DeleteArticle(Guid? id)
+        {
+            if (id == null)
+            {
+                return this.RedirectToAction("Index");
+            }
+
+            var article = this.articleService.GetArticleById((Guid)id);
+
+            this.articleService.DeleteArticle(article);
+
+            return this.RedirectToAction("Index");
         }
 
         protected int GetPage(int? page, decimal pagesCount)

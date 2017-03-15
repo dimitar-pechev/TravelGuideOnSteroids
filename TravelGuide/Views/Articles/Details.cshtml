@@ -79,11 +79,12 @@
     </div>
     <hr />
     <div class="text-right">
-            @Html.ActionLink("Edit", "EditArticle", new { Model.Id }, new { @class = "btn btn-default black" })
-            <asp:HyperLink Text="Edit" NavigateUrl="" ID="EditBtnLink" CssClass="btn btn-warning black" runat="server" />
-            <asp:Button Text="Delete" CssClass="btn btn-danger" ID="BtnDeleteArticle" OnClick="BtnDeleteArticle_Click" runat="server" />
-            <hr />
-        </div>
+        @Html.ActionLink("Edit", "EditArticle", new { Model.Id }, new { @class = "btn btn-default black" })
+        @Html.ActionLink("Delete", "DeleteArticle", new { id = Model.Id }, new { @class = "btn btn-default black", onclick = "return confirm('Are you sure you want to delete this article?')" })
+        <asp:HyperLink Text="Edit" NavigateUrl="" ID="EditBtnLink" CssClass="btn btn-warning black" runat="server" />
+        <asp:Button Text="Delete" CssClass="btn btn-danger" ID="BtnDeleteArticle" OnClick="BtnDeleteArticle_Click" runat="server" />
+        <hr />
+    </div>
 
     <div id="comments" class="row comment-panel-dest">
         <h4 class="text-center"><span class="glyphicon glyphicon-comment"></span> Comments</h4>
@@ -140,9 +141,9 @@
 <div class="modal fade modal-close" id="details-photo" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-           <span class="glyphicon glyphicon-remove white-text icon-close" data-dismiss="modal"></span>
+            <span class="glyphicon glyphicon-remove white-text icon-close" data-dismiss="modal"></span>
             <div class="modal-body">
-                <img src="" id="details-img-modal" class="img-responsive" alt="picture.title">
+                <img src="" id="details-img-modal" class="img-responsive modal-img-articles" alt="picture.title">
             </div>
         </div>
     </div>

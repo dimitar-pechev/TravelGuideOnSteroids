@@ -570,3 +570,7 @@
 textarea:focus {
     border: 1px solid green;
 }
+
+.modal-img-articles {
+    width: 100%;
+}
