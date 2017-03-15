@@ -11,6 +11,8 @@ using TravelGuide.Services.Account.Contracts;
 using TravelGuide.Services.Articles;
 using TravelGuide.Services.Articles.Contracts;
 using TravelGuide.Services.Factories;
+using TravelGuide.Common.Contracts;
+using TravelGuide.Common;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(TravelGuide.App_Start.NinjectConfig), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(TravelGuide.App_Start.NinjectConfig), "Stop")]
@@ -68,6 +70,8 @@ namespace TravelGuide.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<ITravelGuideContext>().To<TravelGuideContext>().InRequestScope();
+
+            kernel.Bind<IMappingService>().To<MappingService>();
 
             kernel.Bind<IUserService>().To<UserService>();
             kernel.Bind<IArticleService>().To<ArticleService>();

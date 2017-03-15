@@ -78,15 +78,26 @@
         @Model.ContentAccomodation
     </div>
     <hr />
-    @*<div runat="server" id="PanelEditDelete" class="text-right" visible="false">
+    <div class="text-right">
+            @Html.ActionLink("Edit", "EditArticle", new { Model.Id }, new { @class = "btn btn-default black" })
             <asp:HyperLink Text="Edit" NavigateUrl="" ID="EditBtnLink" CssClass="btn btn-warning black" runat="server" />
             <asp:Button Text="Delete" CssClass="btn btn-danger" ID="BtnDeleteArticle" OnClick="BtnDeleteArticle_Click" runat="server" />
             <hr />
-        </div>*@
+        </div>
 
     <div id="comments" class="row comment-panel-dest">
         <h4 class="text-center"><span class="glyphicon glyphicon-comment"></span> Comments</h4>
         <hr />
+        @if (Model.Comments.Count == 0)
+        {
+            <div class="row">
+                <p class="text-center">Be the first to comment...</p>
+            </div>
+        }
+        else
+        {
+
+        }
         @*<asp:ListView runat="server" ID="ListViewArticleComments" DataKeyNames="Id" OnItemDeleting="ListViewArticleComments_ItemDeleting"
                           ItemType="TravelGuide.Models.Articles.ArticleComment">
                 <LayoutTemplate>

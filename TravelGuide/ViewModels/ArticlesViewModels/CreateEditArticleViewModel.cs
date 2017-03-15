@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TravelGuide.Common.Contracts;
+using TravelGuide.Models.Articles;
 
 namespace TravelGuide.ViewModels.ArticlesViewModels
 {
-    public class CreateArticleViewModel
+    public class CreateEditArticleViewModel : IMapFrom<Article>
     {
         [Required]
         [StringLength(30, MinimumLength = 3)]

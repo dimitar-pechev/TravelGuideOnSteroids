@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Reflection;
+using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using TravelGuide.App_Start;
@@ -15,6 +16,7 @@ namespace TravelGuide
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             ViewEnginesConfig.RegisterEngines();
             DatabaseConfig.InitializeDatabase();
+            AutoMapperConfig.Config(Assembly.GetExecutingAssembly());
         }
     }
 }

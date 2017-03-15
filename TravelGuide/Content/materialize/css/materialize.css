@@ -5380,7 +5380,7 @@ a.waves-effect .waves-ripple {
         height: calc(100% - 56px);
         max-height: 100%;
         width: 100%;
-        overflow-y: auto;
+        overflow-y: scroll;
     }
 
     .modal.modal-fixed-footer .modal-footer {

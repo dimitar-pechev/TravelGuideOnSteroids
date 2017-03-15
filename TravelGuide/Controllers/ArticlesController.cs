@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using TravelGuide.Common.Contracts;
 using TravelGuide.Models.Articles;
 using TravelGuide.Services.Articles.Contracts;
 using TravelGuide.ViewModels.ArticlesViewModels;
@@ -12,11 +13,13 @@ namespace TravelGuide.Controllers
     public class ArticlesController : Controller
     {
         private const int PageSize = 3;
-        private readonly IArticleService service;
+        private readonly IArticleService articleService;
+        private readonly IMappingService mappingService;
 
-        public ArticlesController(IArticleService service)
+        public ArticlesController(IArticleService service, IMappingService mappingService)
         {
-            this.service = service;
+            this.articleService = service;
+            this.mappingService = mappingService;
         }
 
         public ActionResult Index(string query, int? page)
@@ -24,12 +27,12 @@ namespace TravelGuide.Controllers
             IEnumerable<Article> articles = new List<Article>();
             if (!string.IsNullOrEmpty(query))
             {
-                articles = this.service.GetArticlesByKeyword(query);
+                articles = this.articleService.GetArticlesByKeyword(query);
                 this.ViewBag.Query = query;
             }
             else
             {
-                articles = this.service.GetAllArticles();
+                articles = this.articleService.GetAllArticles();
             }
 
             var pagesCount = Math.Ceiling((decimal)articles.Count() / PageSize);
@@ -48,12 +51,12 @@ namespace TravelGuide.Controllers
             IEnumerable<Article> articles = new List<Article>();
             if (!string.IsNullOrEmpty(query))
             {
-                articles = this.service.GetArticlesByKeyword(query);
+                articles = this.articleService.GetArticlesByKeyword(query);
                 this.ViewBag.Query = query;
             }
             else
             {
-                articles = this.service.GetAllArticles();
+                articles = this.articleService.GetAllArticles();
             }
 
             var pagesCount = Math.Ceiling((decimal)articles.Count() / PageSize);
@@ -73,7 +76,7 @@ namespace TravelGuide.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateArticle(CreateArticleViewModel article)
+        public ActionResult CreateArticle(CreateEditArticleViewModel article)
         {
             if (!this.ModelState.IsValid)
             {
@@ -81,7 +84,7 @@ namespace TravelGuide.Controllers
             }
 
             var userId = this.User.Identity.GetUserId();
-            this.service.CreateArticle(userId, article.Title, article.City, article.Country, article.ContentMain, article.ContentMustSee, article.ContentBudgetTips, article.ContentAccomodation, article.PrimaryImageUrl, article.SecondImageUrl, article.ThirdImageUrl, article.CoverImageUrl);
+            this.articleService.CreateArticle(userId, article.Title, article.City, article.Country, article.ContentMain, article.ContentMustSee, article.ContentBudgetTips, article.ContentAccomodation, article.PrimaryImageUrl, article.SecondImageUrl, article.ThirdImageUrl, article.CoverImageUrl);
 
             return this.RedirectToAction("Index");
         }
@@ -93,9 +96,23 @@ namespace TravelGuide.Controllers
                 return this.RedirectToAction("Index");
             }
 
-            var article = this.service.GetArticleById((Guid)id);
+            var article = this.articleService.GetArticleById((Guid)id);
 
             return this.View(article);
+        }
+
+        public ActionResult EditArticle(Guid? id)
+        {
+            if (id == null)
+            {
+                return this.RedirectToAction("Index");
+            }
+
+            var article = this.articleService.GetArticleById((Guid)id);
+
+            var articleViewModel = this.mappingService.Map<CreateEditArticleViewModel>(article);
+
+            return this.View(articleViewModel);
         }
 
         protected int GetPage(int? page, decimal pagesCount)

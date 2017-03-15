@@ -1,8 +1,8 @@
-﻿@{
-    ViewBag.Title = "Add a new Article";
-}
+﻿@model TravelGuide.ViewModels.ArticlesViewModels.CreateEditArticleViewModel
 
-@model TravelGuide.ViewModels.ArticlesViewModels.CreateEditArticleViewModel
+@{
+    ViewBag.Title = "EditArticle";
+}
 
 <div class="container">
     <div class="card card-add-article">
@@ -11,7 +11,7 @@
         </div>
         <hr />
         <div class="card-content">
-            @using (Html.BeginForm("CreateArticle", "Articles", FormMethod.Post))
+            @using (Html.BeginForm("EditArticle", "Articles", FormMethod.Post))
             {
                 <div class="row">
                     <div class="col-md-4 text-center">
@@ -83,3 +83,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+
+
+
