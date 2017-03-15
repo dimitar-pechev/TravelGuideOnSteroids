@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using TravelGuide.Data.Contracts;
 using TravelGuide.Models;
 using TravelGuide.Models.Articles;
+using TravelGuide.Models.Store;
 
 namespace TravelGuide.Data
 {
@@ -12,6 +13,8 @@ namespace TravelGuide.Data
             : base("TravelGuideMvc")
         {
         }
+
+        public IDbSet<StoreItem> StoreItems { get; set; }
 
         public IDbSet<Article> Articles { get; set; }
 
