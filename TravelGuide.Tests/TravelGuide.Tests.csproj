@@ -115,6 +115,12 @@
     <Compile Include="Services\Articles\ArticleServiceTests\EditArticle_Should.cs" />
     <Compile Include="Services\Articles\ArticleServiceTests\GetArticleById_Should.cs" />
     <Compile Include="Services\Articles\Mocks\ArticleServiceMock.cs" />
+    <Compile Include="Services\Store\CartServiceTests\Constructor_Should.cs" />
+    <Compile Include="Services\Store\CartServiceTests\DeleteItemFormCookie_Should.cs" />
+    <Compile Include="Services\Store\CartServiceTests\ExtractItemsFromCookie_Should.cs" />
+    <Compile Include="Services\Store\CartServiceTests\GetClearedCookie_Should.cs" />
+    <Compile Include="Services\Store\CartServiceTests\WriteCookie_Should.cs" />
+    <Compile Include="Services\Store\Mocks\CartServiceMock.cs" />
     <Compile Include="Services\Store\Mocks\StoreServiceMock.cs" />
     <Compile Include="Services\Store\StoreServiceTests\AddNewItem_Should.cs" />
     <Compile Include="Services\Store\StoreServiceTests\ChangeStatus_Should.cs" />

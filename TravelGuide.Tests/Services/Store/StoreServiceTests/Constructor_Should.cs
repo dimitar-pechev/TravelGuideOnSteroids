@@ -8,7 +8,6 @@ using TravelGuide.Tests.Services.Store.Mocks;
 
 namespace TravelGuide.Tests.Services.Store.StoreServiceTests
 {
-
     [TestFixture]
     public class Constructor_Should
     {
