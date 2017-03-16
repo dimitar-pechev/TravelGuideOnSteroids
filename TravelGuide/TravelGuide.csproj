@@ -210,6 +210,7 @@
     <Compile Include="App_Start\NinjectConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\ViewEnginesConfig.cs" />
+    <Compile Include="Areas\Store\Controllers\CartController.cs" />
     <Compile Include="Areas\Store\Controllers\StoreItemsController.cs" />
     <Compile Include="Areas\Store\StoreAreaRegistration.cs" />
     <Compile Include="Areas\Store\ViewModels\IndexViewModel.cs" />
@@ -309,6 +310,7 @@
     <Content Include="Areas\Store\Views\StoreItems\Edit.cshtml" />
     <Content Include="Areas\Store\Views\StoreItems\Create.cshtml" />
     <Content Include="Areas\Store\Views\StoreItems\_AddToCartPartial.cshtml" />
+    <Content Include="Areas\Store\Views\Cart\Index.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

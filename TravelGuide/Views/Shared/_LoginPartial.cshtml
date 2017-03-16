@@ -6,8 +6,9 @@
     @Html.AntiForgeryToken()
 
     <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Cart", "Index", "Cart", new { Area = "Store" }, htmlAttributes: new { id = "btn-cart", @class = "waves-effect waves-light" })</li>
         <li>
-            @Html.ActionLink("Profile", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "waves-effect waves-light" })
+            @Html.ActionLink("Profile", "Index", "Manage", new { Area = "" }, htmlAttributes: new { title = "Manage", @class = "waves-effect waves-light" })
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()" class="waves-effect waves-light">Sign Out</a></li>
     </ul>
@@ -16,7 +17,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Sing In", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "waves-effect waves-light" })</li>
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "waves-effect waves-light" })</li>       
+        <li>@Html.ActionLink("Sing In", "Login", "Account", new { Area = "" }, htmlAttributes: new { id = "loginLink", @class = "waves-effect waves-light" })</li>
+        <li>@Html.ActionLink("Register", "Register", "Account", new { Area = "" }, htmlAttributes: new { id = "registerLink", @class = "waves-effect waves-light" })</li>       
     </ul>
 }
