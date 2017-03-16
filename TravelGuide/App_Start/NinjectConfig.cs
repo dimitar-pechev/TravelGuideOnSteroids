@@ -13,10 +13,10 @@ using TravelGuide.Services.Account.Contracts;
 using TravelGuide.Services.Articles;
 using TravelGuide.Services.Articles.Contracts;
 using TravelGuide.Services.Factories;
+using TravelGuide.Services.Requests;
+using TravelGuide.Services.Requests.Contracts;
 using TravelGuide.Services.Store;
 using TravelGuide.Services.Store.Contracts;
-using TravelGuide.Services.Requests.Contracts;
-using TravelGuide.Services.Requests;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(TravelGuide.App_Start.NinjectConfig), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(TravelGuide.App_Start.NinjectConfig), "Stop")]
