@@ -210,7 +210,9 @@
     <Compile Include="App_Start\NinjectConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\ViewEnginesConfig.cs" />
+    <Compile Include="Areas\Store\Controllers\StoreItemsController.cs" />
     <Compile Include="Areas\Store\StoreAreaRegistration.cs" />
+    <Compile Include="Areas\Store\ViewModels\IndexViewModel.cs" />
     <Compile Include="Common\Contracts\IHaveCustomMappings.cs" />
     <Compile Include="Common\Contracts\IMapFrom.cs" />
     <Compile Include="Common\Contracts\IMappingService.cs" />
@@ -242,6 +244,7 @@
     <Content Include="App_Themes\IconsSocial\fb-art.png" />
     <Content Include="App_Themes\landing-page-kotor-1920-960.png" />
     <Content Include="App_Themes\logo-transparent.png" />
+    <Content Include="App_Themes\Store\store-cover.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\materialize\css\materialize.css" />
@@ -299,6 +302,9 @@
     <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.ttf" />
     <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.eot" />
     <Content Include="Areas\Store\Views\web.config" />
+    <Content Include="Areas\Store\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Store\Views\StoreItems\Index.cshtml" />
+    <Content Include="Areas\Store\Views\StoreItems\_StoreItemsListPartial.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -346,8 +352,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Store\Controllers\" />
-    <Folder Include="Areas\Store\Models\" />
     <Folder Include="Areas\Store\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>

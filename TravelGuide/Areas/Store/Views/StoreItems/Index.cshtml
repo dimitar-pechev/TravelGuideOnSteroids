@@ -1,0 +1,44 @@
+﻿@model ICollection<TravelGuide.Areas.Store.ViewModels.IndexViewModel>
+
+@{
+    ViewBag.Title = "Maps & Guides";
+}
+
+<div class="row gallery-cover-container">
+    <img src="~/App_Themes/Store/store-cover.png" alt="maps-shop" class="img-responsive" />
+</div>
+<div class="container store-container">
+    <div class="row">
+        <div class="row menu-store">
+            <div class="col-md-4 col-md-offset-4 text-center">
+                @using (Ajax.BeginForm("Search", null,
+           new AjaxOptions
+           {
+               UpdateTargetId = "store-items-containter",
+               InsertionMode = InsertionMode.Replace,
+               HttpMethod = "POST"
+           }, new { id = "searchForm" }))
+                {
+                    @Html.Label("Search throgh our products:", new { @for = "query", @class = "search-label-discover" })
+                    @Html.TextBox("query", null, new { oninput = "changed()" })
+                    <input type="submit" oninput="onInput()" style="display: none" />
+                }
+            </div>
+            <div class="col-md-4 text-right">
+                <asp:HyperLink NavigateUrl="~/Store/AddItem.aspx" ID="NewItemLink" Visible="false" CssClass="btn btn-success" Text="Add new product" runat="server" />
+            </div>
+        </div>
+        <div id="store-items-containter">
+            @Html.Partial("_StoreItemsListPartial", Model)
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryajax")
+    <script>
+        function changed() {
+            $('#searchForm').submit();
+        }
+    </script>
+}

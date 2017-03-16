@@ -22,6 +22,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home", null, new { @class = "waves-effect waves-light" })</li>
                     <li>@Html.ActionLink("Destinations", "Index", "Articles", null, new { @class = "waves-effect waves-light" })</li>
+                    <li>@Html.ActionLink("Store", "Index", "StoreItems", new { Area = "Store" } , new { @class = "waves-effect waves-light" })</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

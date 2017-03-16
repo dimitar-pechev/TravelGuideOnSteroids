@@ -1,0 +1,95 @@
+﻿@model ICollection<TravelGuide.Areas.Store.ViewModels.IndexViewModel>
+
+@if (Model.Count == 0)
+{
+    <div class="row text-center">
+        <h5>No products were found... Try something else!</h5>
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var item in Model)
+        {
+        <div class="col-md-2">
+            <a>
+                <div class="card store-item">
+                    <div class="card-content picture-placeholder">
+                        <img src="@item.ImageUrl" alt="@item.ItemName" class="img-responsive store-item-image" />
+                    </div>
+                    <div class="card-content store-item-footer text-center">
+                        <p class="item-title">@item.ItemName</p>
+                        <i>
+                            @item.Brand
+                        </i>
+                        <br />
+                        @item.Price BGN
+                        <br />
+                        @if (@item.InStock)
+                        {
+                            @: In Stock
+                        }
+                        else
+                        {
+                            @: Depleted
+                        }
+                    </div>
+                </div>
+            </a>
+        </div>
+        }
+    </div>
+
+    <div class="text-center">
+        <ul class="pagination">
+            @if (ViewBag.CurrentPage <= 1)
+            {
+                <li class="page-item disabled">
+                    <a class="page-link" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a class="page-link" href="/store/storeitems/index?page=@(ViewBag.CurrentPage - 1)" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+            }
+            @for (int i = 1; i <= ViewBag.PagesCount; i++)
+            {
+                if (string.IsNullOrEmpty(ViewBag.Query))
+                {
+                    <li class="page-item"><a class="page-link" href="/store/storeitems/index?page=@i">@i</a></li>
+                }
+                else
+                {
+                    <li class="page-item"><a class="page-link" href="/store/storeitems/index?page=@i&query=@ViewBag.Query">@i</a></li>
+                }
+            }
+
+            @if (ViewBag.CurrentPage >= ViewBag.PagesCount)
+            {
+                <li class="page-item disabled">
+                    <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a class="page-link" href="/store/storeitems/index?page=@(ViewBag.CurrentPage + 1)" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+}
