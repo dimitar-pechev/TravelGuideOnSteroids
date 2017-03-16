@@ -12,7 +12,7 @@ else
         @foreach (var item in Model)
         {
         <div class="col-md-2">
-            <a>
+            <a href="/store/storeitems/details/@item.Id">
                 <div class="card store-item">
                     <div class="card-content picture-placeholder">
                         <img src="@item.ImageUrl" alt="@item.ItemName" class="img-responsive store-item-image" />

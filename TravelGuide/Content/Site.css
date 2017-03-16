@@ -574,3 +574,7 @@ textarea:focus {
 .modal-img-articles {
     width: 100%;
 }
+
+.btn-add-cart {
+    margin-top: 20px;
+}

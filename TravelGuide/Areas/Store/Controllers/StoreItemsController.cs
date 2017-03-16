@@ -87,6 +87,13 @@ namespace TravelGuide.Areas.Store.Controllers
             return this.PartialView("_StoreItemsListPartial", itemsVieModels);
         }
 
+        public ActionResult Details(Guid? id)
+        {
+            var item = this.storeService.GetStoreItemById((Guid)id);
+
+            return this.View(item);
+        }
+
         protected int GetPage(int? page, decimal pagesCount)
         {
             if (page == null || page < 1 || page > pagesCount)
