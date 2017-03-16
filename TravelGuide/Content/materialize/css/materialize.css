@@ -4982,10 +4982,10 @@ small {
     .btn-large.disabled,
     .btn:disabled .btn-large:disabled, .btn-large:disabled .btn-large:disabled,
     .btn-floating:disabled {
-        background-color: #DFDFDF !important;
+        background-color: #6cb581 !important;
         box-shadow: none;
-        color: #9F9F9F !important;
-        cursor: default;
+        color: #fff !important;
+        cursor: not-allowed;
     }
 
         .btn.disabled *, .disabled.btn-large *,

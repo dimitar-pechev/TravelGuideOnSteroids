@@ -73,5 +73,13 @@
         function dismissModal() {
             $('#dismiss-modal').click();
         }
+
+        $('#btn-add-item').on('click', () => {
+            $('#btn-add-item').addClass('disabled');
+
+            setTimeout(() => {
+                $('#btn-add-item').removeClass('disabled');
+            }, 5000);
+        });
     </script>
 }
