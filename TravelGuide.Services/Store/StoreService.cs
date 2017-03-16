@@ -77,12 +77,12 @@ namespace TravelGuide.Services.Store
 
         public void ChangeStatus(Guid itemId, string option)
         {
-            if (option != "true" && option != "false")
+            if (option != "In Stock" && option != "Depleted")
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Invalid option for item status!");
             }
 
-            var status = bool.Parse(option);
+            var status = option == "In Stock" ? true : false;
             var item = this.context.StoreItems.Find(itemId);
 
             if (item == null)

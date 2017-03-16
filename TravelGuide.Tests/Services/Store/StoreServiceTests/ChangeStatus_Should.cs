@@ -41,7 +41,7 @@ namespace TravelGuide.Tests.Services.Store.StoreServiceTests
             var service = new StoreServiceMock(contextMock.Object, factoryMock.Object);
 
             // Act
-            service.ChangeStatus(id, "false");
+            service.ChangeStatus(id, "Depleted");
 
             // Assert
             Assert.IsTrue(initialValue);
@@ -64,7 +64,7 @@ namespace TravelGuide.Tests.Services.Store.StoreServiceTests
             var service = new StoreServiceMock(contextMock.Object, factoryMock.Object);
 
             // Act
-            Assert.Throws<InvalidOperationException>(() => service.ChangeStatus(id, "false"));
+            Assert.Throws<InvalidOperationException>(() => service.ChangeStatus(id, "Depleted"));
         }
     }
 }

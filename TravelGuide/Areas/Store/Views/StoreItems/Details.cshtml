@@ -21,26 +21,8 @@
         </div>
         <div class="col-md-4">
             <h4>@Model.Price BGN</h4>
-            @if (Model.InStock)
-            {
-                <p>In Stock</p>
-            }
-            else
-            {
-                <p>Depleted</p>
-            }
-
-            <div class="row">
-                @using (Html.BeginForm())
-                {
-                    <div class="col-md-4 buy-details input-field">
-                        @Html.Label("Quantity", new { @for = "quantity" })
-                        @Html.TextBox("quantity", 1, new { type = "number", @class = "text-center", min = 1, max = 10 })                        
-                    </div>
-                    <div class="col-md-8">
-                        <input type="submit" value="Add to Cart" class="btn btn-success btn-add-cart" />
-                    </div>
-                }
+            <div id="add-to-cart-section">
+                @Html.Partial("_AddToCartPartial", Model)
             </div>
 
             <div>
@@ -48,32 +30,48 @@
                 @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-success black" })
                 @using (Html.BeginForm("Delete", "StoreItems", new { id = Model.Id }, FormMethod.Post))
                 {
-                    <input type="submit" value="Delete" class="btn btn-success black"  onclick = "return confirm('Are you sure you want to delete this item?')" />
+                    <input type="submit" value="Delete" class="btn btn-success black" onclick="return confirm('Are you sure you want to delete this item?')" />
                 }
-                <asp:HyperLink Text="Edit" NavigateUrl='<%#: string.Format($"~/Store/EditItem.aspx?id={StoreItem.Id}") %>' CssClass="btn btn-default black" runat="server" />
-                <asp:Button Text="Change Status" CssClass="btn btn-default black" data-toggle="modal" data-target="#status-box"
-                            ID="BtnChangeStatusReveal" runat="server" />
-                <asp:Button Text="Delete" CssClass="btn btn-danger" ID="BtnDelete" OnClick="BtnDelete_Click" runat="server" />
+                <button class="btn btn-success black" data-toggle="modal" data-target="#status-box">Change Status</button>
             </div>
         </div>
     </div>
 </div>
+
+
 <div class="modal fade" id="status-box" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <p>Change the status of the product</p>
+                <h5>Change the status of the product</h5>
             </div>
-            <div class="modal-body">
-                <asp:DropDownList runat="server" CssClass="form-control" ID="StatusOptions">
-                    <asp:ListItem Text="In stock" Value="true" />
-                    <asp:ListItem Text="Depleted" Value="false" />
-                </asp:DropDownList>
-            </div>
-            <div class="modal-footer footer-comment">
-                <asp:Button Text="Submit" CssClass="btn btn-success btn-gallery" ID="BtnSubmitStatusChange" OnClick="BtnSubmitStatusChange_Click" runat="server" />
-                <asp:Button Text="Discard" CssClass="btn btn-danger btn-gallery" data-dismiss="modal" runat="server" />
-            </div>
+            @using (Ajax.BeginForm("ChangeStatus", new { id = Model.Id },
+                 new AjaxOptions
+                 {
+                     UpdateTargetId = "add-to-cart-section",
+                     InsertionMode = InsertionMode.Replace,
+                     HttpMethod = "POST",
+                     OnSuccess = "dismissModal"
+                 }))
+            {
+                <div class="modal-body">
+                    @Html.DropDownList("isInStock", new SelectList(new List<string>() { "In Stock", "Depleted" }), new { @class = "form-control" })
+                </div>
+                <div class="modal-footer footer-comment">
+                    <input value="Submit" type="submit" class="btn btn-success" />
+                    <input value="Discard" type="button" class="btn btn-success black" data-dismiss="modal" />
+                    <input type="button" id="dismiss-modal" style="display:none;" data-dismiss="modal" />
+                </div>
+            }
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryajax")
+    <script>
+        function dismissModal() {
+            $('#dismiss-modal').click();
+        }
+    </script>
+}

@@ -91,6 +91,11 @@ namespace TravelGuide.Areas.Store.Controllers
         {
             var item = this.storeService.GetStoreItemById((Guid)id);
 
+            var statusOptions = new Dictionary<string, string>();
+            statusOptions.Add("In Stock", "true");
+            statusOptions.Add("Depleted", "false");
+            this.ViewBag.StatusOptions = statusOptions;
+
             return this.View(item);
         }
 
@@ -133,6 +138,16 @@ namespace TravelGuide.Areas.Store.Controllers
             this.storeService.AddNewItem(item.ItemName, item.Description, item.DestinationFor, item.ImageUrl, item.Brand, item.Price.ToString());
 
             return this.RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult ChangeStatus(Guid? id, string isInStock)
+        {
+            var model = this.storeService.GetStoreItemById((Guid)id);
+
+            this.storeService.ChangeStatus(model.Id, isInStock);
+
+            return this.PartialView("_AddToCartPartial", model);
         }
 
         protected int GetPage(int? page, decimal pagesCount)
