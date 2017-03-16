@@ -94,6 +94,47 @@ namespace TravelGuide.Areas.Store.Controllers
             return this.View(item);
         }
 
+        public ActionResult Edit(Guid? id)
+        {
+            var item = this.storeService.GetStoreItemById((Guid)id);
+
+            return this.View(item);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(StoreItem item)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(item);
+            }
+
+            this.storeService.EditItem(item, item.ItemName, item.Description, item.DestinationFor, item.ImageUrl, item.Brand, item.Price.ToString());
+
+            return this.RedirectToAction("Details", new { id = item.Id });
+        }
+
+        [HttpPost]
+        public ActionResult Delete(Guid? id)
+        {
+            this.storeService.DeleteItem((Guid)id);
+
+            return this.RedirectToAction("Index");
+        }
+
+        public ActionResult Create()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(StoreItem item)
+        {
+            this.storeService.AddNewItem(item.ItemName, item.Description, item.DestinationFor, item.ImageUrl, item.Brand, item.Price.ToString());
+
+            return this.RedirectToAction("Index");
+        }
+
         protected int GetPage(int? page, decimal pagesCount)
         {
             if (page == null || page < 1 || page > pagesCount)

@@ -43,8 +43,13 @@
                 }
             </div>
 
-            <div runat="server" visible="false" id="AdminOptionsPanel">
+            <div>
                 <h4 class="text-center">Admin Options</h4>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-success black" })
+                @using (Html.BeginForm("Delete", "StoreItems", new { id = Model.Id }, FormMethod.Post))
+                {
+                    <input type="submit" value="Delete" class="btn btn-success black"  onclick = "return confirm('Are you sure you want to delete this item?')" />
+                }
                 <asp:HyperLink Text="Edit" NavigateUrl='<%#: string.Format($"~/Store/EditItem.aspx?id={StoreItem.Id}") %>' CssClass="btn btn-default black" runat="server" />
                 <asp:Button Text="Change Status" CssClass="btn btn-default black" data-toggle="modal" data-target="#status-box"
                             ID="BtnChangeStatusReveal" runat="server" />

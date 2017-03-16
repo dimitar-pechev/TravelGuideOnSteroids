@@ -306,6 +306,8 @@
     <Content Include="Areas\Store\Views\StoreItems\Index.cshtml" />
     <Content Include="Areas\Store\Views\StoreItems\_StoreItemsListPartial.cshtml" />
     <Content Include="Areas\Store\Views\StoreItems\Details.cshtml" />
+    <Content Include="Areas\Store\Views\StoreItems\Edit.cshtml" />
+    <Content Include="Areas\Store\Views\StoreItems\Create.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

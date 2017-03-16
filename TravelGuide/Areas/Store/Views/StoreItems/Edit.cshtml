@@ -1,0 +1,61 @@
+﻿@model TravelGuide.Models.Store.StoreItem
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="container">
+    <div class="row card-only">
+        <div class="col-md-6 col-md-offset-3 text-center">
+            <div class="card">
+                <div class="card-content form-add">
+                    <h4>Edit Store Item</h4>
+                    @using (Html.BeginForm("Edit", "StoreItems", new { Area = "Store" }, FormMethod.Post))
+                    {
+                        <div class="input-field">
+                            @Html.LabelFor(m => m.ItemName)
+                            @Html.TextBoxFor(m => m.ItemName)
+                            @Html.ValidationMessageFor(m => m.ItemName)
+                        </div>
+                        <br />
+                        <div class="input-field">
+                            @Html.LabelFor(m => m.DestinationFor)
+                            @Html.TextBoxFor(m => m.DestinationFor)
+                            @Html.ValidationMessageFor(m => m.DestinationFor)
+                        </div>
+                        <br />
+                        <div class="input-field">
+                            @Html.LabelFor(m => m.Brand)
+                            @Html.TextBoxFor(m => m.Brand)
+                            @Html.ValidationMessageFor(m => m.Brand)
+                        </div>
+                        <br />
+                        <div class="input-field">
+                            @Html.LabelFor(m => m.ImageUrl)
+                            @Html.TextBoxFor(m => m.ImageUrl)
+                            @Html.ValidationMessageFor(m => m.ImageUrl)
+                        </div>
+                        <br />
+                        <div class="input-field">
+                            @Html.LabelFor(m => m.Price)
+                            @Html.TextBoxFor(m => m.Price)
+                            @Html.ValidationMessageFor(m => m.Price)
+                        </div>
+                        <br />
+                        <div>
+                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = 6, placeholder = "Provide some short description here..." })
+                            @Html.ValidationMessageFor(m => m.Description)
+                        </div>
+                        <div class="btn-submit-edit-container">
+                            <input type="submit" class="btn btn-success btn-login" />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

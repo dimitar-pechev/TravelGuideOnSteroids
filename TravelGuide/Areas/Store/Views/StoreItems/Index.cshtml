@@ -25,7 +25,7 @@
                 }
             </div>
             <div class="col-md-4 text-right">
-                <asp:HyperLink NavigateUrl="~/Store/AddItem.aspx" ID="NewItemLink" Visible="false" CssClass="btn btn-success" Text="Add new product" runat="server" />
+                @Html.ActionLink("Create a new Store Item", "Create", new { Area = "Store" }, new { @class = "btn btn-success btn-create" })
             </div>
         </div>
         <div id="store-items-containter">

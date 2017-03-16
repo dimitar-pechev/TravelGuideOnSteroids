@@ -578,3 +578,7 @@ textarea:focus {
 .btn-add-cart {
     margin-top: 20px;
 }
+
+.btn-submit-edit-container {
+    margin: 20px 0;
+}
