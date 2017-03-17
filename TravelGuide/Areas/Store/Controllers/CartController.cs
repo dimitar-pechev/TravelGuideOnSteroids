@@ -51,5 +51,24 @@ namespace TravelGuide.Areas.Store.Controllers
             var cookie = this.cartService.WriteCookie(cookiePrev, this.User.Identity.Name, itemId.ToString(), quantity.ToString());
             this.Response.SetCookie(cookie);
         }
+
+        [HttpPost]
+        public ActionResult RemoveItem(Guid? id)
+        {
+            var cookie = this.Request.Cookies[CookieName + this.User.Identity.Name];
+
+            cookie = this.cartService.DeleteItemFromCookie(cookie, id.ToString());
+
+            var items = this.cartService.ExtractItemsFromCookie(cookie);
+            var user = this.userService.GetById(this.User.Identity.GetUserId());
+
+            var model = this.mappingService.Map<CartViewModel>(user);
+            var itemsViewModelCollection = this.mappingService.Map<IEnumerable<StoreItemCartViewModel>>(items);
+            model.StoreItems = itemsViewModelCollection;
+
+            this.Response.Cookies.Add(cookie);
+
+            return this.PartialView("_CartItemsPartial", model);
+        }
     }
 }

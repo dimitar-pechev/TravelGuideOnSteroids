@@ -30,8 +30,22 @@ else
                         <td>@item.Brand</td>
                         <td>@item.DestinationFor</td>
                         <td>@item.Price BGN</td>
-                        <td>@Html.ActionLink("Details", "Details", "StoreItems", new { Area = "Store", id = item.Id }, new { @class = "btn btn-success btn-sm" } )</td>
-                        <td></td>
+                        <td>@Html.ActionLink("Details", "Details", "StoreItems", new { Area = "Store", id = item.Id }, new { @class = "btn btn-success btn-xs" })</td>
+                        <td>
+                            @using (Ajax.BeginForm("RemoveItem", "Cart", new { Area = "Store", id = item.Id },
+                              new AjaxOptions
+                              {
+                                  Confirm = "Are you sure?",
+                                  UpdateTargetId = "cart-items-container",
+                                  InsertionMode = InsertionMode.Replace,
+                                  HttpMethod = "POST"
+                              }, new { id = "some-id" }))
+                            {
+                                <input type="submit" value="Remove" class="btn btn-success black" />
+
+                            }
+                        </td>
+
                     </tr>
                 }
             </tbody>

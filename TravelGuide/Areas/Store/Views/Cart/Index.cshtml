@@ -8,7 +8,7 @@
     <h3 class="text-center"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</h3>
     <hr />
    <div id="cart-items-container">
-       @Html.Partial("_CartItemsPartial", Model);
+       @Html.Partial("_CartItemsPartial", Model)
    </div>  
 </div>
 <div class="modal fade" id="check-out" role="dialog">
@@ -50,3 +50,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryajax")
+}
