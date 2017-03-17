@@ -219,12 +219,10 @@ namespace TravelGuide.Controllers
             return this.View(model);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             this.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return this.RedirectToAction("Index", "Home");
+            return this.RedirectToAction("Index", "Home", new { Area = string.Empty });
         }
 
         [AllowAnonymous]

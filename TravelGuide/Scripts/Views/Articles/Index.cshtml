@@ -1,0 +1,42 @@
+﻿@model IEnumerable<TravelGuide.Models.Articles.Article>
+
+@{
+    ViewBag.Title = "Destinations";
+}
+<div class="row discover-heading">
+    <img src="~/App_Themes/Articles/destinations-heading.png" class="img-responsive" alt="heading" />
+</div>
+
+<div class="container destinations-container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4 text-center">
+            @using (Ajax.BeginForm("Search", null,
+               new AjaxOptions
+               {
+                   UpdateTargetId = "destinations-entries-container",
+                   InsertionMode = InsertionMode.Replace,
+                   HttpMethod = "POST"
+               }, new { id = "searchForm" }))
+            {
+                @Html.Label("Search cities and countries:", new { @for = "query", @class = "search-label-discover" })
+                @Html.TextBox("query", null, new { oninput = "changed()" })
+                <input type="submit" oninput="onInput()" style="display: none" />
+            }
+        </div>
+        <div class="col-md-4 text-right">
+            @Html.ActionLink("Create a new Article", "CreateArticle", null, new { @class = "btn btn-success btn-create" })
+        </div>
+    </div>
+    <div class="row" id="destinations-entries-container">
+        @Html.Partial("_ArticlesListPartial", Model)
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryajax")
+    <script>
+        function changed() {
+            $('#searchForm').submit();
+        }
+    </script>
+}

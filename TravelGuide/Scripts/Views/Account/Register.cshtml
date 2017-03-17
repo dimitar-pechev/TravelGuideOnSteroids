@@ -1,0 +1,55 @@
+﻿@using TravelGuide.ViewModels.AccountViewModels
+@model TravelGuide.ViewModels.AccountViewModels.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="container">
+    <div class="row card-only">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-6 col-md-offset-3 text-center">
+                <div class="card login-form">
+                    <div class="card-content card-login">
+                        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form"}))
+                        {
+                            @Html.AntiForgeryToken()
+                            <h4>Register</h4>
+                            <hr />
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+                            <div class="login-credentials">
+                                <div class="input-field">
+                                    @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field login-password-fieldbox">
+                                    @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field login-password-fieldbox">
+                                    @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="input-field login-password-fieldbox">
+                                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-success btn-login btn-submit-wrapper" value="Register" />
+                            </div>
+                        }
+                        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

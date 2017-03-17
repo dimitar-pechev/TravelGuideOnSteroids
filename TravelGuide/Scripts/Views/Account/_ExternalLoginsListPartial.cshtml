@@ -1,0 +1,22 @@
+﻿@model TravelGuide.ViewModels.AccountViewModels.ExternalLoginListViewModel
+@using Microsoft.Owin.Security
+
+@{
+    var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+
+    using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl }))
+    {
+        <div class="separator">
+            <p>or</p>
+        </div>
+        @Html.AntiForgeryToken()
+        foreach (AuthenticationDescription p in loginProviders)
+        {
+            <button type="submit" class="btn btn-default btn-login btn-facebook"
+                    id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType"
+                    title="Log in using your @p.Caption account">
+                <img src="../../App_Themes/IconsSocial/fb-art.png" alt="fb-icon" class="fb-icon pull-left" /> Connect with @p.AuthenticationType
+            </button>
+        }
+    }
+}
