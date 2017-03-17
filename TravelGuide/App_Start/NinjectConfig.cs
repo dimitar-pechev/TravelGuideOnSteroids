@@ -13,6 +13,8 @@ using TravelGuide.Services.Account.Contracts;
 using TravelGuide.Services.Articles;
 using TravelGuide.Services.Articles.Contracts;
 using TravelGuide.Services.Factories;
+using TravelGuide.Services.Gallery;
+using TravelGuide.Services.Gallery.Contacts;
 using TravelGuide.Services.Requests;
 using TravelGuide.Services.Requests.Contracts;
 using TravelGuide.Services.Store;
@@ -82,11 +84,15 @@ namespace TravelGuide.App_Start
             kernel.Bind<IStoreService>().To<StoreService>();
             kernel.Bind<ICartService>().To<CartService>();
             kernel.Bind<IRequestService>().To<RequestService>();
+            kernel.Bind<IGalleryImageService>().To<GalleryImageService>();
 
             kernel.Bind<IArticleFactory>().ToFactory().InSingletonScope();
             kernel.Bind<IArticleCommentFactory>().ToFactory().InSingletonScope();
             kernel.Bind<IStoreItemFactory>().ToFactory().InSingletonScope();
             kernel.Bind<IRequestFactory>().ToFactory().InSingletonScope();
+            kernel.Bind<IGalleryImageFactory>().ToFactory().InSingletonScope();
+            kernel.Bind<IGalleryLikeFactory>().ToFactory().InSingletonScope();
+            kernel.Bind<IGalleryCommentFactory>().ToFactory().InSingletonScope();
         }
     }
 }

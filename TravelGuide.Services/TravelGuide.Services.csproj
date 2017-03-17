@@ -92,8 +92,13 @@
     <Compile Include="Articles\Contracts\IArticleService.cs" />
     <Compile Include="Factories\IArticleCommentFactory.cs" />
     <Compile Include="Factories\IArticleFactory.cs" />
+    <Compile Include="Factories\IGalleryCommentFactory.cs" />
+    <Compile Include="Factories\IGalleryImageFactory.cs" />
+    <Compile Include="Factories\IGalleryLikeFactory.cs" />
     <Compile Include="Factories\IRequestFactory.cs" />
     <Compile Include="Factories\IStoreItemFactory.cs" />
+    <Compile Include="Gallery\Contacts\IGalleryImageService.cs" />
+    <Compile Include="Gallery\GalleryImageService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\Contracts\IRequestService.cs" />
     <Compile Include="Requests\RequestService.cs" />
