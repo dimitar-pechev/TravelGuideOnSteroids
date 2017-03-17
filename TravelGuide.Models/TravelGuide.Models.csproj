@@ -92,6 +92,9 @@
     <Compile Include="Articles\Article.cs" />
     <Compile Include="Articles\ArticleComment.cs" />
     <Compile Include="Articles\ArticleLike.cs" />
+    <Compile Include="Gallery\GalleryComment.cs" />
+    <Compile Include="Gallery\GalleryImage.cs" />
+    <Compile Include="Gallery\GalleryLike.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\Request.cs" />
     <Compile Include="Store\StoreItem.cs" />

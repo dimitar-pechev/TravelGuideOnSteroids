@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using TravelGuide.Data.Contracts;
 using TravelGuide.Models;
 using TravelGuide.Models.Articles;
+using TravelGuide.Models.Gallery;
 using TravelGuide.Models.Requests;
 using TravelGuide.Models.Store;
 
@@ -14,6 +15,12 @@ namespace TravelGuide.Data
             : base("TravelGuideMvc")
         {
         }
+
+        public IDbSet<GalleryImage> GalleryImages { get; set; }
+
+        public IDbSet<GalleryComment> GalleryComments { get; set; }
+
+        public IDbSet<GalleryLike> GalleryLikes { get; set; }
 
         public IDbSet<Request> Requests { get; set; }
 
