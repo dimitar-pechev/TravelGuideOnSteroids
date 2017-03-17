@@ -33,13 +33,13 @@ else
                         <td>@Html.ActionLink("Details", "Details", "StoreItems", new { Area = "Store", id = item.Id }, new { @class = "btn btn-success btn-xs" })</td>
                         <td>
                             @using (Ajax.BeginForm("RemoveItem", "Cart", new { Area = "Store", id = item.Id },
-                              new AjaxOptions
-                              {
-                                  Confirm = "Are you sure?",
-                                  UpdateTargetId = "cart-items-container",
-                                  InsertionMode = InsertionMode.Replace,
-                                  HttpMethod = "POST"
-                              }, new { id = "some-id" }))
+                new AjaxOptions
+                {
+                    Confirm = "Are you sure?",
+                    UpdateTargetId = "cart-items-container",
+                    InsertionMode = InsertionMode.Replace,
+                    HttpMethod = "POST"
+                }, new { id = "some-id" }))
                             {
                                 <input type="submit" value="Remove" class="btn btn-success black" />
 
@@ -57,3 +57,52 @@ else
         </div>
     </div>
 }
+
+<div class="modal fade" id="check-out" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5>Confirm your data before checking out</h5>
+            </div>
+            @using (Ajax.BeginForm("CheckOut", new AjaxOptions()
+            {
+                HttpMethod = "POST",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "cart-items-container",
+                OnSuccess = "dismissModal"
+            }))
+            {
+                <div class="modal-body">
+                    <div class="input-field">
+                        @Html.LabelFor(m => m.FirstName)
+                        @Html.EditorFor(m => m.FirstName)
+                        @Html.ValidationMessageFor(m => m.FirstName)
+                    </div>
+                    <br />
+                    <div class="input-field">
+                        @Html.LabelFor(m => m.LastName)
+                        @Html.EditorFor(m => m.LastName)
+                        @Html.ValidationMessageFor(m => m.LastName)
+                    </div>
+                    <br />
+                    <div class="input-field">
+                        @Html.LabelFor(m => m.PhoneNumber)
+                        @Html.EditorFor(m => m.PhoneNumber)
+                        @Html.ValidationMessageFor(m => m.PhoneNumber)
+                    </div>
+                    <br />
+                    <div class="input-field">
+                        @Html.LabelFor(m => m.Address)
+                        @Html.EditorFor(m => m.Address)
+                        @Html.ValidationMessageFor(m => m.Address)
+                    </div>
+                    <br />
+                </div>
+                <div class="modal-footer footer-comment">
+                    <input type="submit" value="Check Out" class="btn btn-success" />
+                    <button data-dismiss="modal" id="btn-dismiss" class="btn btn-success black">Discard</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNet.Identity;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using TravelGuide.Areas.Store.ViewModels;
 using TravelGuide.Common.Contracts;
 using TravelGuide.Services.Account.Contracts;
+using TravelGuide.Services.Requests.Contracts;
 using TravelGuide.Services.Store.Contracts;
 
 namespace TravelGuide.Areas.Store.Controllers
@@ -18,12 +16,14 @@ namespace TravelGuide.Areas.Store.Controllers
         private readonly ICartService cartService;
         private readonly IUserService userService;
         private readonly IMappingService mappingService;
+        private readonly IRequestService requestService;
 
-        public CartController(ICartService cartService, IUserService userService, IMappingService mappingService)
+        public CartController(ICartService cartService, IUserService userService, IMappingService mappingService, IRequestService requestService)
         {
             this.cartService = cartService;
             this.userService = userService;
             this.mappingService = mappingService;
+            this.requestService = requestService;
         }
 
         public ActionResult Index()
@@ -67,6 +67,27 @@ namespace TravelGuide.Areas.Store.Controllers
             model.StoreItems = itemsViewModelCollection;
 
             this.Response.Cookies.Add(cookie);
+
+            return this.PartialView("_CartItemsPartial", model);
+        }
+
+        [HttpPost]
+        public ActionResult CheckOut(CartViewModel model)
+        {
+            var cookie = this.Request.Cookies[CookieName + this.User.Identity.Name];
+            var user = this.userService.GetById(this.User.Identity.GetUserId());
+
+            var items = this.cartService.ExtractItemsFromCookie(cookie);
+
+            foreach (var item in items)
+            {
+                this.requestService.MakeRequest(item, this.User.Identity.GetUserId(), model.FirstName, model.LastName, model.PhoneNumber, model.Address);
+            }
+
+            cookie = this.cartService.GetClearedCookie(this.User.Identity.Name);
+            this.Response.Cookies.Add(cookie);
+
+            model.StoreItems = new List<StoreItemCartViewModel>();
 
             return this.PartialView("_CartItemsPartial", model);
         }
