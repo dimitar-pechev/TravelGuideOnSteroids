@@ -213,7 +213,9 @@
     <Compile Include="Areas\Store\Controllers\CartController.cs" />
     <Compile Include="Areas\Store\Controllers\StoreItemsController.cs" />
     <Compile Include="Areas\Store\StoreAreaRegistration.cs" />
+    <Compile Include="Areas\Store\ViewModels\CartViewModel.cs" />
     <Compile Include="Areas\Store\ViewModels\IndexViewModel.cs" />
+    <Compile Include="Areas\Store\ViewModels\StoreItemCartViewModel.cs" />
     <Compile Include="Common\Contracts\IHaveCustomMappings.cs" />
     <Compile Include="Common\Contracts\IMapFrom.cs" />
     <Compile Include="Common\Contracts\IMappingService.cs" />
@@ -311,6 +313,7 @@
     <Content Include="Areas\Store\Views\StoreItems\Create.cshtml" />
     <Content Include="Areas\Store\Views\StoreItems\_AddToCartPartial.cshtml" />
     <Content Include="Areas\Store\Views\Cart\Index.cshtml" />
+    <Content Include="Areas\Store\Views\Cart\_CartItemsPartial.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

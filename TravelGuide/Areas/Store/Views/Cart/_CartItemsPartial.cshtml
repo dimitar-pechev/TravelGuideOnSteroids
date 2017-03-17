@@ -1,0 +1,45 @@
+﻿@model TravelGuide.Areas.Store.ViewModels.CartViewModel
+
+@if (Model.StoreItems.Count() == 0)
+{
+    <div class="row text-center">
+        <h5>Your cart is empty...</h5>
+    </div>
+}
+else
+{
+    <div>
+        <table class="table table-hover table-responsive">
+            <thead>
+                <tr>
+                    <td></td>
+                    <td>Item Name</td>
+                    <td>Brand</td>
+                    <td>Related Destination</td>
+                    <td>Price</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.StoreItems)
+                {
+                    <tr>
+                        <td class="text-center"><img src="@item.ImageUrl" class="img-cart" alt="@item.ItemName" /></td>
+                        <td>@item.ItemName</td>
+                        <td>@item.Brand</td>
+                        <td>@item.DestinationFor</td>
+                        <td>@item.Price BGN</td>
+                        <td>@Html.ActionLink("Details", "Details", "StoreItems", new { Area = "Store", id = item.Id }, new { @class = "btn btn-success btn-sm" } )</td>
+                        <td></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="row text-right" id="CheckoutPanel" runat="server">
+            <span class="total-price">@Model.Total</span>
+            <br />
+            <input type="button" class="btn btn-success" value="Check Out" data-toggle="modal" data-target="#check-out">
+        </div>
+    </div>
+}

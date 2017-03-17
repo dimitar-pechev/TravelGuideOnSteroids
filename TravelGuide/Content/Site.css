@@ -582,3 +582,7 @@ textarea:focus {
 .btn-submit-edit-container {
     margin: 20px 0;
 }
+
+.img-cart {
+    max-height: 150px;
+}
