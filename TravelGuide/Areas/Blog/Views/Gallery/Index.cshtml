@@ -19,22 +19,11 @@
             {
                 <div class="col-md-3">
                     <a href="#">
-                        <div class="card gallery-item" runat="server">
-                            <div class="card-content gallery-view">
-                                <img src="@image.ImageUrl" alt="@image.Title" class="img-responsive gallery-image-image" />
-                            </div>
-                            <div class="card-content gallery-image-footer">
-                                <div class="image-title col-md-9">
-                                    <span>@image.Title</span>
-                                </div>
-                                <div class="image-comments-likes col-md-3">
-                                    <div class="col-md-6">
-                                        <span class="glyphicon glyphicon-thumbs-up"></span> @image.LikesCount
-                                    </div>
-                                    <div class="col-md-6">
-                                        <span class="glyphicon glyphicon-comment"></span> @image.CommentsCount
-                                    </div>
-                                </div>
+                        <div class="gallery-item" style="background-image: url('@image.ImageUrl');">
+                            @*<img src="@image.ImageUrl" alt="@image.Title" class="gallery-item" />*@
+                            <div class="image-info text-right">
+                                <div class="col-md-3 col-md-offset-6 text-right"><span class="glyphicon glyphicon-thumbs-up"></span> @image.LikesCount</div>
+                                <div class="col-md-3 text-center"><span class="glyphicon glyphicon-comment"></span> @image.CommentsCount</div>
                             </div>
                         </div>
                     </a>
@@ -44,6 +33,6 @@
     </div>
 
     <div class="row text-center gallery-pager">
-       
+
     </div>
 </div>
