@@ -8,7 +8,7 @@
     @foreach (var image in Model.Images)
             {
         <div class="col-md-3 img-column">
-            <a href="#">
+            <a data-toggle="modal" data-target="#@image.Id">
                 <div class="gallery-item tooltipped" data-position="top" data-delay="50" data-tooltip="@image.Title" style="background-image: url('@image.ImageUrl');">
                     <div class="image-info text-right">
                         <div class="col-md-3 col-md-offset-6 text-right"><span class="glyphicon glyphicon-thumbs-up"></span> @image.LikesCount</div>
@@ -19,7 +19,6 @@
         </div>
     }
 </div>
-
 
 <div class="row text-center gallery-pager">
     <ul class="pagination">
@@ -74,3 +73,21 @@
     </ul>
 </div>
 
+<div class="image-details">
+    @foreach (var image in Model.Images)
+    {
+        <div class="modal fade modal-close" id="@image.Id" role="dialog">
+            <div class="modal-lg modal-gallery" role="document">
+                <div class="modal-content">
+                    <span class="glyphicon glyphicon-remove black-text icon-close-details" data-dismiss="modal"></span>
+                    <div class="modal-body container-fluid">
+                        <div class="col-md-9 modal-column">
+                            <img src="@image.ImageUrl" class="img-responsive modal-img-articles" alt="@image.Title">
+                        </div>
+                        <div class="col-md-3">commnasldas </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
