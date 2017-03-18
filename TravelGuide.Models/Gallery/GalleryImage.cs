@@ -14,7 +14,7 @@ namespace TravelGuide.Models.Gallery
             this.Likes = new HashSet<GalleryLike>();
         }
 
-        public GalleryImage(string title, string imageUrl, Guid userId, User user)
+        public GalleryImage(string title, string imageUrl, string userId, User user)
             : this()
         {
             this.Title = title;
@@ -29,7 +29,7 @@ namespace TravelGuide.Models.Gallery
 
         public string ImageUrl { get; set; }
 
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
 
         public virtual User User { get; set; }
 

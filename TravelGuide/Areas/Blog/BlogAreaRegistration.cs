@@ -17,8 +17,7 @@ namespace TravelGuide.Areas.Blog
             context.MapRoute(
                 "Blog_default",
                 "Blog/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
-            );
+                new { action = "Index", id = UrlParameter.Optional });
         }
     }
 }

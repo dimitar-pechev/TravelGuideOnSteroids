@@ -8,7 +8,6 @@ using TravelGuide.Services.Gallery;
 
 namespace TravelGuide.Tests.Services.Gallery.GalleryImageServiceTests
 {
-
     [TestFixture]
     public class DeleteComment_Should
     {
