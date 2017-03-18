@@ -210,6 +210,9 @@
     <Compile Include="App_Start\NinjectConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\ViewEnginesConfig.cs" />
+    <Compile Include="Areas\Blog\BlogAreaRegistration.cs" />
+    <Compile Include="Areas\Blog\Controllers\GalleryController.cs" />
+    <Compile Include="Areas\Blog\ViewModels\GalleryListViewModel.cs" />
     <Compile Include="Areas\Store\Controllers\CartController.cs" />
     <Compile Include="Areas\Store\Controllers\StoreItemsController.cs" />
     <Compile Include="Areas\Store\StoreAreaRegistration.cs" />
@@ -317,6 +320,9 @@
     <Content Include="Areas\Store\Views\Cart\_CartItemsPartial.cshtml" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
+    <Content Include="Areas\Blog\Views\web.config" />
+    <Content Include="Areas\Blog\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Blog\Views\Gallery\Index.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -367,6 +373,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Blog\Views\Shared\" />
     <Folder Include="Areas\Store\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>

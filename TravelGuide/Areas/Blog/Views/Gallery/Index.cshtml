@@ -1,0 +1,48 @@
+﻿@model IEnumerable<TravelGuide.Areas.Blog.ViewModels.GalleryListViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row gallery-cover-container">
+    <img src="~/App_Themes/Blog/gallery-cover.png" alt="gallery-cover" class="img-responsive" />
+</div>
+<div class="container gallery-container">
+    <div class="row">
+
+        <div class="row text-right button-row">
+        </div>
+
+        <div class="row">
+            @foreach (var image in Model)
+            {
+                <div class="col-md-3">
+                    <a href="#">
+                        <div class="card gallery-item" runat="server">
+                            <div class="card-content gallery-view">
+                                <img src="@image.ImageUrl" alt="@image.Title" class="img-responsive gallery-image-image" />
+                            </div>
+                            <div class="card-content gallery-image-footer">
+                                <div class="image-title col-md-9">
+                                    <span>@image.Title</span>
+                                </div>
+                                <div class="image-comments-likes col-md-3">
+                                    <div class="col-md-6">
+                                        <span class="glyphicon glyphicon-thumbs-up"></span> @image.LikesCount
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span class="glyphicon glyphicon-comment"></span> @image.CommentsCount
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="row text-center gallery-pager">
+       
+    </div>
+</div>
