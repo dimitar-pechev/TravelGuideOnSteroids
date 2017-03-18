@@ -118,6 +118,10 @@
     <Compile Include="Services\Gallery\GalleryImageServiceTests\AddComment_Should.cs" />
     <Compile Include="Services\Gallery\GalleryImageServiceTests\AddNewImage_Should.cs" />
     <Compile Include="Services\Gallery\GalleryImageServiceTests\Constructor_Should.cs" />
+    <Compile Include="Services\Gallery\GalleryImageServiceTests\DeleteComment_Should.cs" />
+    <Compile Include="Services\Gallery\GalleryImageServiceTests\DeleteImage_Should.cs" />
+    <Compile Include="Services\Gallery\GalleryImageServiceTests\GetGalleryImageById_Should.cs" />
+    <Compile Include="Services\Gallery\GalleryImageServiceTests\ToggleLike_Should.cs" />
     <Compile Include="Services\Gallery\Mocks\GalleryImageServiceMock.cs" />
     <Compile Include="Services\Requests\Mocks\RequestServiceMock.cs" />
     <Compile Include="Services\Requests\RequestServiceTests\ChangeStatus_Should.cs" />
