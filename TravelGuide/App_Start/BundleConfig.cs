@@ -10,6 +10,9 @@ namespace TravelGuide
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/toastr").Include(
+                        "~/Scripts/toastr.js", "~/Scripts/toastr-options.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
@@ -31,6 +34,7 @@ namespace TravelGuide
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/materialize/css/materialize.css",
+                      "~/Content/toastr.css",
                       "~/Content/site.css"));
         }
     }

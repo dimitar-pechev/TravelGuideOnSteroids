@@ -69,6 +69,7 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryajax")
+    @Scripts.Render("~/bundles/toastr")
     <script>
         function dismissModal() {
             $('#dismiss-modal').click();
@@ -76,10 +77,12 @@
 
         $('#btn-add-item').on('click', () => {
             $('#btn-add-item').addClass('disabled');
+            
+            notify('success', 'Item(s) added to cart!');
 
             setTimeout(() => {
                 $('#btn-add-item').removeClass('disabled');
-            }, 5000);
+            }, 3000);
         });
     </script>
 }

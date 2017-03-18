@@ -586,3 +586,13 @@ textarea:focus {
 .img-cart {
     max-height: 150px;
 }
+
+#toast-container > div, .toast-progress {
+    opacity: 1;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    filter: alpha(opacity=100);
+}
+
+.toast-success {
+    background-color: #5CB85C;
+}
