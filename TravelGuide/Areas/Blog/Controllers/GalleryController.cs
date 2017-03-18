@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using TravelGuide.Areas.Blog.ViewModels;
 using TravelGuide.Common.Contracts;
 using TravelGuide.Services.Gallery.Contacts;
@@ -10,6 +11,7 @@ namespace TravelGuide.Areas.Blog.Controllers
 {
     public class GalleryController : Controller
     {
+        private const int PageSize = 4;
         private readonly IGalleryImageService galleryService;
         private readonly IMappingService mappingService;
 
@@ -19,12 +21,60 @@ namespace TravelGuide.Areas.Blog.Controllers
             this.mappingService = mappingService;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string query, int? page)
         {
             var images = this.galleryService.GetAllNotDeletedGalleryImagesOrderedByDate();
-            var model = this.mappingService.Map<IEnumerable<GalleryListViewModel>>(images);
+
+            if (!string.IsNullOrEmpty(query))
+            {
+                images = images.Where(x => x.Title.ToLower().Contains(query.ToLower())).ToList();
+            }
+
+            var modelledImages = this.mappingService.Map<IEnumerable<GalleryItemViewModel>>(images);
+            var model = this.mappingService.Map<GalleryListViewModel>(modelledImages);
+            model.PagesCount = (int)Math.Ceiling((decimal)model.Images.Count() / PageSize);
+
+            if (page == null || page < 1 || page > model.PagesCount)
+            {
+                page = 1;
+            }
+
+            model.Images = model.Images.Skip(PageSize * ((int)page - 1)).Take(PageSize).ToList();
+
+            model.CurrentPage = (int)page;
+            model.PreviousPage = (int)page - 1;
+            model.NextPage = (int)page + 1;
+            model.Query = query;
 
             return this.View(model);
+        }
+
+        public ActionResult Search(string query, int? page)
+        {
+            var images = this.galleryService.GetAllNotDeletedGalleryImagesOrderedByDate();
+
+            if (!string.IsNullOrEmpty(query))
+            {
+                images = images.Where(x => x.Title.ToLower().Contains(query.ToLower())).ToList();
+            }
+
+            var modelledImages = this.mappingService.Map<IEnumerable<GalleryItemViewModel>>(images);
+            var model = this.mappingService.Map<GalleryListViewModel>(modelledImages);
+            model.PagesCount = (int)Math.Ceiling((decimal)model.Images.Count() / PageSize);
+
+            if (page == null || page < 1 || page > model.PagesCount)
+            {
+                page = 1;
+            }
+
+            model.Images = model.Images.Skip(PageSize * ((int)page - 1)).Take(PageSize).ToList();
+
+            model.CurrentPage = (int)page;
+            model.PreviousPage = (int)page - 1;
+            model.NextPage = (int)page + 1;
+            model.Query = query;
+
+            return this.PartialView("_GalleryListPartial", model);
         }
 
         public ActionResult Edit(Guid? id)

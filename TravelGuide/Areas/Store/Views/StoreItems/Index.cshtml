@@ -12,12 +12,12 @@
         <div class="row menu-store">
             <div class="col-md-4 col-md-offset-4 text-center">
                 @using (Ajax.BeginForm("Search", null,
-           new AjaxOptions
-           {
-               UpdateTargetId = "store-items-containter",
-               InsertionMode = InsertionMode.Replace,
-               HttpMethod = "POST"
-           }, new { id = "searchForm" }))
+                   new AjaxOptions
+                   {
+                       UpdateTargetId = "store-items-containter",
+                       InsertionMode = InsertionMode.Replace,
+                       HttpMethod = "POST"
+                   }, new { id = "searchForm" }))
                 {
                     @Html.Label("Search throgh our products:", new { @for = "query", @class = "search-label-discover" })
                     @Html.TextBox("query", null, new { oninput = "changed()" })

@@ -298,6 +298,7 @@
     padding-top: 5%;
     padding-bottom: 2%;
     margin-top: -3%;
+    padding: 30px;
 }
 
 .gallery-item {
@@ -609,4 +610,8 @@ textarea:focus {
 
 .toast-success {
     background-color: #5CB85C;
+}
+
+.img-column {
+    padding: 0 5px;
 }

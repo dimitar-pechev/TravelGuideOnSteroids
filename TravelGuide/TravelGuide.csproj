@@ -213,6 +213,7 @@
     <Compile Include="Areas\Blog\BlogAreaRegistration.cs" />
     <Compile Include="Areas\Blog\Controllers\GalleryController.cs" />
     <Compile Include="Areas\Blog\ViewModels\CreateImageViewModel.cs" />
+    <Compile Include="Areas\Blog\ViewModels\GalleryItemViewModel.cs" />
     <Compile Include="Areas\Blog\ViewModels\GalleryListViewModel.cs" />
     <Compile Include="Areas\Store\Controllers\CartController.cs" />
     <Compile Include="Areas\Store\Controllers\StoreItemsController.cs" />
@@ -320,12 +321,11 @@
     <Content Include="Areas\Store\Views\StoreItems\_AddToCartPartial.cshtml" />
     <Content Include="Areas\Store\Views\Cart\Index.cshtml" />
     <Content Include="Areas\Store\Views\Cart\_CartItemsPartial.cshtml" />
-    <Content Include="Content\toastr.scss" />
-    <Content Include="Content\toastr.less" />
     <Content Include="Areas\Blog\Views\web.config" />
     <Content Include="Areas\Blog\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Blog\Views\Gallery\Index.cshtml" />
     <Content Include="Areas\Blog\Views\Gallery\Create.cshtml" />
+    <Content Include="Areas\Blog\Views\Gallery\_GalleryListPartial.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
