@@ -12,7 +12,7 @@ namespace TravelGuide.Controllers
 {
     public class ArticlesController : Controller
     {
-        private const int PageSize = 3;
+        private const int PageSize = 5;
         private readonly IArticleService articleService;
         private readonly IMappingService mappingService;
 

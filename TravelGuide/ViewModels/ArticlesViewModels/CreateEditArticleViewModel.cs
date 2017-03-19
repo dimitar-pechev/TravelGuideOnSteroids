@@ -10,7 +10,7 @@ namespace TravelGuide.ViewModels.ArticlesViewModels
         public Guid Id { get; set; }
 
         [Required]
-        [StringLength(30, MinimumLength = 3)]
+        [StringLength(50, MinimumLength = 3)]
         public string Title { get; set; }
 
         [Required]

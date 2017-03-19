@@ -125,9 +125,9 @@
 .destinations-container {
     margin-top: -5%;
     padding-top: 5%;
-    padding-bottom: 3%;
+    padding-bottom: 0;
+    margin-bottom: 2%;
     background-color: white;
-    min-height: 600px;
 }
 
 .divider {
@@ -174,18 +174,23 @@
 }
 
 .destinations-entry-date {
+    display: inline-block;
     font-size: 0.9rem;
     font-style: italic;
 }
 
 .destinations-entry-content {
-    margin-top: 22px;
+    margin-top: 22px !important;
     overflow: hidden;
     height: 3.21rem;
     line-height: 1.07rem;
     display: inline-block;
     font-size: 1rem;
     text-align: justify;
+}
+
+.destinations-entries-container {
+    margin-bottom: 0;
 }
 
 .btn-page {
@@ -403,7 +408,7 @@
 }
 
 .form-add {
-    padding: 3% 10% !important;
+    padding: 3% 10% 5% 10% !important;
 }
 
 .item-details-image {
@@ -758,10 +763,14 @@ li.page-item {
 }
 
 li.active a {
-    background-color: #5CB85C !important; 
+    background-color: #5CB85C !important;
     border-color: #5CB85C !important;
 }
 
 .comment-box-textarea:focus {
     box-shadow: 0 0 7px #5CB85C;
+}
+
+.search-box-discover {
+    margin-top: 15px;
 }

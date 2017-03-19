@@ -5,27 +5,30 @@
 }
 <div class="container">
     <div class="row card-only">
-        <div class="col-md-6 col-md-offset-3 text-center">
-            <div class="card">
-                <div class="card-content form-add">
-                    <h5>Add a New Photo</h5>
-                    <hr />
-                    @using (Html.BeginForm("Create", "Gallery", FormMethod.Post))
-                    {
-                        <div class="input-field">
-                            @Html.LabelFor(m => m.Title)
-                            @Html.TextBoxFor(m => m.Title)
-                            @Html.ValidationMessageFor(m => m.Title)
-                        </div>
-                        <br />
-                        <div class="input-field">
-                            @Html.LabelFor(m => m.ImageUrl)
-                            @Html.TextBoxFor(m => m.ImageUrl)
-                            @Html.ValidationMessageFor(m => m.ImageUrl)
-                        </div>
-
-                        <input type="submit" class="btn btn-success btn-login" value="Add" />
-                    }
+        <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-6 col-md-offset-3 text-center">
+                <div class="card">
+                    <div class="card-content form-add">
+                        <h5>Add a New Photo</h5>
+                        <hr />
+                        @using (Html.BeginForm("Create", "Gallery", FormMethod.Post))
+                        {
+                            <div class="input-field">
+                                @Html.LabelFor(m => m.Title)
+                                @Html.TextBoxFor(m => m.Title)
+                                @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+                            </div>
+                            <br />
+                            <div class="input-field">
+                                @Html.LabelFor(m => m.ImageUrl)
+                                @Html.TextBoxFor(m => m.ImageUrl)
+                                @Html.ValidationMessageFor(m => m.ImageUrl, "", new { @class = "text-danger" })
+                            </div>
+                            <br />
+                            <input type="submit" class="btn btn-success btn-login" value="Add" />
+                            <br />
+                        }
+                    </div>
                 </div>
             </div>
         </div>
