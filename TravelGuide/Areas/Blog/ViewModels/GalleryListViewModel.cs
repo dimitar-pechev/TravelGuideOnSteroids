@@ -8,6 +8,8 @@ namespace TravelGuide.Areas.Blog.ViewModels
     {
         public IEnumerable<GalleryItemViewModel> Images { get; set; }
 
+        public CreateCommentViewModel NewComment { get; set; }
+
         public int PagesCount { get; set; }
 
         public int CurrentPage { get; set; }

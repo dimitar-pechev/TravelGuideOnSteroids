@@ -671,3 +671,45 @@ textarea:focus {
 .modal-column {
     padding: 0;
 }
+
+.details-info {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.details-profile-pic {
+    padding: 0 0 0 8px;
+}
+
+.username-panel {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.date-panel {
+    font-size: 0.8rem;
+    color: darkgray;
+}
+
+.card-comment {
+    padding-top: 5px;
+    margin-bottom: 5px;
+}
+
+.details-profile-pic-comment {
+    padding: 0;
+}
+
+.btn-sm-for-real {
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+    padding: 5px 8px;
+    color: white;
+    background: #5CB85C;
+    cursor: pointer;
+}
+
+.row-little-margin {
+    margin-bottom: 8px;
+}

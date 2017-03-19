@@ -84,7 +84,60 @@
                         <div class="col-md-9 modal-column">
                             <img src="@image.ImageUrl" class="img-responsive modal-img-articles" alt="@image.Title">
                         </div>
-                        <div class="col-md-3">commnasldas </div>
+                        <div class="col-md-3">
+                            <div class="row details-info">
+                                <div class="col-md-3 details-profile-pic">
+                                    <img src="https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/profle-256.png" alt="profile-pic" class="img-responsive" />
+                                </div>
+                                <div class="col-md-9">
+                                    <p class="username-panel">
+                                        @image.Username
+                                    </p>
+                                    <span class="date-panel">@image.CreatedOn</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <h5 class="text-center">@image.Title</h5>
+                                <div class="col-md-6" id="like-button-container">
+                                    <button class="btn btn-success white black-text"><span class="glyphicon glyphicon-thumbs-up"></span> Like (@image.LikesCount)</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button class="btn btn-success white black-text"><span class="glyphicon glyphicon-comment"></span> Comment</button>
+                                </div>
+                            </div>
+                            <div class="row details-comment-box container-fluid">
+                                @foreach (var comment in image.Comments)
+                                {
+                                    <div class="card card-comment container-fluid">
+                                        <div class="col-md-2 details-profile-pic-comment">
+                                            <img src="https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/profle-256.png" alt="profile-pic" class="img-responsive" />
+                                        </div>
+                                        <div class="col-md-10">
+                                            <span class="username-panel">@comment.User.UserName</span><span class="date-panel"> @comment.CreatedOn</span>
+                                            <p>@comment.Content</p>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="card card-comment container-fluid">
+                                    <div class="col-md-2 details-profile-pic-comment">
+                                        <img src="https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/profle-256.png" alt="profile-pic" class="img-responsive" />
+                                    </div>
+                                    <div class="col-md-10">
+                                        @using (Html.BeginForm())
+                                        {
+                                            <p class="username-panel">Аз съм на кон</p>
+                                            <div class="row row-little-margin">
+                                                @Html.TextAreaFor(m => m.NewComment.Content, new { rows = 2, @class = "form-control", placeholder = "Type your comment here..." })
+                                                @Html.ValidationMessageFor(m => m.NewComment.Content)
+                                            </div>
+                                            <div class="row text-right row-little-margin" id="btn-submit-comment">
+                                                <input type="submit" value="Submit" class="btn-sm-for-real white black-text" />
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
