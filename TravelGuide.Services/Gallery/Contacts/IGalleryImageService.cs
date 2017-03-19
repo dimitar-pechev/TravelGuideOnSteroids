@@ -6,7 +6,7 @@ namespace TravelGuide.Services.Gallery.Contacts
 {
     public interface IGalleryImageService
     {
-        IEnumerable<GalleryImage> GetFilteredImagesByPage(string query, int page, int pagesCount, int pageSize);
+        IEnumerable<GalleryImage> GetFilteredImagesByPage(string query, int page, int pageSize);
 
         IEnumerable<GalleryImage> GetAllGalleryImages();
 

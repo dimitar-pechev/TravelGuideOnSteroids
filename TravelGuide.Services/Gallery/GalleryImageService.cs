@@ -189,7 +189,7 @@ namespace TravelGuide.Services.Gallery
             this.context.SaveChanges();
         }
 
-        public IEnumerable<GalleryImage> GetFilteredImagesByPage(string query, int page, int pagesCount, int pageSize)
+        public IEnumerable<GalleryImage> GetFilteredImagesByPage(string query, int page, int pageSize)
         {
             var images = new List<GalleryImage>();
             if (!string.IsNullOrEmpty(query))
@@ -200,7 +200,7 @@ namespace TravelGuide.Services.Gallery
                      .Where(x => x.Title.ToLower().Contains(query.ToLower()) && !x.IsDeleted)
                      .ToList()
                      .OrderByDescending(x => x.CreatedOn)
-                     .Skip(page - 1 * pageSize)
+                     .Skip((page - 1) * pageSize)
                      .Take(pageSize)
                      .ToList();
             }
@@ -212,7 +212,7 @@ namespace TravelGuide.Services.Gallery
                     .Where(x => !x.IsDeleted)
                     .ToList()
                     .OrderByDescending(x => x.CreatedOn)
-                    .Skip(page - 1 * pageSize)
+                    .Skip((page - 1) * pageSize)
                     .Take(pageSize)
                     .ToList();
             }
@@ -226,12 +226,14 @@ namespace TravelGuide.Services.Gallery
             if (!string.IsNullOrEmpty(query))
             {
                 imagesCount = this.context.GalleryImages
-                    .Where(x => x.Title.ToLower().Contains(query.ToLower()))
+                    .Where(x => x.Title.ToLower().Contains(query.ToLower()) && !x.IsDeleted)
                     .Count();
             }
             else
             {
-                imagesCount = this.context.GalleryImages.Count();
+                imagesCount = this.context.GalleryImages
+                    .Where(x => !x.IsDeleted)
+                    .Count();
             }
 
             int pagesCount;

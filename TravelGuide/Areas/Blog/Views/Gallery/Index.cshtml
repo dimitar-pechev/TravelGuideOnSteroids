@@ -12,13 +12,14 @@
         <div class="row text-right options-gallery">
             <div class="col-md-4 col-md-offset-4 text-center">
                 @using (Ajax.BeginForm("Search", null,
-new AjaxOptions
-{
-    UpdateTargetId = "gallery-items-container",
-    InsertionMode = InsertionMode.Replace,
-    HttpMethod = "POST",
-    OnSuccess = "reloadToolTips"
-}, new { id = "searchForm" }))
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = "gallery-items-container",
+                        InsertionMode = InsertionMode.Replace,
+                        HttpMethod = "POST",
+                        OnBegin = "clearTooltips",
+                        OnSuccess = "reloadToolTips"
+                    }, new { id = "searchForm" }))
                 {
                     @Html.Label("Search by photo title/related destination:", new { @for = "query", @class = "search-label-discover" })
                     @Html.TextBox("query", null, new { oninput = "changed()" })
@@ -44,8 +45,16 @@ new AjaxOptions
             $('.tooltipped').tooltip({ delay: 50 });
         });
 
+        function clearTooltips() {
+            $('.tooltipped').tooltip('remove');
+        }
+
         function reloadToolTips() {
             $('.tooltipped').tooltip({ delay: 50 });
+
+            $('.btn-add-comment').on('click', () => {
+                $('.comment-box-textarea').focus();
+            })
         }
 
         function deleteComment() {
