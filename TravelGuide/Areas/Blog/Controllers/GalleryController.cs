@@ -12,7 +12,7 @@ namespace TravelGuide.Areas.Blog.Controllers
 {
     public class GalleryController : Controller
     {
-        private const int PageSize = 4;
+        private const int PageSize = 12;
         private readonly IGalleryImageService galleryService;
         private readonly IUserService userService;
         private readonly IMappingService mappingService;

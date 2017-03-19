@@ -34,22 +34,29 @@
         else
         {
             <li class="page-item">
-                <a class="page-link" href="/blog/gallery/index?page=@Model.CurrentPage" aria-label="Previous">
+                <a class="page-link waves-effect" href="/blog/gallery/index?page=@Model.PreviousPage" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                     <span class="sr-only">Previous</span>
                 </a>
             </li>
         }
         @for (int i = 1; i <= Model.PagesCount; i++)
+        {
+            if (string.IsNullOrEmpty(Model.Query))
             {
-                if (string.IsNullOrEmpty(Model.Query))
+                if (i == Model.CurrentPage)
                 {
-                <li class="page-item"><a class="page-link" href="/blog/gallery/index?page=@i">@i</a></li>
+                    <li class="page-item active disabled"><a class="page-link white-text">@i</a></li>
+                }
+                else
+                {
+                    <li class="page-item"><a class="page-link waves-effect" href="/blog/gallery/index?page=@i">@i</a></li>
+                }
             }
             else
             {
-                <li class="page-item"><a class="page-link" href="/blog/gallery/index?page=@i&query=@Model.Query">@i</a></li>
-            }
+                    <li class="page-item"><a class="page-link waves-effect" href="/blog/gallery/index?page=@i&query=@Model.Query">@i</a></li>
+                }
         }
 
         @if (Model.CurrentPage >= Model.PagesCount)
@@ -64,7 +71,7 @@
         else
         {
             <li class="page-item">
-                <a class="page-link" href="/blog/gallery/index?page=@Model.NextPage" aria-label="Next">
+                <a class="page-link waves-effect" href="/blog/gallery/index?page=@Model.NextPage" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                     <span class="sr-only">Next</span>
                 </a>
@@ -89,7 +96,7 @@
                                 <div class="col-md-3 details-profile-pic">
                                     <img src="https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/profle-256.png" alt="profile-pic" class="img-responsive" />
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-9 comment-content">
                                     <p class="username-panel">
                                         @image.Username
                                     </p>

@@ -1407,8 +1407,8 @@ $(document).ready(function(){
 
             if (tooltipPosition === "top") {
               // Top Position
-              targetTop = origin.offset().top - tooltipHeight - margin + 30;
-              targetLeft = origin.offset().left + originWidth/2 - tooltipWidth/2;
+              targetTop = origin.offset().top - tooltipHeight - margin + 53;
+              targetLeft = origin.offset().left;
               newCoordinates = repositionWithinScreen(targetLeft, targetTop, tooltipWidth, tooltipHeight);
 
               tooltipVerticalMovement = '-10px';

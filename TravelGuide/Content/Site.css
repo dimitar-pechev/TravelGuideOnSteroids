@@ -302,8 +302,10 @@
     background-color: white;
     padding-top: 5%;
     padding-bottom: 2%;
-    margin-top: -3%;
+    margin-top: -4%;
     padding: 30px;
+    padding-bottom: 0;
+    margin-bottom: 2%;
 }
 
 .gallery-item {
@@ -314,7 +316,7 @@
     position: relative;
     overflow: hidden;
     background-position: center center;
-    background-size: 300px;
+    background-size: 400px;
     background-repeat: no-repeat;
 }
 
@@ -346,7 +348,8 @@
 }
 
 .gallery-pager {
-    padding-top: 3%;
+    padding-top: 0;
+    margin-bottom: 0;
 }
 
 .modal-image {
@@ -740,4 +743,21 @@ textarea:focus {
 
 .comment-content {
     padding-right: 0;
+}
+
+.options-gallery {
+    margin-top: 2%;
+}
+
+.btn-options-menu {
+    margin-top: 8%;
+}
+
+li.page-item {
+    padding: 0;
+}
+
+li.active a {
+    background-color: #5CB85C !important; 
+    border-color: #5CB85C !important;
 }
