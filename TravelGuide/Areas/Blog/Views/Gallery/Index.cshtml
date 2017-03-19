@@ -48,6 +48,10 @@ new AjaxOptions
             $('.tooltipped').tooltip({ delay: 50 });
         }
 
+        function deleteComment() {
+            notify('success', 'Comment deleted!');
+        }
+
         function changed() {
             $('#searchForm').submit();
         }

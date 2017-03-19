@@ -715,3 +715,29 @@ textarea:focus {
     height: 450px !important;
     overflow: auto;
 }
+
+.btn-delete {
+    float: right;
+    background: white;
+    border: none;
+    font-size: 0.8rem;
+    color: lightgray;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+    .btn-delete:hover {
+        text-decoration: underline;
+    }
+
+.form-delete-comment {
+    display: inline;
+}
+
+.comment-box-details {
+    padding-right: 5px;
+}
+
+.comment-content {
+    padding-right: 0;
+}

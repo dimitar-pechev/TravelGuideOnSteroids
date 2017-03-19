@@ -134,5 +134,16 @@ namespace TravelGuide.Areas.Blog.Controllers
 
             return this.PartialView("_LikeButtonPartial", model);
         }
+
+        [HttpDelete]
+        public ActionResult DeleteComment(Guid? commentId, Guid? imageId)
+        {
+            this.galleryService.DeleteComment(commentId.ToString());
+
+            var image = this.galleryService.GetGalleryImageById((Guid)imageId);
+            var model = this.mappingService.Map<GalleryItemViewModel>(image);
+
+            return this.PartialView("_ImageCommentBoxPartial", model);
+        }
     }
 }
