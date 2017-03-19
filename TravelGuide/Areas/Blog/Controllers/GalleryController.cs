@@ -145,5 +145,36 @@ namespace TravelGuide.Areas.Blog.Controllers
 
             return this.PartialView("_ImageCommentBoxPartial", model);
         }
+
+        [HttpPost]
+        public ActionResult DeleteImage(Guid? imageId, string query, int? page)
+        {
+            this.galleryService.DeleteImage((Guid)imageId);
+
+            var images = this.galleryService.GetAllNotDeletedGalleryImagesOrderedByDate();
+
+            if (!string.IsNullOrEmpty(query))
+            {
+                images = images.Where(x => x.Title.ToLower().Contains(query.ToLower())).ToList();
+            }
+
+            var modelledImages = this.mappingService.Map<IEnumerable<GalleryItemViewModel>>(images);
+            var model = this.mappingService.Map<GalleryListViewModel>(modelledImages);
+            model.PagesCount = (int)Math.Ceiling((decimal)model.Images.Count() / PageSize);
+
+            if (page == null || page < 1 || page > model.PagesCount)
+            {
+                page = 1;
+            }
+
+            model.Images = model.Images.Skip(PageSize * ((int)page - 1)).Take(PageSize).ToList();
+
+            model.CurrentPage = (int)page;
+            model.PreviousPage = (int)page - 1;
+            model.NextPage = (int)page + 1;
+            model.Query = query;
+
+            return this.RedirectToAction("Index");
+        }
     }
 }

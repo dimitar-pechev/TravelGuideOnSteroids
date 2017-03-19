@@ -124,14 +124,14 @@ namespace TravelGuide.Services.Gallery
             return image;
         }
 
-        public void DeleteImage(GalleryImage image)
+        public void DeleteImage(Guid? imageId)
         {
-            if (image == null)
+            if (imageId == null)
             {
                 throw new ArgumentNullException();
             }
 
-            var dbImage = this.context.GalleryImages.Find(image.Id);
+            var dbImage = this.context.GalleryImages.Find(imageId);
             dbImage.IsDeleted = true;
 
             this.context.SaveChanges();

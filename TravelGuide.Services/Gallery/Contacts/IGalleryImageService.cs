@@ -16,7 +16,7 @@ namespace TravelGuide.Services.Gallery.Contacts
 
         void AddComment(string id, string content, Guid imageId);
 
-        void DeleteImage(GalleryImage image);
+        void DeleteImage(Guid? imageId);
 
         void AddNewImage(string id, string title, string imageUrl);
 

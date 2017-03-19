@@ -42,7 +42,7 @@ namespace TravelGuide.Tests.Services.Gallery.GalleryImageServiceTests
             var service = new GalleryImageService(contextMock.Object, imageFactoryMock.Object, likeFactoryMock.Object, commentFactoryMock.Object);
 
             // Act
-            service.DeleteImage(image);
+            service.DeleteImage(image.Id);
 
             // Assert
             Assert.IsFalse(initailValue);
@@ -63,7 +63,7 @@ namespace TravelGuide.Tests.Services.Gallery.GalleryImageServiceTests
             var service = new GalleryImageService(contextMock.Object, imageFactoryMock.Object, likeFactoryMock.Object, commentFactoryMock.Object);
 
             // Act
-            service.DeleteImage(image);
+            service.DeleteImage(image.Id);
 
             // Assert
             contextMock.Verify(x => x.SaveChanges(), Times.Once);
