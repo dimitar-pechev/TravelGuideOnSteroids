@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using TravelGuide.Common.Contracts;
-using TravelGuide.Models;
 using TravelGuide.Models.Gallery;
 
 namespace TravelGuide.Areas.Blog.ViewModels
@@ -18,6 +17,7 @@ namespace TravelGuide.Areas.Blog.ViewModels
 
         [Required]
         [StringLength(30, MinimumLength = 3)]
+        [Display(Name = "Content")]
         public string NewCommentContent { get; set; }
 
         public int CommentsCount { get; set; }

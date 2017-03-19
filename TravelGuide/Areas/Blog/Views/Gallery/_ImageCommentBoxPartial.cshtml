@@ -40,7 +40,7 @@
         {
             <div class="row row-little-margin">
                 @Html.TextAreaFor(m => m.NewCommentContent, new { rows = 2, @class = "form-control comment-box-textarea", placeholder = "Type your comment here..." })
-                @Html.ValidationMessageFor(m => m.NewCommentContent)
+                @Html.ValidationMessageFor(m => m.NewCommentContent, "", new { @class = "text-danger" })
             </div>
             <div class="row text-right row-little-margin" id="btn-submit-comment">
                 <input type="submit" value="Submit" class="btn-sm-for-real white black-text" />

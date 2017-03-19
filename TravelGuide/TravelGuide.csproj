@@ -221,10 +221,6 @@
     <Compile Include="Areas\Store\ViewModels\CartViewModel.cs" />
     <Compile Include="Areas\Store\ViewModels\IndexViewModel.cs" />
     <Compile Include="Areas\Store\ViewModels\StoreItemCartViewModel.cs" />
-    <Compile Include="Common\Contracts\IHaveCustomMappings.cs" />
-    <Compile Include="Common\Contracts\IMapFrom.cs" />
-    <Compile Include="Common\Contracts\IMappingService.cs" />
-    <Compile Include="Common\MappingService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
