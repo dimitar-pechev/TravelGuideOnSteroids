@@ -110,12 +110,14 @@
                             </div>
                             <div class="row">
                                 <h5 class="text-center">@image.Title</h5>
+                                <hr />
                                 <div class="col-md-6" id="@(image.Id.ToString() + image.Id.ToString() + image.Id.ToString())">
                                     @Html.Partial("_LikeButtonPartial", image)
                                 </div>
                                 <div class="col-md-6">
-                                    <button class="btn btn-success white black-text btn-add-comment"><span class="glyphicon glyphicon-comment"></span> Comment</button>
+                                    <button class="btn btn-success black white-text btn-add-comment"><span class="glyphicon glyphicon-comment"></span> Comment</button>
                                 </div>
+                                <hr />
                             </div>
                             <div id="@image.Id" class="row details-comment-box container-fluid">
                                 @Html.Partial("_ImageCommentBoxPartial", image)

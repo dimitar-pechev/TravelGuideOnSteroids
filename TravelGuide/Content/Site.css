@@ -715,7 +715,7 @@ textarea:focus {
 }
 
 .details-comment-box {
-    height: 450px !important;
+    max-height: 400px;
     overflow: auto;
 }
 
@@ -760,4 +760,8 @@ li.page-item {
 li.active a {
     background-color: #5CB85C !important; 
     border-color: #5CB85C !important;
+}
+
+.comment-box-textarea:focus {
+    box-shadow: 0 0 7px #5CB85C;
 }
