@@ -38,6 +38,7 @@ new AjaxOptions
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jqueryajax")
+    @Scripts.Render("~/bundles/toastr")
     <script>
         $(document).ready(function () {
             $('.tooltipped').tooltip({ delay: 50 });
@@ -49,6 +50,27 @@ new AjaxOptions
 
         function changed() {
             $('#searchForm').submit();
+        }
+
+        function submitVote() {
+            $('.btn-like-image').addClass('disabled');
+
+            console.log($('#btn-like-image-count').html());
+            
+            notify('success', 'Vote successful!');
+
+            setTimeout(() => {
+                $('.btn-like-image').removeClass('disabled');
+            }, 2000);
+        }
+
+        $('.btn-add-comment').on('click', () => {
+            $('.comment-box-textarea').focus();
+        })
+
+        function submitComment() {
+            $('.comment-box-textarea').val('');
+            notify('success', 'Your comment has been submitted!')
         }
     </script>
 }

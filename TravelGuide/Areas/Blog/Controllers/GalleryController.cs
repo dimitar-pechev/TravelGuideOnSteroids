@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using TravelGuide.Areas.Blog.ViewModels;
 using TravelGuide.Common.Contracts;
+using TravelGuide.Services.Account.Contracts;
 using TravelGuide.Services.Gallery.Contacts;
 
 namespace TravelGuide.Areas.Blog.Controllers
@@ -13,12 +14,14 @@ namespace TravelGuide.Areas.Blog.Controllers
     {
         private const int PageSize = 4;
         private readonly IGalleryImageService galleryService;
+        private readonly IUserService userService;
         private readonly IMappingService mappingService;
 
-        public GalleryController(IGalleryImageService galleryService, IMappingService mappingService)
+        public GalleryController(IGalleryImageService galleryService, IMappingService mappingService, IUserService userService)
         {
             this.galleryService = galleryService;
             this.mappingService = mappingService;
+            this.userService = userService;
         }
 
         public ActionResult Index(string query, int? page)
@@ -118,6 +121,18 @@ namespace TravelGuide.Areas.Blog.Controllers
             model = this.mappingService.Map<GalleryItemViewModel>(image);
 
             return this.PartialView("_ImageCommentBoxPartial", model);
+        }
+
+        [HttpPost]
+        public ActionResult ToggleLike(Guid? imageId)
+        {
+            var userId = this.User.Identity.GetUserId();
+            this.galleryService.ToggleLike(userId, (Guid)imageId);
+
+            var image = this.galleryService.GetGalleryImageById((Guid)imageId);
+            var model = this.mappingService.Map<GalleryItemViewModel>(image);
+
+            return this.PartialView("_LikeButtonPartial", model);
         }
     }
 }

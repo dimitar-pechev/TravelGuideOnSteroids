@@ -22,12 +22,13 @@
                 {
                     InsertionMode = InsertionMode.Replace,
                     UpdateTargetId = Model.Id.ToString(),
-                    HttpMethod = "POST"
+                    HttpMethod = "POST",
+                    OnSuccess = "submitComment"
                 }))
         {
             <p class="username-panel">Аз съм на кон</p>
             <div class="row row-little-margin">
-                @Html.TextAreaFor(m => m.NewCommentContent, new { rows = 2, @class = "form-control", placeholder = "Type your comment here..." })
+                @Html.TextAreaFor(m => m.NewCommentContent, new { rows = 2, @class = "form-control comment-box-textarea", placeholder = "Type your comment here..." })
                 @Html.ValidationMessageFor(m => m.NewCommentContent)
             </div>
             <div class="row text-right row-little-margin" id="btn-submit-comment">

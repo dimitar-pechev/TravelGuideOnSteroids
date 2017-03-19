@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using TravelGuide.Common.Contracts;
+using TravelGuide.Models;
 using TravelGuide.Models.Gallery;
-using System.ComponentModel.DataAnnotations;
 
 namespace TravelGuide.Areas.Blog.ViewModels
 {
