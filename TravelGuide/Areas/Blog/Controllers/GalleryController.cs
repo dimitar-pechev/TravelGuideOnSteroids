@@ -102,5 +102,22 @@ namespace TravelGuide.Areas.Blog.Controllers
 
             return this.RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public ActionResult Comment(Guid imageId, GalleryItemViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.RedirectToAction("Index");
+            }
+
+            var userId = this.User.Identity.GetUserId();
+            this.galleryService.AddComment(userId, model.NewCommentContent, imageId);
+
+            var image = this.galleryService.GetGalleryImageById(imageId);
+            model = this.mappingService.Map<GalleryItemViewModel>(image);
+
+            return this.PartialView("_ImageCommentBoxPartial", model);
+        }
     }
 }

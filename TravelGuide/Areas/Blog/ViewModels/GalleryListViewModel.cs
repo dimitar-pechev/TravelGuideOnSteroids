@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using TravelGuide.Common.Contracts;
 
@@ -7,8 +8,6 @@ namespace TravelGuide.Areas.Blog.ViewModels
     public class GalleryListViewModel : IMapFrom<IEnumerable<GalleryItemViewModel>>, IHaveCustomMappings
     {
         public IEnumerable<GalleryItemViewModel> Images { get; set; }
-
-        public CreateCommentViewModel NewComment { get; set; }
 
         public int PagesCount { get; set; }
 

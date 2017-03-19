@@ -665,9 +665,6 @@ textarea:focus {
 
 /* container-fluid */
 
-.modal-container {
-}
-
 .modal-column {
     padding: 0;
 }
@@ -712,4 +709,9 @@ textarea:focus {
 
 .row-little-margin {
     margin-bottom: 8px;
+}
+
+.details-comment-box {
+    height: 450px !important;
+    overflow: auto;
 }

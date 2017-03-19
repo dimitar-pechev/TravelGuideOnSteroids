@@ -212,7 +212,6 @@
     <Compile Include="App_Start\ViewEnginesConfig.cs" />
     <Compile Include="Areas\Blog\BlogAreaRegistration.cs" />
     <Compile Include="Areas\Blog\Controllers\GalleryController.cs" />
-    <Compile Include="Areas\Blog\ViewModels\CreateCommentViewModel.cs" />
     <Compile Include="Areas\Blog\ViewModels\CreateImageViewModel.cs" />
     <Compile Include="Areas\Blog\ViewModels\GalleryItemViewModel.cs" />
     <Compile Include="Areas\Blog\ViewModels\GalleryListViewModel.cs" />
@@ -327,6 +326,7 @@
     <Content Include="Areas\Blog\Views\Gallery\Index.cshtml" />
     <Content Include="Areas\Blog\Views\Gallery\Create.cshtml" />
     <Content Include="Areas\Blog\Views\Gallery\_GalleryListPartial.cshtml" />
+    <Content Include="Areas\Blog\Views\Gallery\_ImageCommentBoxPartial.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
