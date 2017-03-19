@@ -6,6 +6,10 @@ namespace TravelGuide.Services.Articles.Contracts
 {
     public interface IArticleService
     {
+        IEnumerable<Article> GetFilteredArticlesByPage(string query, int page, int pageSize);
+
+        int GetPagesCount(string query);
+
         IEnumerable<Article> GetAllArticles();
 
         IEnumerable<Article> GetAllNotDeletedArticlesOrderedByDate();

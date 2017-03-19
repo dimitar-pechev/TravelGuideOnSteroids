@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using TravelGuide.Common;
 using TravelGuide.Data.Contracts;
 using TravelGuide.Models.Articles;
 using TravelGuide.Services.Articles.Contracts;
@@ -228,6 +230,70 @@ namespace TravelGuide.Services.Articles
 
             this.context.Comments.Remove(comment);
             this.context.SaveChanges();
+        }
+
+        public IEnumerable<Article> GetFilteredArticlesByPage(string query, int page, int pageSize)
+        {
+            var images = new List<Article>();
+            if (!string.IsNullOrEmpty(query))
+            {
+                images = this.context.Articles
+                     .Include(x => x.Comments)
+                     .Where(x => (x.Title.ToLower().Contains(query.ToLower()) ||
+                     x.City.ToLower().Contains(query.ToLower()) ||
+                     x.Country.ToLower().Contains(query.ToLower())) &&
+                     !x.IsDeleted)
+                     .ToList()
+                     .OrderByDescending(x => x.CreatedOn)
+                     .Skip((page - 1) * pageSize)
+                     .Take(pageSize)
+                     .ToList();
+            }
+            else
+            {
+                images = this.context.Articles
+                    .Include(x => x.Comments)
+                    .Where(x => !x.IsDeleted)
+                    .ToList()
+                    .OrderByDescending(x => x.CreatedOn)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+            }
+
+            return images;
+        }
+
+        public int GetPagesCount(string query)
+        {
+            int articlesCount;
+            if (!string.IsNullOrEmpty(query))
+            {
+                articlesCount = this.context.Articles
+                    .Where(x => (x.Title.ToLower().Contains(query.ToLower()) ||
+                    x.City.ToLower().Contains(query.ToLower()) ||
+                    x.Country.ToLower().Contains(query.ToLower())) &&
+                    !x.IsDeleted)
+                    .Count();
+            }
+            else
+            {
+                articlesCount = this.context.Articles
+                    .Where(x => !x.IsDeleted)
+                    .Count();
+            }
+
+            int pagesCount;
+            if (articlesCount == 0)
+            {
+                pagesCount = 1;
+            }
+            else
+            {
+                pagesCount = (int)Math.Ceiling((decimal)articlesCount / AppConstants.ArticlePageSize);
+            }
+
+            return pagesCount;
         }
     }
 }

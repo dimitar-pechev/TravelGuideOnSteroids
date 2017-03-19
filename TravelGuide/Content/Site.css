@@ -774,3 +774,10 @@ li.active a {
 .search-box-discover {
     margin-top: 15px;
 }
+
+.card-destinations-image {
+    overflow: hidden;
+    background-position: center center;
+    background-size: 400px;
+    background-repeat: no-repeat;
+}

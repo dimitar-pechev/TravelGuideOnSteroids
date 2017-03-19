@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using TravelGuide.Common;
 using TravelGuide.Common.Contracts;
 using TravelGuide.Models.Articles;
 using TravelGuide.Services.Articles.Contracts;
@@ -12,60 +13,39 @@ namespace TravelGuide.Controllers
 {
     public class ArticlesController : Controller
     {
-        private const int PageSize = 5;
         private readonly IArticleService articleService;
         private readonly IMappingService mappingService;
 
-        public ArticlesController(IArticleService service, IMappingService mappingService)
+        public ArticlesController(IArticleService articleService, IMappingService mappingService)
         {
-            this.articleService = service;
+            this.articleService = articleService;
             this.mappingService = mappingService;
         }
 
         public ActionResult Index(string query, int? page)
         {
-            IEnumerable<Article> articles = new List<Article>();
-            if (!string.IsNullOrEmpty(query))
-            {
-                articles = this.articleService.GetArticlesByKeyword(query);
-                this.ViewBag.Query = query;
-            }
-            else
-            {
-                articles = this.articleService.GetAllNotDeletedArticlesOrderedByDate();
-            }
+            var pagesCount = this.articleService.GetPagesCount(query);
+            var currentPage = this.GetPage(page, pagesCount);
 
-            var pagesCount = Math.Ceiling((decimal)articles.Count() / PageSize);
+            var articles = this.articleService.GetFilteredArticlesByPage(query, currentPage, AppConstants.ArticlePageSize);
+
+            this.ViewBag.Query = query;
             this.ViewBag.PagesCount = pagesCount;
-
-            page = this.GetPage(page, pagesCount);
-
-            this.ViewBag.CurrentPage = page;
-            articles = articles.Skip(((int)page - 1) * PageSize).Take(PageSize).ToList();
+            this.ViewBag.CurrentPage = currentPage;
 
             return this.View(articles);
         }
 
         public ActionResult Search(string query, int? page)
         {
-            IEnumerable<Article> articles = new List<Article>();
-            if (!string.IsNullOrEmpty(query))
-            {
-                articles = this.articleService.GetArticlesByKeyword(query);
-                this.ViewBag.Query = query;
-            }
-            else
-            {
-                articles = this.articleService.GetAllNotDeletedArticlesOrderedByDate();
-            }
+            var pagesCount = this.articleService.GetPagesCount(query);
+            var currentPage = this.GetPage(page, pagesCount);
 
-            var pagesCount = Math.Ceiling((decimal)articles.Count() / PageSize);
+            var articles = this.articleService.GetFilteredArticlesByPage(query, currentPage, AppConstants.ArticlePageSize);
+
+            this.ViewBag.Query = query;
             this.ViewBag.PagesCount = pagesCount;
-
-            page = this.GetPage(page, pagesCount);
-
-            this.ViewBag.CurrentPage = page;
-            articles = articles.Skip(((int)page - 1) * PageSize).Take(PageSize).ToList();
+            this.ViewBag.CurrentPage = currentPage;
 
             return this.PartialView("_ArticlesListPartial", articles);
         }
@@ -109,10 +89,9 @@ namespace TravelGuide.Controllers
             }
 
             var article = this.articleService.GetArticleById((Guid)id);
+            var model = this.mappingService.Map<CreateEditArticleViewModel>(article);
 
-            var articleViewModel = this.mappingService.Map<CreateEditArticleViewModel>(article);
-
-            return this.View(articleViewModel);
+            return this.View(model);
         }
 
         [HttpPost]
@@ -136,20 +115,24 @@ namespace TravelGuide.Controllers
             }
 
             var article = this.articleService.GetArticleById((Guid)id);
-
             this.articleService.DeleteArticle(article);
 
             return this.RedirectToAction("Index");
         }
 
-        protected int GetPage(int? page, decimal pagesCount)
+        private int GetPage(int? page, int pagesCount)
         {
+            int result;
             if (page == null || page < 1 || page > pagesCount)
             {
-                page = 1;
+                result = 1;
+            }
+            else
+            {
+                result = (int)page;
             }
 
-            return (int)page;
+            return result;
         }
     }
 }

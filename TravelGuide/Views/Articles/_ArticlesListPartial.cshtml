@@ -12,8 +12,7 @@ else
     {
         <a href="/articles/details/@item.Id" class="link-entry">
             <div class="card destination-card">
-                <div class="card-content col-md-3 card-destinations-image">
-                    <img src="@item.PrimaryImageUrl" alt="@item.City" />
+                <div class="card-content col-md-3 card-destinations-image" style="background-image: url('@item.PrimaryImageUrl');">
                 </div>
                 <div class="card-content col-md-9 card-destinations-entry">
                     <h5 class="destinations-entry-city">@item.City, @item.Country</h5>
