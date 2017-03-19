@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
+using TravelGuide.Common;
 using TravelGuide.Data.Contracts;
 using TravelGuide.Models.Gallery;
 using TravelGuide.Services.Factories;
@@ -63,7 +65,7 @@ namespace TravelGuide.Services.Gallery
             {
                 throw new InvalidOperationException();
             }
-            
+
             var comment = this.commentFactory.CreateGalleryComment(user.Id, user, content, imageId);
             var image = this.context.GalleryImages.Find(imageId);
             image.Comments.Add(comment);
@@ -76,7 +78,7 @@ namespace TravelGuide.Services.Gallery
             {
                 throw new ArgumentNullException();
             }
-            
+
             var like = this.likeFactory.CreateGalleryLike(id, imageId);
             var image = this.context.GalleryImages.Find(imageId);
 
@@ -160,7 +162,7 @@ namespace TravelGuide.Services.Gallery
             {
                 throw new InvalidOperationException();
             }
-            
+
             var image = this.imageFactory.CreateGalleryImage(title, imageUrl, user.Id, user);
 
             this.context.GalleryImages.Add(image);
@@ -185,6 +187,64 @@ namespace TravelGuide.Services.Gallery
             this.context.GalleryComments.Remove(comment);
 
             this.context.SaveChanges();
+        }
+
+        public IEnumerable<GalleryImage> GetFilteredImagesByPage(string query, int page, int pagesCount, int pageSize)
+        {
+            var images = new List<GalleryImage>();
+            if (!string.IsNullOrEmpty(query))
+            {
+                images = this.context.GalleryImages
+                     .Include(x => x.Comments)
+                     .Include(x => x.Likes)
+                     .Where(x => x.Title.ToLower().Contains(query.ToLower()) && !x.IsDeleted)
+                     .ToList()
+                     .OrderByDescending(x => x.CreatedOn)
+                     .Skip(page - 1 * pageSize)
+                     .Take(pageSize)
+                     .ToList();
+            }
+            else
+            {
+                images = this.context.GalleryImages
+                    .Include(x => x.Comments)
+                    .Include(x => x.Likes)
+                    .Where(x => !x.IsDeleted)
+                    .ToList()
+                    .OrderByDescending(x => x.CreatedOn)
+                    .Skip(page - 1 * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+            }
+
+            return images;
+        }
+
+        public int GetPagesCount(string query)
+        {
+            int imagesCount;
+            if (!string.IsNullOrEmpty(query))
+            {
+                imagesCount = this.context.GalleryImages
+                    .Where(x => x.Title.ToLower().Contains(query.ToLower()))
+                    .Count();
+            }
+            else
+            {
+                imagesCount = this.context.GalleryImages.Count();
+            }
+
+            int pagesCount;
+            if (imagesCount == 0)
+            {
+                pagesCount = 1;
+            }
+            else
+            {
+                pagesCount = (int)Math.Ceiling((decimal)imagesCount / AppConstants.GalleryPageSize);
+            }
+
+            return pagesCount;
         }
     }
 }

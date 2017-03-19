@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelGuide.Models", "Trave
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelGuide.Services", "TravelGuide.Services\TravelGuide.Services.csproj", "{9B4BE596-1F97-4096-9E5E-DC43FA1E2677}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelGuide.Common", "TravelGuide.Common\TravelGuide.Common.csproj", "{142E68BD-0B04-4EAE-8621-8B1462DDB6FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{9B4BE596-1F97-4096-9E5E-DC43FA1E2677}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B4BE596-1F97-4096-9E5E-DC43FA1E2677}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B4BE596-1F97-4096-9E5E-DC43FA1E2677}.Release|Any CPU.Build.0 = Release|Any CPU
+		{142E68BD-0B04-4EAE-8621-8B1462DDB6FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{142E68BD-0B04-4EAE-8621-8B1462DDB6FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{142E68BD-0B04-4EAE-8621-8B1462DDB6FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{142E68BD-0B04-4EAE-8621-8B1462DDB6FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

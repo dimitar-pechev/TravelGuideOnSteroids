@@ -6,6 +6,8 @@ namespace TravelGuide.Services.Gallery.Contacts
 {
     public interface IGalleryImageService
     {
+        IEnumerable<GalleryImage> GetFilteredImagesByPage(string query, int page, int pagesCount, int pageSize);
+
         IEnumerable<GalleryImage> GetAllGalleryImages();
 
         IEnumerable<GalleryImage> GetAllNotDeletedGalleryImagesOrderedByDate();
@@ -21,5 +23,7 @@ namespace TravelGuide.Services.Gallery.Contacts
         void AddNewImage(string id, string title, string imageUrl);
 
         void DeleteComment(string commentId);
+
+        int GetPagesCount(string query);
     }
 }

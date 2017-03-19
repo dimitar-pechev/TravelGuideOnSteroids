@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using TravelGuide.Areas.Blog.ViewModels;
+using TravelGuide.Common;
 using TravelGuide.Common.Contracts;
 using TravelGuide.Services.Account.Contracts;
 using TravelGuide.Services.Gallery.Contacts;
@@ -12,7 +13,6 @@ namespace TravelGuide.Areas.Blog.Controllers
 {
     public class GalleryController : Controller
     {
-        private const int PageSize = 12;
         private readonly IGalleryImageService galleryService;
         private readonly IUserService userService;
         private readonly IMappingService mappingService;
@@ -26,28 +26,13 @@ namespace TravelGuide.Areas.Blog.Controllers
 
         public ActionResult Index(string query, int? page)
         {
-            var images = this.galleryService.GetAllNotDeletedGalleryImagesOrderedByDate();
+            var pagesCount = this.galleryService.GetPagesCount(query);
+            var currentPage = this.GetPage(page, pagesCount);
+            var images = this.galleryService.GetFilteredImagesByPage(query, currentPage, pagesCount, AppConstants.GalleryPageSize);
+            var mappedImages = this.mappingService.Map<IEnumerable<GalleryItemViewModel>>(images);
+            var model = this.mappingService.Map<GalleryListViewModel>(mappedImages);
 
-            if (!string.IsNullOrEmpty(query))
-            {
-                images = images.Where(x => x.Title.ToLower().Contains(query.ToLower())).ToList();
-            }
-
-            var modelledImages = this.mappingService.Map<IEnumerable<GalleryItemViewModel>>(images);
-            var model = this.mappingService.Map<GalleryListViewModel>(modelledImages);
-            model.PagesCount = (int)Math.Ceiling((decimal)model.Images.Count() / PageSize);
-
-            if (page == null || page < 1 || page > model.PagesCount)
-            {
-                page = 1;
-            }
-
-            model.Images = model.Images.Skip(PageSize * ((int)page - 1)).Take(PageSize).ToList();
-
-            model.CurrentPage = (int)page;
-            model.PreviousPage = (int)page - 1;
-            model.NextPage = (int)page + 1;
-            model.Query = query;
+            model = model = this.AssignViewParams(model, query, currentPage);
 
             return this.View(model);
         }
@@ -63,14 +48,14 @@ namespace TravelGuide.Areas.Blog.Controllers
 
             var modelledImages = this.mappingService.Map<IEnumerable<GalleryItemViewModel>>(images);
             var model = this.mappingService.Map<GalleryListViewModel>(modelledImages);
-            model.PagesCount = (int)Math.Ceiling((decimal)model.Images.Count() / PageSize);
+            model.PagesCount = (int)Math.Ceiling((decimal)model.Images.Count() / AppConstants.GalleryPageSize);
 
             if (page == null || page < 1 || page > model.PagesCount)
             {
                 page = 1;
             }
 
-            model.Images = model.Images.Skip(PageSize * ((int)page - 1)).Take(PageSize).ToList();
+            model.Images = model.Images.Skip(AppConstants.GalleryPageSize * ((int)page - 1)).Take(AppConstants.GalleryPageSize).ToList();
 
             model.CurrentPage = (int)page;
             model.PreviousPage = (int)page - 1;
@@ -160,14 +145,14 @@ namespace TravelGuide.Areas.Blog.Controllers
 
             var modelledImages = this.mappingService.Map<IEnumerable<GalleryItemViewModel>>(images);
             var model = this.mappingService.Map<GalleryListViewModel>(modelledImages);
-            model.PagesCount = (int)Math.Ceiling((decimal)model.Images.Count() / PageSize);
+            model.PagesCount = (int)Math.Ceiling((decimal)model.Images.Count() / AppConstants.GalleryPageSize);
 
             if (page == null || page < 1 || page > model.PagesCount)
             {
                 page = 1;
             }
 
-            model.Images = model.Images.Skip(PageSize * ((int)page - 1)).Take(PageSize).ToList();
+            model.Images = model.Images.Skip(AppConstants.GalleryPageSize * ((int)page - 1)).Take(AppConstants.GalleryPageSize).ToList();
 
             model.CurrentPage = (int)page;
             model.PreviousPage = (int)page - 1;
@@ -175,6 +160,31 @@ namespace TravelGuide.Areas.Blog.Controllers
             model.Query = query;
 
             return this.RedirectToAction("Index");
+        }
+
+        private int GetPage(int? page, int pagesCount)
+        {
+            int result;
+            if (page == null || page < 1 || page > pagesCount)
+            {
+                result = 1;
+            }
+            else
+            {
+                result = (int)page;
+            }
+
+            return result;
+        }
+
+        private GalleryListViewModel AssignViewParams(GalleryListViewModel model, string query, int currentPage)
+        {
+            model.Query = query;
+            model.CurrentPage = currentPage;
+            model.PreviousPage = currentPage - 1;
+            model.NextPage = currentPage + 1;
+
+            return model;
         }
     }
 }

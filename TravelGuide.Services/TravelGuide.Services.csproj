@@ -112,6 +112,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TravelGuide.Common\TravelGuide.Common.csproj">
+      <Project>{142E68BD-0B04-4EAE-8621-8B1462DDB6FD}</Project>
+      <Name>TravelGuide.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TravelGuide.Data\TravelGuide.Data.csproj">
       <Project>{2CB1E34A-EC52-414D-AFB2-60F72252154D}</Project>
       <Name>TravelGuide.Data</Name>

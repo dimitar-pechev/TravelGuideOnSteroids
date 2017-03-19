@@ -396,6 +396,10 @@
       <Project>{95594c11-70c1-405f-9151-8f067e9d0156}</Project>
       <Name>TravelGuide.Auth</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TravelGuide.Common\TravelGuide.Common.csproj">
+      <Project>{142E68BD-0B04-4EAE-8621-8B1462DDB6FD}</Project>
+      <Name>TravelGuide.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TravelGuide.Data\TravelGuide.Data.csproj">
       <Project>{2cb1e34a-ec52-414d-afb2-60f72252154d}</Project>
       <Name>TravelGuide.Data</Name>
