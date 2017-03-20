@@ -259,5 +259,31 @@ namespace TravelGuide.Services.Gallery
 
             return false;
         }
+
+        public Tuple<Guid, Guid> GetSurroundingImageIds(GalleryImage image)
+        {
+            var images = this.context
+                .GalleryImages
+                .Where(x => !x.IsDeleted)
+                .OrderByDescending(x => x.CreatedOn)
+                .ToArray();
+
+            var currentIndex = Array.IndexOf(images, image);
+
+            int prevIndex = currentIndex - 1;
+            if (currentIndex == 0)
+            {
+                prevIndex = images.Length - 1;
+            }
+
+            var nextIndex = currentIndex + 1;
+            if (currentIndex == images.Length - 1)
+            {
+                nextIndex = 0;
+            }
+
+            var ids = new Tuple<Guid, Guid>(images[prevIndex].Id, images[nextIndex].Id);
+            return ids;
+        }
     }
 }

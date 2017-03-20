@@ -26,7 +26,7 @@
                     <input type="submit" oninput="onInput()" style="display: none" />
                 }
             </div>
-            @if (this.User.IsInRole("admin"))
+            @if (this.User.Identity.IsAuthenticated)
             {
                 <div class="col-md-4">
                     @Html.ActionLink("Add new Photo", "Create", null, new { @class = "btn btn-success btn-options-menu" })
