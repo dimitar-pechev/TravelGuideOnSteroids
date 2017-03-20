@@ -6,7 +6,7 @@ namespace TravelGuide.Services.Requests.Contracts
 {
     public interface IRequestService
     {
-        void MakeRequest(StoreItem item, string id, string firstName, string lastName, string phone, string address);
+        void MakeRequest(IEnumerable<StoreItem> items, string id, string firstName, string lastName, string phone, string address);
 
         IEnumerable<Request> GetAllRequests();
 

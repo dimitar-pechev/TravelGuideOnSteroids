@@ -38,9 +38,9 @@ namespace TravelGuide.Services.Requests
             this.factory = factory;
         }
 
-        public void MakeRequest(StoreItem item, string id, string firstName, string lastName, string phone, string address)
+        public void MakeRequest(IEnumerable<StoreItem> items, string id, string firstName, string lastName, string phone, string address)
         {
-            if (item == null)
+            if (items == null)
             {
                 throw new ArgumentNullException();
             }
@@ -71,15 +71,17 @@ namespace TravelGuide.Services.Requests
             }
 
             var user = this.context.Users.Find(id);
-
             if (user == null)
             {
                 throw new InvalidOperationException();
             }
 
-            var request = this.factory.CreateRequest(item.Id, item, user.Id, user, firstName, lastName, phone, address);
-
-            this.context.Requests.Add(request);
+            foreach (var item in items)
+            {
+                var request = this.factory.CreateRequest(item.Id, item, user.Id, user, firstName, lastName, phone, address);
+                this.context.Requests.Add(request);
+            }
+            
             this.context.SaveChanges();
         }
 

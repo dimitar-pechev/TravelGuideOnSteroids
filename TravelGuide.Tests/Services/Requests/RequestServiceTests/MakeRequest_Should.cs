@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
 using TravelGuide.Data.Contracts;
@@ -42,7 +43,7 @@ namespace TravelGuide.Tests.Services.Requests.RequestServiceTests
             var userServiceMock = new Mock<IUserService>();
             var factoryMock = new Mock<IRequestFactory>();
 
-            var item = new StoreItem();
+            var items = new List<StoreItem>() { new StoreItem() };
             var firstName = "firstName";
             var lastName = "lastName";
             var phone = "phone";
@@ -51,7 +52,7 @@ namespace TravelGuide.Tests.Services.Requests.RequestServiceTests
             var service = new RequestService(contextMock.Object, userServiceMock.Object, factoryMock.Object);
 
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => service.MakeRequest(item, null, firstName, lastName, phone, address));
+            Assert.Throws<ArgumentNullException>(() => service.MakeRequest(items, null, firstName, lastName, phone, address));
         }
 
         [Test]
@@ -62,7 +63,7 @@ namespace TravelGuide.Tests.Services.Requests.RequestServiceTests
             var userServiceMock = new Mock<IUserService>();
             var factoryMock = new Mock<IRequestFactory>();
 
-            var item = new StoreItem();
+            var items = new List<StoreItem>() { new StoreItem() };
             var id = "id";
             var lastName = "lastName";
             var phone = "phone";
@@ -71,7 +72,7 @@ namespace TravelGuide.Tests.Services.Requests.RequestServiceTests
             var service = new RequestService(contextMock.Object, userServiceMock.Object, factoryMock.Object);
 
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => service.MakeRequest(item, id, null, lastName, phone, address));
+            Assert.Throws<ArgumentNullException>(() => service.MakeRequest(items, id, null, lastName, phone, address));
         }
 
         [Test]
@@ -82,7 +83,7 @@ namespace TravelGuide.Tests.Services.Requests.RequestServiceTests
             var userServiceMock = new Mock<IUserService>();
             var factoryMock = new Mock<IRequestFactory>();
 
-            var item = new StoreItem();
+            var items = new List<StoreItem>() { new StoreItem() };
             var id = "id";
             var firstName = "firstName";
             var phone = "phone";
@@ -91,7 +92,7 @@ namespace TravelGuide.Tests.Services.Requests.RequestServiceTests
             var service = new RequestService(contextMock.Object, userServiceMock.Object, factoryMock.Object);
 
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => service.MakeRequest(item, id, firstName, null, phone, address));
+            Assert.Throws<ArgumentNullException>(() => service.MakeRequest(items, id, firstName, null, phone, address));
         }
 
         [Test]
@@ -102,7 +103,7 @@ namespace TravelGuide.Tests.Services.Requests.RequestServiceTests
             var userServiceMock = new Mock<IUserService>();
             var factoryMock = new Mock<IRequestFactory>();
 
-            var item = new StoreItem();
+            var items = new List<StoreItem>() { new StoreItem() };
             var id = "id";
             var firstName = "firstName";
             var lastName = "lastName";
@@ -111,7 +112,7 @@ namespace TravelGuide.Tests.Services.Requests.RequestServiceTests
             var service = new RequestService(contextMock.Object, userServiceMock.Object, factoryMock.Object);
 
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => service.MakeRequest(item, id, firstName, lastName, null, address));
+            Assert.Throws<ArgumentNullException>(() => service.MakeRequest(items, id, firstName, lastName, null, address));
         }
 
         [Test]
@@ -122,7 +123,7 @@ namespace TravelGuide.Tests.Services.Requests.RequestServiceTests
             var userServiceMock = new Mock<IUserService>();
             var factoryMock = new Mock<IRequestFactory>();
 
-            var item = new StoreItem();
+            var items = new List<StoreItem>() { new StoreItem() };
             var id = "id";
             var firstName = "firstName";
             var lastName = "lastName";
@@ -131,7 +132,7 @@ namespace TravelGuide.Tests.Services.Requests.RequestServiceTests
             var service = new RequestService(contextMock.Object, userServiceMock.Object, factoryMock.Object);
 
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => service.MakeRequest(item, id, firstName, lastName, phone, null));
+            Assert.Throws<ArgumentNullException>(() => service.MakeRequest(items, id, firstName, lastName, phone, null));
         }
 
         [Test]
@@ -142,7 +143,7 @@ namespace TravelGuide.Tests.Services.Requests.RequestServiceTests
             var userServiceMock = new Mock<IUserService>();
             var factoryMock = new Mock<IRequestFactory>();
 
-            var item = new StoreItem();
+            var items = new List<StoreItem>() { new StoreItem() };
             var id = "id";
             var firstName = "firstName";
             var lastName = "lastName";
@@ -153,7 +154,7 @@ namespace TravelGuide.Tests.Services.Requests.RequestServiceTests
             var service = new RequestService(contextMock.Object, userServiceMock.Object, factoryMock.Object);
 
             // Act & Assert
-            Assert.Throws<InvalidOperationException>(() => service.MakeRequest(item, id, firstName, lastName, phone, address));
+            Assert.Throws<InvalidOperationException>(() => service.MakeRequest(items, id, firstName, lastName, phone, address));
         }
 
         [Test]
@@ -164,7 +165,7 @@ namespace TravelGuide.Tests.Services.Requests.RequestServiceTests
             var userServiceMock = new Mock<IUserService>();
             var factoryMock = new Mock<IRequestFactory>();
 
-            var item = new StoreItem();
+            var items = new List<StoreItem>() { new StoreItem() };
             var id = "id";
             var firstName = "firstName";
             var lastName = "lastName";
@@ -179,7 +180,7 @@ namespace TravelGuide.Tests.Services.Requests.RequestServiceTests
             var service = new RequestService(contextMock.Object, userServiceMock.Object, factoryMock.Object);
 
             // Act
-            service.MakeRequest(item, id, firstName, lastName, phone, address);
+            service.MakeRequest(items, id, firstName, lastName, phone, address);
 
             // Assert
             factoryMock.Verify(x => x.CreateRequest(It.IsAny<Guid>(), It.IsAny<StoreItem>(), It.IsAny<string>(), It.IsAny<User>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
@@ -193,7 +194,7 @@ namespace TravelGuide.Tests.Services.Requests.RequestServiceTests
             var userServiceMock = new Mock<IUserService>();
             var factoryMock = new Mock<IRequestFactory>();
 
-            var item = new StoreItem();
+            var items = new List<StoreItem>() { new StoreItem() };
             var id = "id";
             var firstName = "firstName";
             var lastName = "lastName";
@@ -208,7 +209,7 @@ namespace TravelGuide.Tests.Services.Requests.RequestServiceTests
             var service = new RequestService(contextMock.Object, userServiceMock.Object, factoryMock.Object);
 
             // Act
-            service.MakeRequest(item, id, firstName, lastName, phone, address);
+            service.MakeRequest(items, id, firstName, lastName, phone, address);
 
             // Assert
             contextMock.Verify(x => x.Requests.Add(It.IsAny<Request>()), Times.Once);
@@ -222,7 +223,7 @@ namespace TravelGuide.Tests.Services.Requests.RequestServiceTests
             var userServiceMock = new Mock<IUserService>();
             var factoryMock = new Mock<IRequestFactory>();
 
-            var item = new StoreItem();
+            var items = new List<StoreItem>() { new StoreItem() };
             var id = "id";
             var firstName = "firstName";
             var lastName = "lastName";
@@ -237,7 +238,7 @@ namespace TravelGuide.Tests.Services.Requests.RequestServiceTests
             var service = new RequestService(contextMock.Object, userServiceMock.Object, factoryMock.Object);
 
             // Act
-            service.MakeRequest(item, id, firstName, lastName, phone, address);
+            service.MakeRequest(items, id, firstName, lastName, phone, address);
 
             // Assert
             contextMock.Verify(x => x.SaveChanges(), Times.Once);

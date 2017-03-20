@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TravelGuide.Common;
 using TravelGuide.Models.Store;
 using TravelGuide.Services.Store.Contracts;
 
@@ -9,7 +10,6 @@ namespace TravelGuide.Services.Store
 {
     public class CartService : ICartService
     {
-        private const string CookieName = "store-items";
         protected readonly IStoreService service;
 
         public CartService(IStoreService service)
@@ -25,7 +25,7 @@ namespace TravelGuide.Services.Store
         public IEnumerable<StoreItem> ExtractItemsFromCookie(HttpCookie cookie)
         {
             var items = new List<StoreItem>();
-            if (cookie == null || !cookie.Name.Contains(CookieName))
+            if (cookie == null || !cookie.Name.Contains(AppConstants.CartCookieName))
             {
                 return items;
             }
@@ -58,9 +58,9 @@ namespace TravelGuide.Services.Store
                 items.Add(itemId);
             }
 
-            if (cookie == null || !cookie.Name.Contains(CookieName))
+            if (cookie == null || !cookie.Name.Contains(AppConstants.CartCookieName))
             {
-                cookie = new HttpCookie(CookieName + username, string.Join(",", items));
+                cookie = new HttpCookie(AppConstants.CartCookieName + username, string.Join(",", items));
             }
             else
             {
@@ -74,7 +74,7 @@ namespace TravelGuide.Services.Store
 
         public HttpCookie DeleteItemFromCookie(HttpCookie cookie, string itemId)
         {
-            if (cookie == null || !cookie.Name.Contains(CookieName))
+            if (cookie == null || !cookie.Name.Contains(AppConstants.CartCookieName))
             {
                 throw new ArgumentNullException("Passed cookie cannot be null!");
             }
@@ -94,7 +94,7 @@ namespace TravelGuide.Services.Store
                 throw new ArgumentNullException();
             }
 
-            return new HttpCookie(CookieName + username, string.Empty);
+            return new HttpCookie(AppConstants.CartCookieName + username, string.Empty);
         }
     }
 }

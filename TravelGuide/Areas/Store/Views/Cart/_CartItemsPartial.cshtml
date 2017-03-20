@@ -1,6 +1,6 @@
 ﻿@model TravelGuide.Areas.Store.ViewModels.CartViewModel
 
-@if (Model.StoreItems.Count() == 0)
+@if (Model.StoreItems == null || Model.StoreItems.Count() == 0)
 {
     <div class="row text-center">
         <h5>Your cart is empty...</h5>

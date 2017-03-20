@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using TravelGuide.Areas.Store.ViewModels;
+using TravelGuide.Common;
 using TravelGuide.Common.Contracts;
 using TravelGuide.Services.Account.Contracts;
 using TravelGuide.Services.Requests.Contracts;
@@ -12,7 +13,6 @@ namespace TravelGuide.Areas.Store.Controllers
 {
     public class CartController : Controller
     {
-        private const string CookieName = "store-items";
         private readonly ICartService cartService;
         private readonly IUserService userService;
         private readonly IMappingService mappingService;
@@ -28,7 +28,7 @@ namespace TravelGuide.Areas.Store.Controllers
 
         public ActionResult Index()
         {
-            var cookie = this.Request.Cookies[CookieName + this.User.Identity.Name];
+            var cookie = this.Request.Cookies[AppConstants.CartCookieName + this.User.Identity.Name];
             var items = this.cartService.ExtractItemsFromCookie(cookie);
             var user = this.userService.GetById(this.User.Identity.GetUserId());
 
@@ -44,10 +44,10 @@ namespace TravelGuide.Areas.Store.Controllers
         {
             if (quantity == null || quantity < 1 || quantity > 10)
             {
-                quantity = 1;
+                throw new ArgumentException("You must specify the desired quantity (in the range between 1 and 10)!");
             }
 
-            var cookiePrev = this.Request.Cookies.Get(CookieName + this.User.Identity.Name);
+            var cookiePrev = this.Request.Cookies.Get(AppConstants.CartCookieName + this.User.Identity.Name);
             var cookie = this.cartService.WriteCookie(cookiePrev, this.User.Identity.Name, itemId.ToString(), quantity.ToString());
             this.Response.SetCookie(cookie);
         }
@@ -55,7 +55,7 @@ namespace TravelGuide.Areas.Store.Controllers
         [HttpPost]
         public ActionResult RemoveItem(Guid? id)
         {
-            var cookie = this.Request.Cookies[CookieName + this.User.Identity.Name];
+            var cookie = this.Request.Cookies[AppConstants.CartCookieName + this.User.Identity.Name];
 
             cookie = this.cartService.DeleteItemFromCookie(cookie, id.ToString());
 
@@ -74,20 +74,15 @@ namespace TravelGuide.Areas.Store.Controllers
         [HttpPost]
         public ActionResult CheckOut(CartViewModel model)
         {
-            var cookie = this.Request.Cookies[CookieName + this.User.Identity.Name];
+            var cookie = this.Request.Cookies[AppConstants.CartCookieName + this.User.Identity.Name];
             var user = this.userService.GetById(this.User.Identity.GetUserId());
 
             var items = this.cartService.ExtractItemsFromCookie(cookie);
 
-            foreach (var item in items)
-            {
-                this.requestService.MakeRequest(item, this.User.Identity.GetUserId(), model.FirstName, model.LastName, model.PhoneNumber, model.Address);
-            }
+            this.requestService.MakeRequest(items, this.User.Identity.GetUserId(), model.FirstName, model.LastName, model.PhoneNumber, model.Address);
 
             cookie = this.cartService.GetClearedCookie(this.User.Identity.Name);
             this.Response.Cookies.Add(cookie);
-
-            model.StoreItems = new List<StoreItemCartViewModel>();
 
             return this.PartialView("_CartItemsPartial", model);
         }

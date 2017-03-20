@@ -7,8 +7,9 @@
         @using (Ajax.BeginForm("AddToCart", "Cart", new { itemId = Model.Id },
                     new AjaxOptions
                     {
-                        HttpMethod = "POST"
-
+                        HttpMethod = "POST",
+                        OnSuccess = "itemsAdded",
+                        OnFailure = "addingFailed"
                     }, new { id ="some-cart-id" }))
         {
             <div class="col-md-4 buy-details input-field">

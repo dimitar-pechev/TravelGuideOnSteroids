@@ -7,5 +7,7 @@
         public const int ArticlePageSize = 5;
         
         public const int StorePageSize = 6;
+
+        public const string CartCookieName = "store-items";
     }
 }
