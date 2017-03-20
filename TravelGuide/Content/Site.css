@@ -327,7 +327,16 @@
 
     .gallery-item:hover, .store-item:hover {
         box-shadow: 0 0 15px grey;
+        text-decoration: none;
     }
+
+.container-row {
+    margin-bottom: 0;
+}
+
+.item-link:hover {
+    text-decoration: none;
+}
 
 .image-info > div {
     padding: 0;
@@ -379,6 +388,7 @@
 }
 
 .store-item {
+    overflow: hidden;
     box-shadow: 0 0 6px grey;
     cursor: pointer;
     height: 375px;
@@ -439,7 +449,7 @@
 
 .menu-store {
     margin-top: -3%;
-    padding-right: 20px;
+    margin-top: 2.5%;
 }
 
 .cart-container {
