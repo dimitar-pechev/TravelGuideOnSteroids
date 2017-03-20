@@ -275,6 +275,10 @@
     padding: 0 !important;
 }
 
+.modal-body.personal-info-container {
+    padding: 0 25px !important;
+}
+
 .icon-close, .icon-close-details {
     position: absolute;
     color: white;
@@ -311,6 +315,10 @@
     padding: 30px;
     padding-bottom: 0;
     margin-bottom: 2%;
+}
+
+.store-container {
+    padding-top: 4%;
 }
 
 .gallery-item {
@@ -379,7 +387,7 @@
 }
 
 .footer-comment {
-    text-align: center !important;
+    text-align: right;
 }
 
 .button-row {
@@ -454,6 +462,7 @@
 
 .cart-container {
     background-color: white;
+    padding-bottom: 0 !important;
 }
 
 .cart-table img {
@@ -467,11 +476,10 @@
 .total-price {
     font-size: 2rem;
     padding: 15px 20px;
-    margin-right: 20px;
     background-color: black;
     color: white;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 
 .cart-container {
@@ -786,4 +794,35 @@ li.active a {
     background-position: center center;
     background-size: 400px;
     background-repeat: no-repeat;
+}
+
+.btn-admin {
+    margin-top: 5% !important;
+}
+
+.item-status {
+    font-weight: bold;
+}
+
+.status-box {
+    max-width: 500px; 
+    padding-left: 5%;
+    padding-right: 5%;   
+}
+
+.status-box-content {
+    padding: 5% !important;
+}
+
+.strong {
+    font-weight: bold;
+}
+
+.btn-checkout-trigger {
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+
+.checkout-box {
+    padding-right: 10px;
 }

@@ -2,7 +2,7 @@
 
 @if (Model.InStock)
 {
-    <p>In Stock</p>
+    <p class="item-status">In Stock</p>
     <div class="row">
         @using (Ajax.BeginForm("AddToCart", "Cart", new { itemId = Model.Id },
                     new AjaxOptions
@@ -23,5 +23,6 @@
 }
 else
 {
-    <p>Depleted</p>
+    <p class="item-status">Depleted</p>
 }
+<hr />

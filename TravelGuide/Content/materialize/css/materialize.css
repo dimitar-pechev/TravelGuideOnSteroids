@@ -5267,7 +5267,6 @@ a.waves-effect .waves-ripple {
 }
 
     .modal .modal-footer .btn, .modal .modal-footer .btn-large, .modal .modal-footer .btn-flat {
-        float: right;
         margin: 6px 0;
     }
 

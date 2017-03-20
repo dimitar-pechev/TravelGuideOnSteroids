@@ -9,14 +9,14 @@
 else
 {
     <div>
-        <table class="table table-hover table-responsive">
+        <table class="table table-hover table-responsive table-striped table-bordered">
             <thead>
                 <tr>
                     <td></td>
-                    <td>Item Name</td>
-                    <td>Brand</td>
-                    <td>Related Destination</td>
-                    <td>Price</td>
+                    <td class="strong">Item Name</td>
+                    <td class="strong">Brand</td>
+                    <td class="strong">Related Destination</td>
+                    <td class="strong">Price</td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -26,12 +26,12 @@ else
                 {
                     <tr>
                         <td class="text-center"><img src="@item.ImageUrl" class="img-cart" alt="@item.ItemName" /></td>
-                        <td>@item.ItemName</td>
+                        <td class="strong">@item.ItemName</td>
                         <td>@item.Brand</td>
                         <td>@item.DestinationFor</td>
-                        <td>@item.Price BGN</td>
-                        <td>@Html.ActionLink("Details", "Details", "StoreItems", new { Area = "Store", id = item.Id }, new { @class = "btn btn-success btn-xs" })</td>
-                        <td>
+                        <td class="strong">@item.Price BGN</td>
+                        <td class="text-center">@Html.ActionLink("Details", "Details", "StoreItems", new { Area = "Store", id = item.Id }, new { @class = "btn btn-success" })</td>
+                        <td class="text-center">
                             @using (Ajax.BeginForm("RemoveItem", "Cart", new { Area = "Store", id = item.Id },
                 new AjaxOptions
                 {
@@ -50,10 +50,9 @@ else
                 }
             </tbody>
         </table>
-        <div class="row text-right" id="CheckoutPanel" runat="server">
-            <span class="total-price">@Model.Total</span>
-            <br />
-            <input type="button" class="btn btn-success" value="Check Out" data-toggle="modal" data-target="#check-out">
+        <div class="row text-right checkout-box" id="CheckoutPanel" runat="server">
+            <p><span class="total-price">@Model.Total</span></p>
+            <p class="btn-checkout-trigger"><input type="button" class="btn btn-success btn-lg" value="Check Out" data-toggle="modal" data-target="#check-out"></p>
         </div>
     </div>
 }
@@ -72,7 +71,7 @@ else
                 OnSuccess = "dismissModal"
             }))
             {
-                <div class="modal-body">
+                <div class="modal-body personal-info-container">
                     <div class="input-field">
                         @Html.LabelFor(m => m.FirstName)
                         @Html.EditorFor(m => m.FirstName)
