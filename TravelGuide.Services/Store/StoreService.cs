@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using TravelGuide.Common;
 using TravelGuide.Data.Contracts;
 using TravelGuide.Models.Store;
 using TravelGuide.Services.Factories;
@@ -108,7 +110,7 @@ namespace TravelGuide.Services.Store
             this.context.SaveChanges();
         }
 
-        public bool EditItem(StoreItem item, string itemName, string description, string destFor, string imageUrl, string brand, string price)
+        public bool EditItem(Guid itemId, string itemName, string description, string destFor, string imageUrl, string brand, string price)
         {
             double parsedPrice;
             var isParsable = double.TryParse(price, out parsedPrice);
@@ -118,7 +120,7 @@ namespace TravelGuide.Services.Store
                 return false;
             }
 
-            var storeItem = this.context.StoreItems.Find(item.Id);
+            var storeItem = this.context.StoreItems.Find(itemId);
 
             if (storeItem == null)
             {
@@ -177,6 +179,69 @@ namespace TravelGuide.Services.Store
         {
             var item = this.context.StoreItems.Find(id);
             return item;
+        }
+
+        public int GetPagesCount(string query)
+        {
+            int itemsCount;
+            if (!string.IsNullOrEmpty(query))
+            {
+                itemsCount = this.context.StoreItems
+                   .Where(x => x.Brand.ToLower().Contains(query.ToLower()) ||
+                     x.DestinationFor.ToLower().Contains(query.ToLower()) ||
+                     x.ItemName.ToLower().Contains(query.ToLower()))
+                   .Where(x => !x.IsDeleted)
+                   .Count();
+            }
+
+            else
+            {
+                itemsCount = this.context.StoreItems
+                    .Where(x => !x.IsDeleted)
+                    .Count();
+            }
+
+            int pagesCount;
+            if (itemsCount == 0)
+            {
+                pagesCount = 1;
+            }
+            else
+            {
+                pagesCount = (int)Math.Ceiling((decimal)itemsCount / AppConstants.StorePageSize);
+            }
+
+            return pagesCount;
+        }
+
+        public IEnumerable<StoreItem> GetFilteredItemsByPage(string query, int page, int pageSize)
+        {
+            var items = new List<StoreItem>();
+            if (!string.IsNullOrEmpty(query))
+            {
+                items = this.context.StoreItems
+                     .Where(x => x.Brand.ToLower().Contains(query.ToLower()) ||
+                     x.DestinationFor.ToLower().Contains(query.ToLower()) ||
+                     x.ItemName.ToLower().Contains(query.ToLower()))
+                     .Where(x => !x.IsDeleted)
+                     .ToList()
+                     .OrderByDescending(x => x.CreatedOn)
+                     .Skip((page - 1) * pageSize)
+                     .Take(pageSize)
+                     .ToList();
+            }
+            else
+            {
+                items = this.context.StoreItems
+                    .Where(x => !x.IsDeleted)
+                    .ToList()
+                    .OrderByDescending(x => x.CreatedOn)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+            }
+
+            return items;
         }
     }
 }

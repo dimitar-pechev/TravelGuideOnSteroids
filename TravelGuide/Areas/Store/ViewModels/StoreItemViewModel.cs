@@ -4,7 +4,7 @@ using TravelGuide.Models.Store;
 
 namespace TravelGuide.Areas.Store.ViewModels
 {
-    public class IndexViewModel : IMapFrom<StoreItem>
+    public class StoreItemViewModel : IMapFrom<StoreItem>
     {
         public Guid Id { get; set; }
 

@@ -2,11 +2,11 @@
 using AutoMapper;
 using TravelGuide.Common.Contracts;
 
-namespace TravelGuide.Areas.Blog.ViewModels
+namespace TravelGuide.Areas.Store.ViewModels
 {
-    public class GalleryListViewModel : IMapFrom<IEnumerable<GalleryItemViewModel>>, IHaveCustomMappings
+    public class StoreListViewModel : IMapFrom<IEnumerable<StoreItemViewModel>>, IHaveCustomMappings
     {
-        public IEnumerable<GalleryItemViewModel> Images { get; set; }
+        public IEnumerable<StoreItemViewModel> Items { get; set; }
 
         public int PagesCount { get; set; }
 
@@ -20,8 +20,8 @@ namespace TravelGuide.Areas.Blog.ViewModels
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
-            configuration.CreateMap<IEnumerable<GalleryItemViewModel>, GalleryListViewModel>()
-                .ForMember(dest => dest.Images, src => src.MapFrom(s => s));
+            configuration.CreateMap<IEnumerable<StoreItemViewModel>, StoreListViewModel>()
+                .ForMember(dest => dest.Items, src => src.MapFrom(s => s));
         }
     }
 }

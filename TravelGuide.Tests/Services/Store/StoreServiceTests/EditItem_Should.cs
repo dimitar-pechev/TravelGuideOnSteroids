@@ -28,7 +28,7 @@ namespace TravelGuide.Tests.Services.Store.StoreServiceTests
             var price = "1asdas0";
 
             // Act
-            var isParsed = service.EditItem(item, itemName, description, destinationFor, imageUrl, brand, price);
+            var isParsed = service.EditItem(item.Id, itemName, description, destinationFor, imageUrl, brand, price);
 
             // Assert
             Assert.IsFalse(isParsed);
@@ -53,7 +53,7 @@ namespace TravelGuide.Tests.Services.Store.StoreServiceTests
             contextMock.Setup(x => x.StoreItems.Find(item.Id)).Returns((StoreItem)null);
 
             // Act & Assert
-            Assert.Throws<InvalidOperationException>(() => service.EditItem(item, itemName, description, destinationFor, imageUrl, brand, price));
+            Assert.Throws<InvalidOperationException>(() => service.EditItem(item.Id, itemName, description, destinationFor, imageUrl, brand, price));
         }
 
         [Test]
@@ -75,7 +75,7 @@ namespace TravelGuide.Tests.Services.Store.StoreServiceTests
             contextMock.Setup(x => x.StoreItems.Find(item.Id)).Returns(item);
 
             // Act
-            var isSuccessful = service.EditItem(item, itemName, description, destinationFor, imageUrl, brand, price);
+            var isSuccessful = service.EditItem(item.Id, itemName, description, destinationFor, imageUrl, brand, price);
 
             // Assert
             Assert.IsTrue(isSuccessful);
@@ -100,7 +100,7 @@ namespace TravelGuide.Tests.Services.Store.StoreServiceTests
             contextMock.Setup(x => x.StoreItems.Find(item.Id)).Returns(item);
 
             // Act
-            var isSuccessful = service.EditItem(item, itemName, description, destinationFor, imageUrl, brand, price);
+            var isSuccessful = service.EditItem(item.Id, itemName, description, destinationFor, imageUrl, brand, price);
 
             // Assert
             Assert.AreEqual(itemName, item.ItemName);
@@ -125,7 +125,7 @@ namespace TravelGuide.Tests.Services.Store.StoreServiceTests
             contextMock.Setup(x => x.StoreItems.Find(item.Id)).Returns(item);
 
             // Act
-            var isSuccessful = service.EditItem(item, itemName, description, destinationFor, imageUrl, brand, price);
+            var isSuccessful = service.EditItem(item.Id, itemName, description, destinationFor, imageUrl, brand, price);
 
             // Assert
             Assert.AreEqual(description, item.Description);
@@ -150,7 +150,7 @@ namespace TravelGuide.Tests.Services.Store.StoreServiceTests
             contextMock.Setup(x => x.StoreItems.Find(item.Id)).Returns(item);
 
             // Act
-            var isSuccessful = service.EditItem(item, itemName, description, destinationFor, imageUrl, brand, price);
+            var isSuccessful = service.EditItem(item.Id, itemName, description, destinationFor, imageUrl, brand, price);
 
             // Assert
             Assert.AreEqual(destinationFor, item.DestinationFor);
@@ -175,7 +175,7 @@ namespace TravelGuide.Tests.Services.Store.StoreServiceTests
             contextMock.Setup(x => x.StoreItems.Find(item.Id)).Returns(item);
 
             // Act
-            var isSuccessful = service.EditItem(item, itemName, description, destinationFor, imageUrl, brand, price);
+            var isSuccessful = service.EditItem(item.Id, itemName, description, destinationFor, imageUrl, brand, price);
 
             // Assert
             Assert.AreEqual(imageUrl, item.ImageUrl);
@@ -200,7 +200,7 @@ namespace TravelGuide.Tests.Services.Store.StoreServiceTests
             contextMock.Setup(x => x.StoreItems.Find(item.Id)).Returns(item);
 
             // Act
-            var isSuccessful = service.EditItem(item, itemName, description, destinationFor, imageUrl, brand, price);
+            var isSuccessful = service.EditItem(item.Id, itemName, description, destinationFor, imageUrl, brand, price);
 
             // Assert
             Assert.AreEqual(brand, item.Brand);
@@ -225,7 +225,7 @@ namespace TravelGuide.Tests.Services.Store.StoreServiceTests
             contextMock.Setup(x => x.StoreItems.Find(item.Id)).Returns(item);
 
             // Act
-            var isSuccessful = service.EditItem(item, itemName, description, destinationFor, imageUrl, brand, price);
+            var isSuccessful = service.EditItem(item.Id, itemName, description, destinationFor, imageUrl, brand, price);
 
             // Assert
             Assert.AreEqual(double.Parse(price), item.Price);

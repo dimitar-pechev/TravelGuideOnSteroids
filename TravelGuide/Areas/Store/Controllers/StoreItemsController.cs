@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using TravelGuide.Areas.Store.ViewModels;
+using TravelGuide.Common;
 using TravelGuide.Common.Contracts;
-using TravelGuide.Models.Store;
 using TravelGuide.Services.Store.Contracts;
 
 namespace TravelGuide.Areas.Store.Controllers
@@ -23,78 +22,43 @@ namespace TravelGuide.Areas.Store.Controllers
 
         public ActionResult Index(string query, int? page)
         {
-            IEnumerable<StoreItem> storeItems = new List<StoreItem>();
+            var pagesCount = this.storeService.GetPagesCount(query);
+            var currentPage = this.GetPage(page, pagesCount);
+            var images = this.storeService.GetFilteredItemsByPage(query, currentPage, AppConstants.StorePageSize);
+            var mappedImages = this.mappingService.Map<IEnumerable<StoreItemViewModel>>(images);
+            var model = this.mappingService.Map<StoreListViewModel>(mappedImages);
 
-            if (!string.IsNullOrEmpty(query))
-            {
-                storeItems = this.storeService.GetItemsByKeyword(query);
-                this.ViewBag.Query = query;
-            }
-            else
-            {
-                storeItems = this.storeService.GetAllNotDeletedStoreItemsOrderedByDate();
-            }
+            model = this.AssignViewParams(model, query, currentPage, pagesCount);
 
-            var pagesCount = Math.Ceiling((decimal)storeItems.Count() / PageSize);
-            this.ViewBag.PagesCount = pagesCount;
-
-            page = this.GetPage(page, pagesCount);
-
-            this.ViewBag.CurrentPage = page;
-            storeItems = storeItems.Skip(((int)page - 1) * PageSize).Take(PageSize).ToList();
-
-            ICollection<IndexViewModel> itemsVieModels = new List<IndexViewModel>();
-
-            foreach (var item in storeItems)
-            {
-                var indexViewModel = this.mappingService.Map<IndexViewModel>(item);
-                itemsVieModels.Add(indexViewModel);
-            }
-
-            return this.View(itemsVieModels);
+            return this.View(model);
         }
 
         public ActionResult Search(string query, int? page)
         {
-            IEnumerable<StoreItem> storeItems = new List<StoreItem>();
+            var pagesCount = this.storeService.GetPagesCount(query);
+            var currentPage = this.GetPage(page, pagesCount);
+            var images = this.storeService.GetFilteredItemsByPage(query, currentPage, AppConstants.StorePageSize);
+            var mappedImages = this.mappingService.Map<IEnumerable<StoreItemViewModel>>(images);
+            var model = this.mappingService.Map<StoreListViewModel>(mappedImages);
 
-            if (!string.IsNullOrEmpty(query))
-            {
-                storeItems = this.storeService.GetItemsByKeyword(query);
-                this.ViewBag.Query = query;
-            }
-            else
-            {
-                storeItems = this.storeService.GetAllNotDeletedStoreItemsOrderedByDate();
-            }
+            model = this.AssignViewParams(model, query, currentPage, pagesCount);
 
-            var pagesCount = Math.Ceiling((decimal)storeItems.Count() / PageSize);
-            this.ViewBag.PagesCount = pagesCount;
-
-            page = this.GetPage(page, pagesCount);
-
-            this.ViewBag.CurrentPage = page;
-            storeItems = storeItems.Skip(((int)page - 1) * PageSize).Take(PageSize).ToList();
-
-            ICollection<IndexViewModel> itemsVieModels = new List<IndexViewModel>();
-
-            foreach (var item in storeItems)
-            {
-                var indexViewModel = this.mappingService.Map<IndexViewModel>(item);
-                itemsVieModels.Add(indexViewModel);
-            }
-
-            return this.PartialView("_StoreItemsListPartial", itemsVieModels);
+            return this.PartialView("_StoreItemsListPartial", model);
         }
 
         public ActionResult Details(Guid? id)
         {
+            if (id == null)
+            {
+                return this.RedirectToAction("Index");
+            }
+
             var item = this.storeService.GetStoreItemById((Guid)id);
 
-            var statusOptions = new Dictionary<string, string>();
-            statusOptions.Add("In Stock", "true");
-            statusOptions.Add("Depleted", "false");
-            this.ViewBag.StatusOptions = statusOptions;
+            if (item == null)
+            {
+                return this.RedirectToAction("Index");
+            }
 
             return this.View(item);
         }
@@ -102,19 +66,19 @@ namespace TravelGuide.Areas.Store.Controllers
         public ActionResult Edit(Guid? id)
         {
             var item = this.storeService.GetStoreItemById((Guid)id);
-
-            return this.View(item);
+            var model = this.mappingService.Map<CreateEditItemViewModel>(item);
+            return this.View(model);
         }
 
         [HttpPost]
-        public ActionResult Edit(StoreItem item)
+        public ActionResult Edit(CreateEditItemViewModel item)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View(item);
             }
 
-            this.storeService.EditItem(item, item.ItemName, item.Description, item.DestinationFor, item.ImageUrl, item.Brand, item.Price.ToString());
+            this.storeService.EditItem(item.Id, item.ItemName, item.Description, item.DestinationFor, item.ImageUrl, item.Brand, item.Price.ToString());
 
             return this.RedirectToAction("Details", new { id = item.Id });
         }
@@ -133,8 +97,13 @@ namespace TravelGuide.Areas.Store.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(StoreItem item)
+        public ActionResult Create(CreateEditItemViewModel item)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(item);
+            }
+
             this.storeService.AddNewItem(item.ItemName, item.Description, item.DestinationFor, item.ImageUrl, item.Brand, item.Price.ToString());
 
             return this.RedirectToAction("Index");
@@ -150,14 +119,30 @@ namespace TravelGuide.Areas.Store.Controllers
             return this.PartialView("_AddToCartPartial", model);
         }
 
-        protected int GetPage(int? page, decimal pagesCount)
+        private int GetPage(int? page, int pagesCount)
         {
+            int result;
             if (page == null || page < 1 || page > pagesCount)
             {
-                page = 1;
+                result = 1;
+            }
+            else
+            {
+                result = (int)page;
             }
 
-            return (int)page;
+            return result;
+        }
+
+        private StoreListViewModel AssignViewParams(StoreListViewModel model, string query, int currentPage, int pagesCount)
+        {
+            model.Query = query;
+            model.CurrentPage = currentPage;
+            model.PreviousPage = currentPage - 1;
+            model.NextPage = currentPage + 1;
+            model.PagesCount = pagesCount;
+
+            return model;
         }
     }
 }

@@ -219,8 +219,10 @@
     <Compile Include="Areas\Store\Controllers\StoreItemsController.cs" />
     <Compile Include="Areas\Store\StoreAreaRegistration.cs" />
     <Compile Include="Areas\Store\ViewModels\CartViewModel.cs" />
-    <Compile Include="Areas\Store\ViewModels\IndexViewModel.cs" />
+    <Compile Include="Areas\Store\ViewModels\CreateEditItemViewModel.cs" />
+    <Compile Include="Areas\Store\ViewModels\StoreItemViewModel.cs" />
     <Compile Include="Areas\Store\ViewModels\StoreItemCartViewModel.cs" />
+    <Compile Include="Areas\Store\ViewModels\StoreListViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

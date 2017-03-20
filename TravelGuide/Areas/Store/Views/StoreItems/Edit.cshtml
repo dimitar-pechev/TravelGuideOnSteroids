@@ -1,4 +1,4 @@
-﻿@model TravelGuide.Models.Store.StoreItem
+﻿@model TravelGuide.Areas.Store.ViewModels.CreateEditItemViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -15,36 +15,36 @@
                         <div class="input-field">
                             @Html.LabelFor(m => m.ItemName)
                             @Html.TextBoxFor(m => m.ItemName)
-                            @Html.ValidationMessageFor(m => m.ItemName)
+                            @Html.ValidationMessageFor(m => m.ItemName, "", new { @class = "text-danger" })
                         </div>
                         <br />
                         <div class="input-field">
                             @Html.LabelFor(m => m.DestinationFor)
                             @Html.TextBoxFor(m => m.DestinationFor)
-                            @Html.ValidationMessageFor(m => m.DestinationFor)
+                            @Html.ValidationMessageFor(m => m.DestinationFor, "", new { @class = "text-danger" })
                         </div>
                         <br />
                         <div class="input-field">
                             @Html.LabelFor(m => m.Brand)
                             @Html.TextBoxFor(m => m.Brand)
-                            @Html.ValidationMessageFor(m => m.Brand)
+                            @Html.ValidationMessageFor(m => m.Brand, "", new { @class = "text-danger" })
                         </div>
                         <br />
                         <div class="input-field">
                             @Html.LabelFor(m => m.ImageUrl)
                             @Html.TextBoxFor(m => m.ImageUrl)
-                            @Html.ValidationMessageFor(m => m.ImageUrl)
+                            @Html.ValidationMessageFor(m => m.ImageUrl, "", new { @class = "text-danger" })
                         </div>
                         <br />
                         <div class="input-field">
                             @Html.LabelFor(m => m.Price)
                             @Html.TextBoxFor(m => m.Price)
-                            @Html.ValidationMessageFor(m => m.Price)
+                            @Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })
                         </div>
                         <br />
                         <div>
                             @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = 6, placeholder = "Provide some short description here..." })
-                            @Html.ValidationMessageFor(m => m.Description)
+                            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
                         </div>
                         <div class="btn-submit-edit-container">
                             <input type="submit" class="btn btn-success btn-login" />
