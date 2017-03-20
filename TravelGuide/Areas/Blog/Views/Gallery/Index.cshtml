@@ -12,23 +12,26 @@
         <div class="row text-right options-gallery">
             <div class="col-md-4 col-md-offset-4 text-center">
                 @using (Ajax.BeginForm("Search", null,
-                    new AjaxOptions
-                    {
-                        UpdateTargetId = "gallery-items-container",
-                        InsertionMode = InsertionMode.Replace,
-                        HttpMethod = "POST",
-                        OnBegin = "clearTooltips",
-                        OnSuccess = "reloadToolTips"
-                    }, new { id = "searchForm" }))
+                new AjaxOptions
+                {
+                    UpdateTargetId = "gallery-items-container",
+                    InsertionMode = InsertionMode.Replace,
+                    HttpMethod = "POST",
+                    OnBegin = "clearTooltips",
+                    OnSuccess = "reloadToolTips"
+                }, new { id = "searchForm" }))
                 {
                     @Html.Label("Search by photo title/related destination:", new { @for = "query", @class = "search-label-discover" })
                     @Html.TextBox("query", null, new { oninput = "changed()" })
                     <input type="submit" oninput="onInput()" style="display: none" />
                 }
             </div>
-            <div class="col-md-4">
-                @Html.ActionLink("Add new Photo", "Create", null, new { @class = "btn btn-success btn-options-menu" })
-            </div>
+            @if (this.User.IsInRole("admin"))
+            {
+                <div class="col-md-4">
+                    @Html.ActionLink("Add new Photo", "Create", null, new { @class = "btn btn-success btn-options-menu" })
+                </div>
+            }
         </div>
         <div id="gallery-items-container">
             @Html.Partial("_GalleryListPartial", Model)

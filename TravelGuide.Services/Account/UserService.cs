@@ -65,15 +65,10 @@ namespace TravelGuide.Services
 
         public User GetById(string id)
         {
-            if (string.IsNullOrEmpty(id))
-            {
-                throw new ArgumentNullException();
-            }
-
             var user = this.context.Users.Find(id);
             return user;
         }
-        
+
         public void UpdateUserInfo(string id, string firstName, string lastName, string phone, string address)
         {
             if (string.IsNullOrEmpty(id))

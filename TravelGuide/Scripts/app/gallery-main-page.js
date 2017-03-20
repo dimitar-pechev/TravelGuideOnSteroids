@@ -20,6 +20,10 @@ function deleteComment(args) {
     var selector = $(args).attr('data-target');
     var commentsCount = $('#' + selector).html();
     $('#' + selector).html(+commentsCount - 1);
+
+    $('.comment-box-textarea').on('focus', () => {
+        $('.btn-submit-box').show();
+    })
 }
 
 function changed() {
@@ -54,10 +58,6 @@ function unlikeImage(args) {
     }, 2000);
 }
 
-$('.btn-add-comment').on('click', () => {
-    $('.comment-box-textarea').focus();
-})
-
 function submitComment(args) {
     $('.comment-box-textarea').val('');
     notify('success', 'Your comment has been submitted!')
@@ -65,15 +65,33 @@ function submitComment(args) {
     var selector = $(args).attr('data-target');
     var commentsCount = $('#' + selector).html();
     $('#' + selector).html(+commentsCount + 1);
+
+    $('.comment-box-textarea').on('focus', () => {
+        $('.btn-submit-box').show();
+    })
 }
 
 function populateModal(selector) {
     $('#' + selector).submit();
 }
 
+$('.btn-add-comment').on('click', () => {
+    $('.comment-box-textarea').focus();
+    $('.btn-submit-box').show();
+})
+
+$('.comment-box-textarea').on('focus', () => {
+    $('.btn-submit-box').show();
+})
+
 function rebindCommentEvent() {
     $('.btn-add-comment').on('click', () => {
         $('.comment-box-textarea').focus();
+        $('.btn-submit-box').show();
+    });
+
+    $('.comment-box-textarea').on('focus', () => {
+        $('.btn-submit-box').show();
     })
 }
 

@@ -8,6 +8,7 @@ using TravelGuide.Common.Contracts;
 using TravelGuide.Services.Account.Contracts;
 using TravelGuide.Services.Gallery.Contacts;
 using System.Linq;
+using System.Threading;
 
 namespace TravelGuide.Areas.Blog.Controllers
 {
@@ -146,20 +147,9 @@ namespace TravelGuide.Areas.Blog.Controllers
 
             var image = this.galleryService.GetGalleryImageById(imageId);
             model = this.mappingService.Map<GalleryItemViewModel>(image);
+            model.CurrentUserId = this.User.Identity.GetUserId();
 
             return this.PartialView("_ImageCommentBoxPartial", model);
-        }
-
-        [HttpPost]
-        public ActionResult ToggleLike(Guid? imageId)
-        {
-            var userId = this.User.Identity.GetUserId();
-            this.galleryService.ToggleLike(userId, (Guid)imageId);
-
-            var image = this.galleryService.GetGalleryImageById((Guid)imageId);
-            var model = this.mappingService.Map<GalleryItemViewModel>(image);
-
-            return this.PartialView("_LikeButtonPartial", model);
         }
 
         [HttpPost]
@@ -193,6 +183,7 @@ namespace TravelGuide.Areas.Blog.Controllers
 
             var image = this.galleryService.GetGalleryImageById((Guid)imageId);
             var model = this.mappingService.Map<GalleryItemViewModel>(image);
+            model.CurrentUserId = this.User.Identity.GetUserId();
 
             return this.PartialView("_ImageCommentBoxPartial", model);
         }

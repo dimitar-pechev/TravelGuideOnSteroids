@@ -30,6 +30,7 @@ else
                  new AjaxOptions()
                  {
                      InsertionMode = InsertionMode.Replace,
+                     LoadingElementId = "image-loader",
                      HttpMethod = "GET",
                      UpdateTargetId = "image-details",
                      OnSuccess = "rebindCommentEvent"
@@ -109,7 +110,19 @@ else
 
     <div class="image-details">
         <div class="modal fade modal-close" id="image-details" role="dialog">
-
+            
         </div>
     </div>
 }
+
+<div id="image-loader" class="preloader-wrapper big active" style="display:none;">
+    <div class="spinner-layer">
+        <div class="circle-clipper left">
+            <div class="circle"></div>
+        </div><div class="gap-patch">
+            <div class="circle"></div>
+        </div><div class="circle-clipper right">
+            <div class="circle"></div>
+        </div>
+    </div>
+</div>

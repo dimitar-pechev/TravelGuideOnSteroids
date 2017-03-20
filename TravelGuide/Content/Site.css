@@ -836,10 +836,9 @@ li.active a {
     -webkit-backface-visibility: hidden;
 }
 
-.navigation-arrow-left:hover, .navigation-arrow-right:hover {
-    opacity: 1;    
-    -webkit-backface-visibility: hidden;
-}
+    .navigation-arrow-left:hover, .navigation-arrow-right:hover {
+        opacity: 1;
+    }
 
 .navigation-arrow-left {
     left: 0;
@@ -847,4 +846,28 @@ li.active a {
 
 .navigation-arrow-right {
     right: 0;
+}
+
+#image-loader {
+    position: fixed;
+    top: 47%;
+    left: 48%;
+    color: white;
+    z-index: 99999;
+}
+
+.spinner-layer {
+    border-color: white;
+}
+
+.btn-like-image, .btn-add-comment {
+    background-color: #5A5A5A !important;
+}
+
+.btn-likes.disabled {
+    background-color: black !important;
+}
+
+.btn-submit-box {
+    display: none;
 }
