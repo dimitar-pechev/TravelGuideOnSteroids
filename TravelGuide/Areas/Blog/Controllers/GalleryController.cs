@@ -31,7 +31,6 @@ namespace TravelGuide.Areas.Blog.Controllers
             var mappedImages = this.mappingService.Map<IEnumerable<GalleryItemViewModel>>(images);
 
             var currentUser = this.userService.GetById(this.User.Identity.GetUserId());
-
             if (currentUser != null)
             {
                 foreach (var image in mappedImages)
@@ -57,7 +56,6 @@ namespace TravelGuide.Areas.Blog.Controllers
             var model = this.mappingService.Map<GalleryListViewModel>(mappedImages);
 
             var currentUser = this.userService.GetById(this.User.Identity.GetUserId());
-
             if (currentUser != null)
             {
                 foreach (var image in mappedImages)
@@ -70,6 +68,21 @@ namespace TravelGuide.Areas.Blog.Controllers
             model = this.AssignViewParams(model, query, currentPage, pagesCount);
 
             return this.PartialView("_GalleryListPartial", model);
+        }
+
+        public ActionResult PopulateModal(Guid? imageId)
+        {
+            var image = this.galleryService.GetGalleryImageById((Guid)imageId);
+            var model = this.mappingService.Map<GalleryItemViewModel>(image);
+
+            var currentUserId = this.User.Identity.GetUserId();
+            if (currentUserId != null)
+            {
+                model.IsImageLiked = this.galleryService.IsImageLiked(currentUserId, model.Id);
+                model.CurrentUserId = currentUserId;
+            }
+
+            return this.PartialView("_ImageDetailsPartial", model);
         }
 
         public ActionResult Edit(Guid? id)

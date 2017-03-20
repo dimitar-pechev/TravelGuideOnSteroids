@@ -109,5 +109,10 @@
             var commentsCount = $('#' + selector).html();
             $('#' + selector).html(+commentsCount + 1);
         }
+
+        function populateModal(selector) {
+            console.log($('#' + selector));
+            $('#' + selector).submit();
+        }
     </script>
 }
