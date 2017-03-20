@@ -326,6 +326,7 @@
     <Content Include="Areas\Blog\Views\Gallery\_GalleryListPartial.cshtml" />
     <Content Include="Areas\Blog\Views\Gallery\_ImageCommentBoxPartial.cshtml" />
     <Content Include="Areas\Blog\Views\Gallery\_LikeButtonPartial.cshtml" />
+    <Content Include="Areas\Blog\Views\Gallery\_UnlikeButtonPartial.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

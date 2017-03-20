@@ -247,5 +247,17 @@ namespace TravelGuide.Services.Gallery
 
             return pagesCount;
         }
+
+        public bool IsImageLiked(string userId, Guid imageId)
+        {
+            var image = this.context.GalleryImages.Find(imageId);
+
+            if (image.Likes.Any(x => x.UserId == userId))
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

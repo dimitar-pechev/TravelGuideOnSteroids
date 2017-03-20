@@ -75,25 +75,25 @@ else
                     <div class="input-field">
                         @Html.LabelFor(m => m.FirstName)
                         @Html.EditorFor(m => m.FirstName)
-                        @Html.ValidationMessageFor(m => m.FirstName)
+                        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
                     </div>
                     <br />
                     <div class="input-field">
                         @Html.LabelFor(m => m.LastName)
                         @Html.EditorFor(m => m.LastName)
-                        @Html.ValidationMessageFor(m => m.LastName)
+                        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
                     </div>
                     <br />
                     <div class="input-field">
                         @Html.LabelFor(m => m.PhoneNumber)
                         @Html.EditorFor(m => m.PhoneNumber)
-                        @Html.ValidationMessageFor(m => m.PhoneNumber)
+                        @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
                     </div>
                     <br />
                     <div class="input-field">
                         @Html.LabelFor(m => m.Address)
                         @Html.EditorFor(m => m.Address)
-                        @Html.ValidationMessageFor(m => m.Address)
+                        @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
                     </div>
                     <br />
                 </div>

@@ -32,6 +32,10 @@ namespace TravelGuide.Areas.Blog.ViewModels
 
         public DateTime CreatedOn { get; set; }
 
+        public bool IsImageLiked { get; set; }
+
+        public string CurrentUserId { get; set; }
+
         public IEnumerable<GalleryComment> Comments { get; set; }
 
         public IEnumerable<GalleryLike> Likes { get; set; }

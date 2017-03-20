@@ -1,0 +1,13 @@
+﻿@model TravelGuide.Areas.Blog.ViewModels.GalleryItemViewModel
+
+@using (Ajax.BeginForm("UnlikeImage", new { imageId = Model.Id },
+                 new AjaxOptions()
+                 {
+                     UpdateTargetId = Model.Id.ToString() + Model.Id.ToString() + Model.Id.ToString(),
+                     InsertionMode = InsertionMode.Replace,
+                     HttpMethod = "POST",
+                     OnSuccess = "unlikeImage(this)",
+                 }, new { data_target = "likes-count-" + Model.Id }))
+{
+    <button type="submit" class="btn btn-success black white-text btn-like-image"><span class="glyphicon glyphicon-thumbs-up"></span> Liked! (@Model.LikesCount)</button>
+}

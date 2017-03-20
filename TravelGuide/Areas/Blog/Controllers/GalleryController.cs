@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using TravelGuide.Areas.Blog.ViewModels;
@@ -30,6 +29,18 @@ namespace TravelGuide.Areas.Blog.Controllers
             var currentPage = this.GetPage(page, pagesCount);
             var images = this.galleryService.GetFilteredImagesByPage(query, currentPage, AppConstants.GalleryPageSize);
             var mappedImages = this.mappingService.Map<IEnumerable<GalleryItemViewModel>>(images);
+
+            var currentUser = this.userService.GetById(this.User.Identity.GetUserId());
+
+            if (currentUser != null)
+            {
+                foreach (var image in mappedImages)
+                {
+                    image.IsImageLiked = this.galleryService.IsImageLiked(currentUser.Id, image.Id);
+                    image.CurrentUserId = currentUser.Id;
+                }
+            }
+
             var model = this.mappingService.Map<GalleryListViewModel>(mappedImages);
 
             model = this.AssignViewParams(model, query, currentPage, pagesCount);
@@ -44,6 +55,17 @@ namespace TravelGuide.Areas.Blog.Controllers
             var images = this.galleryService.GetFilteredImagesByPage(query, currentPage, AppConstants.GalleryPageSize);
             var mappedImages = this.mappingService.Map<IEnumerable<GalleryItemViewModel>>(images);
             var model = this.mappingService.Map<GalleryListViewModel>(mappedImages);
+
+            var currentUser = this.userService.GetById(this.User.Identity.GetUserId());
+
+            if (currentUser != null)
+            {
+                foreach (var image in mappedImages)
+                {
+                    image.IsImageLiked = this.galleryService.IsImageLiked(currentUser.Id, image.Id);
+                    image.CurrentUserId = currentUser.Id;
+                }
+            }
 
             model = this.AssignViewParams(model, query, currentPage, pagesCount);
 
@@ -95,6 +117,30 @@ namespace TravelGuide.Areas.Blog.Controllers
 
         [HttpPost]
         public ActionResult ToggleLike(Guid? imageId)
+        {
+            var userId = this.User.Identity.GetUserId();
+            this.galleryService.ToggleLike(userId, (Guid)imageId);
+
+            var image = this.galleryService.GetGalleryImageById((Guid)imageId);
+            var model = this.mappingService.Map<GalleryItemViewModel>(image);
+
+            return this.PartialView("_LikeButtonPartial", model);
+        }
+
+        [HttpPost]
+        public ActionResult LikeImage(Guid? imageId)
+        {
+            var userId = this.User.Identity.GetUserId();
+            this.galleryService.ToggleLike(userId, (Guid)imageId);
+
+            var image = this.galleryService.GetGalleryImageById((Guid)imageId);
+            var model = this.mappingService.Map<GalleryItemViewModel>(image);
+
+            return this.PartialView("_UnlikeButtonPartial", model);
+        }
+
+        [HttpPost]
+        public ActionResult UnlikeImage(Guid? imageId)
         {
             var userId = this.User.Identity.GetUserId();
             this.galleryService.ToggleLike(userId, (Guid)imageId);

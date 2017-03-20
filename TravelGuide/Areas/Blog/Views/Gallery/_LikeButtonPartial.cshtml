@@ -1,13 +1,13 @@
 ﻿@model TravelGuide.Areas.Blog.ViewModels.GalleryItemViewModel
 
-@using (Ajax.BeginForm("ToggleLike", new { imageId = Model.Id },
+@using (Ajax.BeginForm("LikeImage", new { imageId = Model.Id },
      new AjaxOptions()
      {
          UpdateTargetId = Model.Id.ToString() + Model.Id.ToString() + Model.Id.ToString(),
          InsertionMode = InsertionMode.Replace,
          HttpMethod = "POST",
-         OnSuccess = "submitVote"
-     }))
+         OnSuccess = "likeImage(this)"
+     }, new { data_target = "likes-count-" + Model.Id }))
 {
     <button type="submit" class="btn btn-success black white-text btn-like-image"><span class="glyphicon glyphicon-thumbs-up"></span> Like (@Model.LikesCount)</button>
 }

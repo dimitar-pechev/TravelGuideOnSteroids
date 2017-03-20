@@ -12,14 +12,14 @@
         <div class="row text-right options-gallery">
             <div class="col-md-4 col-md-offset-4 text-center">
                 @using (Ajax.BeginForm("Search", null,
-                    new AjaxOptions
-                    {
-                        UpdateTargetId = "gallery-items-container",
-                        InsertionMode = InsertionMode.Replace,
-                        HttpMethod = "POST",
-                        OnBegin = "clearTooltips",
-                        OnSuccess = "reloadToolTips"
-                    }, new { id = "searchForm" }))
+            new AjaxOptions
+            {
+                UpdateTargetId = "gallery-items-container",
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "POST",
+                OnBegin = "clearTooltips",
+                OnSuccess = "reloadToolTips"
+            }, new { id = "searchForm" }))
                 {
                     @Html.Label("Search by photo title/related destination:", new { @for = "query", @class = "search-label-discover" })
                     @Html.TextBox("query", null, new { oninput = "changed()" })
@@ -57,20 +57,40 @@
             })
         }
 
-        function deleteComment() {
+        function deleteComment(args) {
             notify('success', 'Comment deleted!');
+
+            var selector = $(args).attr('data-target');
+            var commentsCount = $('#' + selector).html();
+            $('#' + selector).html(+commentsCount - 1);
         }
 
         function changed() {
             $('#searchForm').submit();
         }
 
-        function submitVote() {
+        function likeImage(args) {
             $('.btn-like-image').addClass('disabled');
 
-            console.log($('#btn-like-image-count').html());
+            var selector = $(args).attr('data-target');
+            var likesCount = $('#' + selector).html();
+            $('#' + selector).html(+likesCount + 1);
 
-            notify('success', 'Vote successful!');
+            notify('success', 'Image liked!');
+
+            setTimeout(() => {
+                $('.btn-like-image').removeClass('disabled');
+            }, 2000);
+        }
+
+        function unlikeImage(args) {
+            $('.btn-like-image').addClass('disabled');
+
+            var selector = $(args).attr('data-target');
+            var likesCount = $('#' + selector).html();
+            $('#' + selector).html(+likesCount - 1);
+
+            notify('success', 'Like removed!');
 
             setTimeout(() => {
                 $('.btn-like-image').removeClass('disabled');
@@ -81,9 +101,13 @@
             $('.comment-box-textarea').focus();
         })
 
-        function submitComment() {
+        function submitComment(args) {
             $('.comment-box-textarea').val('');
             notify('success', 'Your comment has been submitted!')
+
+            var selector = $(args).attr('data-target');
+            var commentsCount = $('#' + selector).html();
+            $('#' + selector).html(+commentsCount + 1);
         }
     </script>
 }

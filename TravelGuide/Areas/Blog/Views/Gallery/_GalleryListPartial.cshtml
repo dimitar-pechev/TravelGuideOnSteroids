@@ -6,7 +6,9 @@
 
 @if (Model.Images.Count() == 0)
 {
-    <h5 class="text-center">No results found... Try something else!</h5>
+    <div class="row">
+        <h5 class="text-center">No results found... Try something else!</h5>
+    </div>
 }
 else
 {
@@ -15,11 +17,11 @@ else
         {
             <div class="col-md-3 img-column">
                 <a data-toggle="modal" data-target="#@(image.Id + image.Id.ToString())">
-                    <div class="gallery-item tooltipped" data-position="top" data-delay="50" data-tooltip="@image.Title" 
+                    <div class="gallery-item tooltipped" data-position="top" data-delay="50" data-tooltip="@image.Title"
                          style="background-image: url('@image.ImageUrl');">
                         <div class="image-info text-right">
-                            <div class="col-md-3 col-md-offset-6 text-right"><span class="glyphicon glyphicon-thumbs-up"></span> <span id="likes-count">@image.LikesCount</span></div>
-                            <div class="col-md-3 text-center"><span class="glyphicon glyphicon-comment"></span> @image.CommentsCount</div>
+                            <div class="col-md-3 col-md-offset-6 text-right"><span class="glyphicon glyphicon-thumbs-up"></span> <span id="likes-count-@image.Id">@image.LikesCount</span></div>
+                            <div class="col-md-3 text-center"><span class="glyphicon glyphicon-comment"></span> <span id="comments-count-@image.Id">@image.CommentsCount</span></div>
                         </div>
                     </div>
                 </a>
@@ -126,7 +128,14 @@ else
                                     <h5 class="text-center">@image.Title</h5>
                                     <hr />
                                     <div class="col-md-6" id="@(image.Id.ToString() + image.Id.ToString() + image.Id.ToString())">
-                                        @Html.Partial("_LikeButtonPartial", image)
+                                        @if (image.IsImageLiked)
+                                        {
+                                            @Html.Partial("_UnlikeButtonPartial", image);
+                                        }
+                                        else
+                                        {
+                                            @Html.Partial("_LikeButtonPartial", image)
+                                        }
                                     </div>
                                     <div class="col-md-6">
                                         <button class="btn btn-success black white-text btn-add-comment"><span class="glyphicon glyphicon-comment"></span> Comment</button>

@@ -25,5 +25,7 @@ namespace TravelGuide.Services.Gallery.Contacts
         void DeleteComment(string commentId);
 
         int GetPagesCount(string query);
+
+        bool IsImageLiked(string userId, Guid imageId);
     }
 }
