@@ -7,6 +7,7 @@ using TravelGuide.Common;
 using TravelGuide.Common.Contracts;
 using TravelGuide.Services.Account.Contracts;
 using TravelGuide.Services.Gallery.Contacts;
+using System.Linq;
 
 namespace TravelGuide.Areas.Blog.Controllers
 {
@@ -74,6 +75,27 @@ namespace TravelGuide.Areas.Blog.Controllers
         {
             var image = this.galleryService.GetGalleryImageById((Guid)imageId);
             var model = this.mappingService.Map<GalleryItemViewModel>(image);
+
+            var allImages = this.galleryService.GetAllNotDeletedGalleryImagesOrderedByDate().ToArray();
+            var currentIndex = Array.IndexOf(allImages, image);
+
+            int prevIndex = currentIndex - 1;
+            if (currentIndex == 0)
+            {
+                prevIndex = allImages.Length - 1;
+            }
+
+            var nextIndex = currentIndex + 1;
+            if (currentIndex == allImages.Length - 1)
+            {
+                nextIndex = 0;
+            }
+
+            var prevImageId = allImages[prevIndex].Id;
+            var nextImageId = allImages[nextIndex].Id;
+
+            model.PreviousImageId = prevImageId;
+            model.NextImageId = nextImageId;
 
             var currentUserId = this.User.Identity.GetUserId();
             if (currentUserId != null)

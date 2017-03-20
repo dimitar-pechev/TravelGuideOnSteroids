@@ -36,6 +36,10 @@ namespace TravelGuide.Areas.Blog.ViewModels
 
         public string CurrentUserId { get; set; }
 
+        public Guid PreviousImageId { get; set; }
+
+        public Guid NextImageId { get; set; }
+
         public IEnumerable<GalleryComment> Comments { get; set; }
 
         public IEnumerable<GalleryLike> Likes { get; set; }

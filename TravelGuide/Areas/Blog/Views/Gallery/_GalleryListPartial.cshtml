@@ -31,7 +31,8 @@ else
                  {
                      InsertionMode = InsertionMode.Replace,
                      HttpMethod = "GET",
-                     UpdateTargetId = "image-details"
+                     UpdateTargetId = "image-details",
+                     OnSuccess = "rebindCommentEvent"
                  }))
             {
                 <input type="submit" id="image-details-@image.Id" style="display: none;" />

@@ -275,9 +275,9 @@
     padding: 0 !important;
 }
 
-.modal-body.personal-info-container {
-    padding: 0 25px !important;
-}
+    .modal-body.personal-info-container {
+        padding: 0 25px !important;
+    }
 
 .icon-close, .icon-close-details {
     position: absolute;
@@ -804,9 +804,9 @@ li.active a {
 }
 
 .status-box {
-    max-width: 500px; 
+    max-width: 500px;
     padding-left: 5%;
-    padding-right: 5%;   
+    padding-right: 5%;
 }
 
 .status-box-content {
@@ -824,4 +824,27 @@ li.active a {
 
 .checkout-box {
     padding-right: 10px;
+}
+
+.navigation-arrow-left, .navigation-arrow-right {
+    position: absolute;
+    top: 45%;
+    color: white;
+    font-size: 4rem;
+    cursor: pointer;
+    opacity: 0.5;
+    -webkit-backface-visibility: hidden;
+}
+
+.navigation-arrow-left:hover, .navigation-arrow-right:hover {
+    opacity: 1;    
+    -webkit-backface-visibility: hidden;
+}
+
+.navigation-arrow-left {
+    left: 0;
+}
+
+.navigation-arrow-right {
+    right: 0;
 }

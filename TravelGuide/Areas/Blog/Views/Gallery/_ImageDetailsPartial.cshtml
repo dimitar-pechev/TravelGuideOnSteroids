@@ -6,7 +6,34 @@
         <div class="modal-body container-fluid">
             <div class="col-md-9 modal-column">
                 <img src="@Model.ImageUrl" class="img-responsive modal-img-articles" alt="@Model.Title">
+                <span class="glyphicon glyphicon-chevron-left navigation-arrow-left" id="btn-left" onclick="populateModal('image-details-custom-@Model.PreviousImageId')"></span>
+                <span class="glyphicon glyphicon-chevron-right navigation-arrow-right" id="btn-right" onclick="populateModal('image-details-custom-@Model.NextImageId')"></span>
             </div>
+
+            @using (Ajax.BeginForm("PopulateModal", new { imageId = Model.PreviousImageId },
+            new AjaxOptions()
+            {
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "GET",
+            UpdateTargetId = "image-details",
+            OnSuccess = "rebindCommentEvent"
+            }))
+            {
+                <input type="submit" id="image-details-custom-@Model.PreviousImageId" style="display: none;" />
+            }
+
+            @using (Ajax.BeginForm("PopulateModal", new { imageId = Model.NextImageId },
+            new AjaxOptions()
+            {
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "GET",
+                UpdateTargetId = "image-details",
+                OnSuccess = "rebindCommentEvent"
+            }))
+            {
+                <input type="submit" id="image-details-custom-@Model.NextImageId" style="display: none;" />
+            }
+
             <div class="col-md-3">
                 <div class="row details-info">
                     <div class="col-md-3 details-profile-pic">
