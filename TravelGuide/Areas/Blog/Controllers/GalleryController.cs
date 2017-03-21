@@ -45,7 +45,7 @@ namespace TravelGuide.Areas.Blog.Controllers
 
             var model = this.mappingService.Map<GalleryListViewModel>(mappedImages);
 
-            model = this.AssignViewParams(model, query, currentPage, pagesCount);
+            model = this.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.GalleryListBaseUrl);
 
             return this.View(model);
         }
@@ -69,7 +69,7 @@ namespace TravelGuide.Areas.Blog.Controllers
                 }
             }
 
-            model = this.AssignViewParams(model, query, currentPage, pagesCount);
+            model = this.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.GalleryListBaseUrl);
 
             return this.PartialView("_GalleryListPartial", model);
         }
@@ -265,13 +265,14 @@ namespace TravelGuide.Areas.Blog.Controllers
             return result;
         }
 
-        private GalleryListViewModel AssignViewParams(GalleryListViewModel model, string query, int currentPage, int pagesCount)
+        private GalleryListViewModel AssignViewParams(GalleryListViewModel model, string query, int currentPage, int pagesCount, string baseUrl)
         {
             model.Query = query;
             model.CurrentPage = currentPage;
             model.PreviousPage = currentPage - 1;
             model.NextPage = currentPage + 1;
             model.PagesCount = pagesCount;
+            model.BaseUrl = baseUrl;
 
             return model;
         }

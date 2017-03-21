@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
 using TravelGuide.Common.Contracts;
+using TravelGuide.Shared;
 
 namespace TravelGuide.Areas.Store.ViewModels
 {
-    public class StoreListViewModel : IMapFrom<IEnumerable<StoreItemViewModel>>, IHaveCustomMappings
+    public class StoreListViewModel : IMapFrom<IEnumerable<StoreItemViewModel>>, IHaveCustomMappings, IPager
     {
         public IEnumerable<StoreItemViewModel> Items { get; set; }
 
@@ -17,6 +18,8 @@ namespace TravelGuide.Areas.Store.ViewModels
         public int NextPage { get; set; }
 
         public string Query { get; set; }
+
+        public string BaseUrl { get; set; }
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {

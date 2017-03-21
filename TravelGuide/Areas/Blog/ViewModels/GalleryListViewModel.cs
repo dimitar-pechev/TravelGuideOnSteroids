@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
 using TravelGuide.Common.Contracts;
+using TravelGuide.Shared;
 
 namespace TravelGuide.Areas.Blog.ViewModels
 {
-    public class GalleryListViewModel : IMapFrom<IEnumerable<GalleryItemViewModel>>, IHaveCustomMappings
+    public class GalleryListViewModel : IMapFrom<IEnumerable<GalleryItemViewModel>>, IHaveCustomMappings, IPager
     {
         public IEnumerable<GalleryItemViewModel> Images { get; set; }
 
@@ -17,6 +19,8 @@ namespace TravelGuide.Areas.Blog.ViewModels
         public int NextPage { get; set; }
 
         public string Query { get; set; }
+
+        public string BaseUrl { get; set; }
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {

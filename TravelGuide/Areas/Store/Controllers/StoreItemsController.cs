@@ -29,7 +29,7 @@ namespace TravelGuide.Areas.Store.Controllers
             var mappedImages = this.mappingService.Map<IEnumerable<StoreItemViewModel>>(images);
             var model = this.mappingService.Map<StoreListViewModel>(mappedImages);
 
-            model = this.AssignViewParams(model, query, currentPage, pagesCount);
+            model = this.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.StoreListBaseUrl);
 
             return this.View(model);
         }
@@ -43,7 +43,7 @@ namespace TravelGuide.Areas.Store.Controllers
             var mappedImages = this.mappingService.Map<IEnumerable<StoreItemViewModel>>(images);
             var model = this.mappingService.Map<StoreListViewModel>(mappedImages);
 
-            model = this.AssignViewParams(model, query, currentPage, pagesCount);
+            model = this.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.StoreListBaseUrl);
 
             return this.PartialView("_StoreItemsListPartial", model);
         }
@@ -137,13 +137,14 @@ namespace TravelGuide.Areas.Store.Controllers
             return result;
         }
 
-        private StoreListViewModel AssignViewParams(StoreListViewModel model, string query, int currentPage, int pagesCount)
+        private StoreListViewModel AssignViewParams(StoreListViewModel model, string query, int currentPage, int pagesCount, string baseUrl)
         {
             model.Query = query;
             model.CurrentPage = currentPage;
             model.PreviousPage = currentPage - 1;
             model.NextPage = currentPage + 1;
             model.PagesCount = pagesCount;
+            model.BaseUrl = baseUrl;
 
             return model;
         }
