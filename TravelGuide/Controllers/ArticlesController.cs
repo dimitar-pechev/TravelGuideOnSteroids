@@ -8,6 +8,7 @@ using TravelGuide.ViewModels.ArticlesViewModels;
 
 namespace TravelGuide.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class ArticlesController : Controller
     {
         private readonly IArticleService articleService;
@@ -19,6 +20,7 @@ namespace TravelGuide.Controllers
             this.mappingService = mappingService;
         }
 
+        [AllowAnonymous]
         public ActionResult Index(string query, int? page)
         {
             var pagesCount = this.articleService.GetPagesCount(query);
@@ -33,6 +35,7 @@ namespace TravelGuide.Controllers
             return this.View(articles);
         }
 
+        [AllowAnonymous]
         public ActionResult Search(string query, int? page)
         {
             var pagesCount = this.articleService.GetPagesCount(query);
@@ -66,6 +69,7 @@ namespace TravelGuide.Controllers
             return this.RedirectToAction("Index");
         }
 
+        [AllowAnonymous]
         public ActionResult Details(Guid? id)
         {
             if (id == null)

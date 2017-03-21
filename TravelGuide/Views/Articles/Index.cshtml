@@ -23,9 +23,13 @@
                 <input type="submit" oninput="onInput()" style="display: none" />
             }
         </div>
-        <div class="col-md-4 text-right">
-            @Html.ActionLink("Create a new Article", "CreateArticle", null, new { @class = "btn btn-success btn-create" })
-        </div>
+
+        @if (this.User.IsInRole("admin"))
+        {
+            <div class="col-md-4 text-right">
+                @Html.ActionLink("Create a new Article", "CreateArticle", null, new { @class = "btn btn-success btn-create" })
+            </div>
+        }
     </div>
     <div class="row destinations-entries-container" id="destinations-entries-container">
         @Html.Partial("_ArticlesListPartial", Model)
@@ -34,9 +38,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryajax")
-    <script>
-        function changed() {
-            $('#searchForm').submit();
-        }
-    </script>
+    @Scripts.Render("~/bundles/articles-list")
 }

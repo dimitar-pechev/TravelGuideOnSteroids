@@ -11,6 +11,7 @@ using TravelGuide.Services.Store.Contracts;
 
 namespace TravelGuide.Areas.Store.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
         private readonly ICartService cartService;

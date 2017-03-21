@@ -78,14 +78,16 @@
         @Model.ContentAccomodation
     </div>
     <hr />
-    <div class="text-right">
-        @Html.ActionLink("Edit", "EditArticle", new { Model.Id }, new { @class = "btn btn-default black" })
-        @Html.ActionLink("Delete", "DeleteArticle", new { id = Model.Id }, new { @class = "btn btn-default black", onclick = "return confirm('Are you sure you want to delete this article?')" })
-        <asp:HyperLink Text="Edit" NavigateUrl="" ID="EditBtnLink" CssClass="btn btn-warning black" runat="server" />
-        <asp:Button Text="Delete" CssClass="btn btn-danger" ID="BtnDeleteArticle" OnClick="BtnDeleteArticle_Click" runat="server" />
-        <hr />
-    </div>
-
+    @if (this.User.IsInRole("admin"))
+    {
+        <div class="text-right">
+            @Html.ActionLink("Edit", "EditArticle", new { Model.Id }, new { @class = "btn btn-default black" })
+            @Html.ActionLink("Delete", "DeleteArticle", new { id = Model.Id }, new { @class = "btn btn-default black", onclick = "return confirm('Are you sure you want to delete this article?')" })
+            <asp:HyperLink Text="Edit" NavigateUrl="" ID="EditBtnLink" CssClass="btn btn-warning black" runat="server" />
+            <asp:Button Text="Delete" CssClass="btn btn-danger" ID="BtnDeleteArticle" OnClick="BtnDeleteArticle_Click" runat="server" />
+            <hr />
+        </div>
+    }
     <div id="comments" class="row comment-panel-dest">
         <h4 class="text-center"><span class="glyphicon glyphicon-comment"></span> Comments</h4>
         <hr />

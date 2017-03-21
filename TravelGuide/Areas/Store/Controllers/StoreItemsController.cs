@@ -8,9 +8,9 @@ using TravelGuide.Services.Store.Contracts;
 
 namespace TravelGuide.Areas.Store.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class StoreItemsController : Controller
     {
-        private const int PageSize = 6;
         private readonly IStoreService storeService;
         private readonly IMappingService mappingService;
 
@@ -20,6 +20,7 @@ namespace TravelGuide.Areas.Store.Controllers
             this.mappingService = mappingService;
         }
 
+        [AllowAnonymous]
         public ActionResult Index(string query, int? page)
         {
             var pagesCount = this.storeService.GetPagesCount(query);
@@ -33,6 +34,7 @@ namespace TravelGuide.Areas.Store.Controllers
             return this.View(model);
         }
 
+        [AllowAnonymous]
         public ActionResult Search(string query, int? page)
         {
             var pagesCount = this.storeService.GetPagesCount(query);
@@ -46,6 +48,7 @@ namespace TravelGuide.Areas.Store.Controllers
             return this.PartialView("_StoreItemsListPartial", model);
         }
 
+        [AllowAnonymous]
         public ActionResult Details(Guid? id)
         {
             if (id == null)

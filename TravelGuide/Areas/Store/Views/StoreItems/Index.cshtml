@@ -12,21 +12,24 @@
         <div class="row menu-store">
             <div class="col-md-4 col-md-offset-4 text-center">
                 @using (Ajax.BeginForm("Search", null,
-                   new AjaxOptions
-                   {
-                       UpdateTargetId = "store-items-containter",
-                       InsertionMode = InsertionMode.Replace,
-                       HttpMethod = "POST"
-                   }, new { id = "searchForm" }))
+           new AjaxOptions
+           {
+               UpdateTargetId = "store-items-containter",
+               InsertionMode = InsertionMode.Replace,
+               HttpMethod = "POST"
+           }, new { id = "searchForm" }))
                 {
                     @Html.Label("Search throgh our products:", new { @for = "query", @class = "search-label-discover" })
                     @Html.TextBox("query", null, new { oninput = "changed()" })
                     <input type="submit" oninput="onInput()" style="display: none" />
                 }
             </div>
-            <div class="col-md-4 text-right">
-                @Html.ActionLink("Create a new Store Item", "Create", new { Area = "Store" }, new { @class = "btn btn-success btn-create" })
-            </div>
+            @if (this.User.IsInRole("admin"))
+            {
+                <div class="col-md-4 text-right">
+                    @Html.ActionLink("Create a new Store Item", "Create", new { Area = "Store" }, new { @class = "btn btn-success btn-create" })
+                </div>
+            }
         </div>
         <div id="store-items-containter">
             @Html.Partial("_StoreItemsListPartial", Model)
@@ -36,9 +39,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryajax")
-    <script>
-        function changed() {
-            $('#searchForm').submit();
-        }
-    </script>
+    @Scripts.Render("~/bundles/store-list")
 }

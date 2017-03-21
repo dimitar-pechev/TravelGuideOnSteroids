@@ -24,15 +24,17 @@
             <div id="add-to-cart-section">
                 @Html.Partial("_AddToCartPartial", Model)
             </div>
-
-            <div id="admin-options-store" class="admin-options-store">
-                <button class="btn btn-success black btn-block btn-admin" data-toggle="modal" data-target="#status-box">Change Status</button>  
-                @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-success black btn-block btn-admin" })
-                @using (Html.BeginForm("Delete", "StoreItems", new { id = Model.Id }, FormMethod.Post))
-                {
-                    <input type="submit" value="Delete" class="btn btn-success black btn-block btn-admin" onclick="return confirm('Are you sure you want to delete this item?')" />
-                }                         
-            </div>
+            @if (this.User.IsInRole("admin"))
+            {
+                <div id="admin-options-store" class="admin-options-store">
+                    <button class="btn btn-success black btn-block btn-admin" data-toggle="modal" data-target="#status-box">Change Status</button>
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-success black btn-block btn-admin" })
+                    @using (Html.BeginForm("Delete", "StoreItems", new { id = Model.Id }, FormMethod.Post))
+                    {
+                        <input type="submit" value="Delete" class="btn btn-success black btn-block btn-admin" onclick="return confirm('Are you sure you want to delete this item?')" />
+                    }
+                </div>
+            }
         </div>
     </div>
 </div>
@@ -69,26 +71,5 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryajax")
     @Scripts.Render("~/bundles/toastr")
-    <script>
-        function dismissModal() {
-            $('#dismiss-modal').click();
-            notify('success', 'Items status successfully altered!');
-        }
-
-        function itemsAdded() {
-            notify('success', 'Item(s) added to cart!');
-        }
-
-        function addingFailed() {
-            notify('error', 'You must specify the desired quantity (in the range between 1 and 10)!');
-        }
-
-        $('#btn-add-item').on('click', () => {
-            $('#btn-add-item').addClass('disabled');
-            
-            setTimeout(() => {
-                $('#btn-add-item').removeClass('disabled');
-            }, 3000);
-        });
-    </script>
+    @Scripts.Render("~/bundles/store-details")
 }

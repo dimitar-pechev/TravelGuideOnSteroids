@@ -3,24 +3,27 @@
 @if (Model.InStock)
 {
     <p class="item-status">In Stock</p>
-    <div class="row">
-        @using (Ajax.BeginForm("AddToCart", "Cart", new { itemId = Model.Id },
-                    new AjaxOptions
-                    {
-                        HttpMethod = "POST",
-                        OnSuccess = "itemsAdded",
-                        OnFailure = "addingFailed"
-                    }, new { id ="some-cart-id" }))
-        {
-            <div class="col-md-4 buy-details input-field">
-                @Html.Label("Quantity", new { @for = "quantity" })
-                @Html.TextBox("quantity", 1, new { type = "number", @class = "text-center", min = 1, max = 10 })
-            </div>
-            <div class="col-md-8">
-                <input type="submit" value="Add to Cart" id="btn-add-item" class="btn btn-success btn-add-cart" />
-            </div>
-        }
-    </div>
+    if (this.User.Identity.IsAuthenticated)
+    {
+        <div class="row">
+            @using (Ajax.BeginForm("AddToCart", "Cart", new { itemId = Model.Id },
+                new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    OnSuccess = "itemsAdded",
+                    OnFailure = "addingFailed"
+                }, new { id = "some-cart-id" }))
+            {
+                <div class="col-md-4 buy-details input-field">
+                    @Html.Label("Quantity", new { @for = "quantity" })
+                    @Html.TextBox("quantity", 1, new { type = "number", @class = "text-center", min = 1, max = 10 })
+                </div>
+                <div class="col-md-8">
+                    <input type="submit" value="Add to Cart" id="btn-add-item" class="btn btn-success btn-add-cart" />
+                </div>
+            }
+        </div>
+    }
 }
 else
 {

@@ -475,7 +475,7 @@
 .total-price {
     font-size: 2rem;
     padding: 15px 20px;
-    background-color: black;
+    background-color: #5A5A5A;
     color: white;
     font-weight: bold;
     margin-bottom: 50px;
@@ -861,6 +861,10 @@ li.active a {
 }
 
 .btn-like-image, .btn-add-comment {
+    background-color: #5A5A5A;
+}
+
+.btn.black {
     background-color: #5A5A5A !important;
 }
 

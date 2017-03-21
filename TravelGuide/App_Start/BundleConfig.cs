@@ -25,6 +25,15 @@ namespace TravelGuide
             bundles.Add(new ScriptBundle("~/bundles/gallery").Include(
                         "~/Scripts/app/gallery-main-page.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/store-list").Include(
+            "~/Scripts/app/store-list.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/store-details").Include(
+           "~/Scripts/app/store-details.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/articles-list").Include(
+          "~/Scripts/app/articles-list.js"));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
