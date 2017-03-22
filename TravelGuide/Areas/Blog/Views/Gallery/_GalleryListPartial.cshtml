@@ -36,6 +36,7 @@ else
                      OnSuccess = "rebindCommentEvent"
                  }))
             {
+                @Html.AntiForgeryToken()
                 <input type="submit" id="image-details-@image.Id" style="display: none;" />
             }
         }

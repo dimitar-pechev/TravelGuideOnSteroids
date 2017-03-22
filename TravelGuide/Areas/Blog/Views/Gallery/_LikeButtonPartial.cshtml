@@ -9,5 +9,6 @@
          OnSuccess = "likeImage(this)"
      }, new { data_target = "likes-count-" + Model.Id }))
 {
+    @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-success black white-text btn-like-image"><span class="glyphicon glyphicon-thumbs-up"></span> Like (@Model.LikesCount)</button>
 }

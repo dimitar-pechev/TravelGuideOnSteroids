@@ -13,6 +13,7 @@
         <div class="card-content">
             @using (Html.BeginForm("EditArticle", "Articles", FormMethod.Post))
             {
+                @Html.AntiForgeryToken()
                 <div class="row">
                     <div class="col-md-4 text-center">
                         <div class="input-field">

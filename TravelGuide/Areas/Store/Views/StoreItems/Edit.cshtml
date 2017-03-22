@@ -12,6 +12,7 @@
                     <h4>Edit Store Item</h4>
                     @using (Html.BeginForm("Edit", "StoreItems", new { Area = "Store" }, FormMethod.Post))
                     {
+                        @Html.AntiForgeryToken()
                         <div class="input-field">
                             @Html.LabelFor(m => m.ItemName)
                             @Html.TextBoxFor(m => m.ItemName)

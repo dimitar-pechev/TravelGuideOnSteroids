@@ -36,6 +36,7 @@ namespace TravelGuide.Controllers
         }
 
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public ActionResult Search(string query, int? page)
         {
             var pagesCount = this.articleService.GetPagesCount(query);
@@ -56,6 +57,7 @@ namespace TravelGuide.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CreateArticle(CreateEditArticleViewModel article)
         {
             if (!this.ModelState.IsValid)
@@ -96,6 +98,7 @@ namespace TravelGuide.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult EditArticle(CreateEditArticleViewModel article)
         {
             if (!this.ModelState.IsValid)
@@ -108,6 +111,8 @@ namespace TravelGuide.Controllers
             return this.RedirectToAction("Details", new { id = article.Id });
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteArticle(Guid? id)
         {
             if (id == null)

@@ -18,6 +18,7 @@
                    HttpMethod = "POST"
                }, new { id = "searchForm" }))
             {
+                @Html.AntiForgeryToken()
                 @Html.Label("Search cities and countries:", new { @for = "query", @class = "search-label-discover" })
                 @Html.TextBox("query", null, new { oninput = "changed()" })
                 <input type="submit" oninput="onInput()" style="display: none" />

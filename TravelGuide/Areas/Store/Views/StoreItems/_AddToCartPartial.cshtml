@@ -7,13 +7,14 @@
     {
         <div class="row">
             @using (Ajax.BeginForm("AddToCart", "Cart", new { itemId = Model.Id },
-                new AjaxOptions
-                {
-                    HttpMethod = "POST",
-                    OnSuccess = "itemsAdded",
-                    OnFailure = "addingFailed"
-                }, new { id = "some-cart-id" }))
+                 new AjaxOptions
+                 {
+                     HttpMethod = "POST",
+                     OnSuccess = "itemsAdded",
+                     OnFailure = "addingFailed"
+                 }, new { id = "some-cart-id" }))
             {
+                @Html.AntiForgeryToken()
                 <div class="col-md-4 buy-details input-field">
                     @Html.Label("Quantity", new { @for = "quantity" })
                     @Html.TextBox("quantity", 1, new { type = "number", @class = "text-center", min = 1, max = 10 })

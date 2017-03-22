@@ -41,6 +41,7 @@ namespace TravelGuide.Areas.Store.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public void AddToCart(Guid? itemId, int? quantity)
         {
             if (quantity == null || quantity < 1 || quantity > 10)
@@ -54,6 +55,7 @@ namespace TravelGuide.Areas.Store.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult RemoveItem(Guid? id)
         {
             var cookie = this.Request.Cookies[AppConstants.CartCookieName + this.User.Identity.Name];
@@ -73,6 +75,7 @@ namespace TravelGuide.Areas.Store.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CheckOut(CartViewModel model)
         {
             var cookie = this.Request.Cookies[AppConstants.CartCookieName + this.User.Identity.Name];

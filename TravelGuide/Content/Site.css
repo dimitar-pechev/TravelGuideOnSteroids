@@ -875,3 +875,24 @@ li.active a {
 .btn-submit-box {
     display: none;
 }
+
+a.tab-admin {
+    color: black;
+}
+
+li.active a.tab-admin {
+    background-color: #5A5A5A !important;
+    border: 1px solid lightgrey !important;
+    color: white !important;
+    cursor: pointer;
+}
+
+li.active a.tab-admin:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.table-header-admin {
+    background-color:  #5A5A5A;
+    color: white;
+}

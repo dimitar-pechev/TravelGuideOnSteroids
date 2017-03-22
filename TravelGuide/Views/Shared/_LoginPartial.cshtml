@@ -6,6 +6,10 @@
         @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav navbar-right">
+            @if (this.User.IsInRole("admin"))
+            {
+                <li>@Html.ActionLink("Admin", "Index", "Admin", new { Area = "" }, htmlAttributes: new { id = "btn-cart", @class = "waves-effect waves-light" })</li>
+            }
             <li>@Html.ActionLink("Cart", "Index", "Cart", new { Area = "Store" }, htmlAttributes: new { id = "btn-cart", @class = "waves-effect waves-light" })</li>
             <li>
                 @Html.ActionLink("Profile", "Index", "Manage", new { Area = "" }, htmlAttributes: new { title = "Manage", @class = "waves-effect waves-light" })

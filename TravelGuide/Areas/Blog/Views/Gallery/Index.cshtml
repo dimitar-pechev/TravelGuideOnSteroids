@@ -12,15 +12,16 @@
         <div class="row text-right options-gallery">
             <div class="col-md-4 col-md-offset-4 text-center">
                 @using (Ajax.BeginForm("Search", null,
-                new AjaxOptions
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = "gallery-items-container",
+                        InsertionMode = InsertionMode.Replace,
+                        HttpMethod = "POST",
+                        OnBegin = "clearTooltips",
+                        OnSuccess = "reloadToolTips"
+                    }, new { id = "searchForm" }))
                 {
-                    UpdateTargetId = "gallery-items-container",
-                    InsertionMode = InsertionMode.Replace,
-                    HttpMethod = "POST",
-                    OnBegin = "clearTooltips",
-                    OnSuccess = "reloadToolTips"
-                }, new { id = "searchForm" }))
-                {
+                    @Html.AntiForgeryToken()
                     @Html.Label("Search by photo title/related destination:", new { @for = "query", @class = "search-label-discover" })
                     @Html.TextBox("query", null, new { oninput = "changed()" })
                     <input type="submit" oninput="onInput()" style="display: none" />

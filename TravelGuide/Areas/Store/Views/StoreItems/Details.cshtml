@@ -31,6 +31,7 @@
                     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-success black btn-block btn-admin" })
                     @using (Html.BeginForm("Delete", "StoreItems", new { id = Model.Id }, FormMethod.Post))
                     {
+                        @Html.AntiForgeryToken()
                         <input type="submit" value="Delete" class="btn btn-success black btn-block btn-admin" onclick="return confirm('Are you sure you want to delete this item?')" />
                     }
                 </div>
@@ -55,6 +56,7 @@
                      OnSuccess = "dismissModal"
                  }))
             {
+                @Html.AntiForgeryToken()
                 <div class="modal-body status-box-content">
                     @Html.DropDownList("isInStock", new SelectList(new List<string>() { "In Stock", "Depleted" }), new { @class = "form-control" })
                 </div>

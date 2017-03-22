@@ -1,0 +1,30 @@
+﻿
+@model IEnumerable<TravelGuide.Models.User>
+
+@{
+    ViewBag.Title = "Admin Page";
+}
+
+<div class="container admin-container">
+    <h3 class="text-center">Admin Panel</h3>
+    <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
+        <ul class="nav nav-tabs" id="myTabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#users" id="users-tab" class="tab-admin" role="tab" data-toggle="tab" aria-controls="users" aria-expanded="true">Users</a>
+            </li>
+            <li role="presentation" class="">
+                <a href="#requests" role="tab" class="tab-admin" id="requests-tab" data-toggle="tab" aria-controls="requests" aria-expanded="false">Orders</a>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade active in" role="tabpanel" id="users" aria-labelledby="users-tab">
+                @Html.Partial("_UsersManagementPartial", Model)
+            </div>
+
+            <div class="tab-pane fade" role="tabpanel" id="requests" aria-labelledby="requests-tab">
+                @Html.Partial("_RequestsManagementPartial")
+            </div>
+        </div>
+    </div>
+</div>

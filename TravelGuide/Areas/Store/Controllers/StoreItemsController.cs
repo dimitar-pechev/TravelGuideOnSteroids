@@ -35,6 +35,7 @@ namespace TravelGuide.Areas.Store.Controllers
         }
 
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public ActionResult Search(string query, int? page)
         {
             var pagesCount = this.storeService.GetPagesCount(query);
@@ -74,6 +75,7 @@ namespace TravelGuide.Areas.Store.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(CreateEditItemViewModel item)
         {
             if (!this.ModelState.IsValid)
@@ -87,6 +89,7 @@ namespace TravelGuide.Areas.Store.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(Guid? id)
         {
             this.storeService.DeleteItem((Guid)id);
@@ -100,6 +103,7 @@ namespace TravelGuide.Areas.Store.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(CreateEditItemViewModel item)
         {
             if (!this.ModelState.IsValid)
@@ -113,6 +117,7 @@ namespace TravelGuide.Areas.Store.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult ChangeStatus(Guid? id, string isInStock)
         {
             var model = this.storeService.GetStoreItemById((Guid)id);

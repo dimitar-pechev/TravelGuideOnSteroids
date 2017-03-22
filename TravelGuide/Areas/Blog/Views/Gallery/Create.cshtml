@@ -13,6 +13,7 @@
                         <hr />
                         @using (Html.BeginForm("Create", "Gallery", FormMethod.Post))
                         {
+                            @Html.AntiForgeryToken()
                             <div class="input-field">
                                 @Html.LabelFor(m => m.Title)
                                 @Html.TextBoxFor(m => m.Title)

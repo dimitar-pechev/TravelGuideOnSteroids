@@ -33,14 +33,15 @@ else
                         <td class="text-center">@Html.ActionLink("Details", "Details", "StoreItems", new { Area = "Store", id = item.Id }, new { @class = "btn btn-success" })</td>
                         <td class="text-center">
                             @using (Ajax.BeginForm("RemoveItem", "Cart", new { Area = "Store", id = item.Id },
-                new AjaxOptions
-                {
-                    Confirm = "Are you sure?",
-                    UpdateTargetId = "cart-items-container",
-                    InsertionMode = InsertionMode.Replace,
-                    HttpMethod = "POST"
-                }, new { id = "some-id" }))
+                                new AjaxOptions
+                                {
+                                    Confirm = "Are you sure?",
+                                    UpdateTargetId = "cart-items-container",
+                                    InsertionMode = InsertionMode.Replace,
+                                    HttpMethod = "POST"
+                                }, new { id = "some-id" }))
                             {
+                                @Html.AntiForgeryToken()
                                 <input type="submit" value="Remove" class="btn btn-success black" />
 
                             }
@@ -71,6 +72,7 @@ else
                 OnSuccess = "dismissModal"
             }))
             {
+                @Html.AntiForgeryToken()
                 <div class="modal-body personal-info-container">
                     <div class="input-field">
                         @Html.LabelFor(m => m.FirstName)

@@ -82,7 +82,11 @@
     {
         <div class="text-right">
             @Html.ActionLink("Edit", "EditArticle", new { Model.Id }, new { @class = "btn btn-default black" })
-            @Html.ActionLink("Delete", "DeleteArticle", new { id = Model.Id }, new { @class = "btn btn-default black", onclick = "return confirm('Are you sure you want to delete this article?')" })
+            @using (Html.BeginForm("DeleteArticle", "Articles", new { id = Model.Id }, FormMethod.Post, new { @class = "form-inline" }))
+            {
+                @Html.AntiForgeryToken()
+                <input value = "Delete" type = "submit" class="btn btn-default black" onclick="return confirm('Are you sure you want to delete this article?')" />
+            }
             <asp:HyperLink Text="Edit" NavigateUrl="" ID="EditBtnLink" CssClass="btn btn-warning black" runat="server" />
             <asp:Button Text="Delete" CssClass="btn btn-danger" ID="BtnDeleteArticle" OnClick="BtnDeleteArticle_Click" runat="server" />
             <hr />

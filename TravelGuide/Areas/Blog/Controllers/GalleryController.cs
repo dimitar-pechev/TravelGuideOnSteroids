@@ -51,6 +51,7 @@ namespace TravelGuide.Areas.Blog.Controllers
         }
 
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public ActionResult Search(string query, int? page)
         {
             var pagesCount = this.galleryService.GetPagesCount(query);
@@ -111,6 +112,7 @@ namespace TravelGuide.Areas.Blog.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(CreateImageViewModel model)
         {
             if (!this.ModelState.IsValid)
@@ -125,6 +127,7 @@ namespace TravelGuide.Areas.Blog.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Comment(Guid imageId, GalleryItemViewModel model)
         {
             if (!this.ModelState.IsValid)
@@ -143,6 +146,7 @@ namespace TravelGuide.Areas.Blog.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult LikeImage(Guid? imageId)
         {
             if (imageId == null)
@@ -173,6 +177,7 @@ namespace TravelGuide.Areas.Blog.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult UnlikeImage(Guid? imageId)
         {
             if (imageId == null)
@@ -203,6 +208,7 @@ namespace TravelGuide.Areas.Blog.Controllers
         }
 
         [HttpDelete]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteComment(Guid? commentId, Guid? imageId)
         {
             if (imageId == null)
@@ -232,6 +238,7 @@ namespace TravelGuide.Areas.Blog.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteImage(Guid? imageId)
         {
             if (imageId == null)
