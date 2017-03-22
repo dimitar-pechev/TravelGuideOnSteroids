@@ -69,7 +69,7 @@ namespace TravelGuide.Services
             return user;
         }
 
-        public void UpdateUserInfo(string id, string firstName, string lastName, string phone, string address)
+        public void UpdateUserInfo(string id, string username, string email, string firstName, string lastName, string phone, string address, bool isDeleted)
         {
             if (string.IsNullOrEmpty(id))
             {
@@ -83,10 +83,23 @@ namespace TravelGuide.Services
                 throw new InvalidOperationException();
             }
 
+            if (string.IsNullOrEmpty(username))
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentNullException();
+            }
+
+            user.UserName = username;
+            user.Email = email;
             user.FirstName = firstName;
             user.LastName = lastName;
             user.PhoneNumber = phone;
             user.Address = address;
+            user.IsDeleted = isDeleted;
 
             this.context.SaveChanges();
         }

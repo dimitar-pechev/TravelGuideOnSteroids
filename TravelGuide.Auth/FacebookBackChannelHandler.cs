@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Net.Http;
+using System.Threading;
 
 namespace TravelGuide.Auth
 {
     internal class FacebookBackChannelHandler : HttpClientHandler
     {
-        protected override async System.Threading.Tasks.Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, System.Threading.CancellationToken cancellationToken)
+        protected override async System.Threading.Tasks.Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             if (!request.RequestUri.AbsolutePath.Contains("/oauth"))
             {

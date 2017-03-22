@@ -11,7 +11,7 @@ namespace TravelGuide.Services.Account.Contracts
 
         bool IsExternalAccountActive(string username);
 
-        void UpdateUserInfo(string id, string firstName, string lastName, string phone, string address);
+        void UpdateUserInfo(string id, string username, string email, string firstName, string lastName, string phone, string address, bool isDeleted);
 
         void DeactivateAccount(string userId);
 

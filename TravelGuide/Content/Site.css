@@ -896,3 +896,16 @@ li.active a.tab-admin:hover {
     background-color:  #5A5A5A;
     color: white;
 }
+
+.btn-black, .btn-black:hover, .btn-black:focus {
+    background-color: #5A5A5A;
+    color: white;
+}
+
+.edit-box {
+    max-width: 35%;
+}
+
+.preloader-wrapper {
+    z-index: 9999;
+}

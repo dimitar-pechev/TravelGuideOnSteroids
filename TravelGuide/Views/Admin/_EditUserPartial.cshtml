@@ -1,0 +1,64 @@
+﻿@model TravelGuide.ViewModels.AdminPageViewModels.UserViewModel
+
+<div class="modal-dialog edit-box" role="document">
+    <div class="modal-content">
+        <div class="modal-header text-center">
+            <h5 class="text-center">Edit @Model.UserName's info</h5>
+            <hr />
+            @using (Ajax.BeginForm("EditUserInfo", new { userId = Model.Id },
+                 new AjaxOptions()
+                 {
+                     InsertionMode = InsertionMode.Replace,
+                     HttpMethod = "POST",
+                     UpdateTargetId = "users",
+                     OnSuccess = "userEdited"
+                 }, new { }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="input-field">
+                    @Html.LabelFor(m => m.UserName, new { @class = "active" })
+                    @Html.TextBoxFor(m => m.UserName)
+                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                </div>
+                <div class="input-field">
+                    @Html.LabelFor(m => m.Email, new { @class = "active" })
+                    @Html.TextBoxFor(m => m.Email)
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                </div>
+                <div class="input-field">
+                    @Html.LabelFor(m => m.FirstName, new { @class = "active" })
+                    @Html.TextBoxFor(m => m.FirstName)
+                    @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                </div>
+                <div class="input-field">
+                    @Html.LabelFor(m => m.LastName, new { @class = "active" })
+                    @Html.TextBoxFor(m => m.LastName)
+                    @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                </div>
+                <div class="input-field">
+                    @Html.LabelFor(m => m.PhoneNumber, new { @class = "active" })
+                    @Html.TextBoxFor(m => m.PhoneNumber)
+                    @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+                </div>
+                <div class="input-field">
+                    @Html.LabelFor(m => m.Address, new { @class = "active" })
+                    @Html.TextBoxFor(m => m.Address)
+                    @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+                </div>
+                <div class="text-left">
+                    @Html.LabelFor(m => m.IsDeleted, new { @class = "active" })
+                    <select id="IsDeleted", name="IsDeleted" class="form-control">
+                        <option value="false">Active</option>
+                        <option value="true">Deactivated</option>
+                    </select>
+                </div>
+                <hr />
+                <div class="text-right">
+                    <input type="button" class="hidden" data-dismiss="modal" id="users-dismiss-modal" />
+                    <input type="submit" id="btn-submit-user-changes" value="Edit" class="btn btn-success" />
+                    <input type="button" value="Discard" class="btn btn-black" data-dismiss="modal" />
+                </div>
+            }
+        </div>
+    </div>
+</div>

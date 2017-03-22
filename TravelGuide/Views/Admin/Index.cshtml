@@ -1,5 +1,4 @@
-﻿
-@model IEnumerable<TravelGuide.Models.User>
+﻿@model IEnumerable<TravelGuide.ViewModels.AdminPageViewModels.UserViewModel>
 
 @{
     ViewBag.Title = "Admin Page";
@@ -28,3 +27,49 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="users-edit-box" role="dialog">
+</div>
+
+<div id="image-loader" class="preloader-wrapper big active" style="display:none;">
+    <div class="spinner-layer">
+        <div class="circle-clipper left">
+            <div class="circle"></div>
+        </div><div class="gap-patch">
+            <div class="circle"></div>
+        </div><div class="circle-clipper right">
+            <div class="circle"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryajax")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/toastr")
+    <script>
+        $('#users-edit-box').on('hidden.bs.modal', () => {
+            $('#users-edit-box').html('');
+        })
+
+        function openModalUsers() {
+            $('#activate-modal-users').click();
+        }
+
+        function userEdited() {
+            notify('success', 'User edited successfully!');
+
+            $('#users-dismiss-modal').click();
+        }
+
+        function bindUsersEditEvents() {
+            $('#btn-submit-user-changes').on('click', () => {
+                $('#btn-submit-user-changes').addClass('disabled');
+
+                setTimeout(() => {
+                    $('#btn-submit-user-changes').removeClass('disabled');
+                }, 3000);
+            });
+        }
+    </script>
+}
