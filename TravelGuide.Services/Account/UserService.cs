@@ -90,5 +90,13 @@ namespace TravelGuide.Services
 
             this.context.SaveChanges();
         }
+
+        public bool IsExternalAccountActive(string username)
+        {
+            var user = this.context.Users                
+                .FirstOrDefault(x => x.UserName == username);
+
+            return !user.IsDeleted;
+        }
     }
 }

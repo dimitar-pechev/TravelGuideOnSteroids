@@ -9,6 +9,8 @@ namespace TravelGuide.Services.Account.Contracts
         
         IEnumerable<User> GetAllUsers();
 
+        bool IsExternalAccountActive(string username);
+
         void UpdateUserInfo(string id, string firstName, string lastName, string phone, string address);
 
         void DeactivateAccount(string userId);

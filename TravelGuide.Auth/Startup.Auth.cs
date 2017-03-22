@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Owin;
 using TravelGuide.Data;
 using TravelGuide.Models;
+using Microsoft.Owin.Security.Facebook;
 
 [assembly: OwinStartupAttribute(typeof(TravelGuide.Auth.Startup))]
 namespace TravelGuide.Auth
@@ -51,9 +52,13 @@ namespace TravelGuide.Auth
             // This is similar to the RememberMe option when you log in.
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
-            app.UseFacebookAuthentication(
-              appId: "765954726889523",
-              appSecret: "f68e55d5533abfdc2c9e43db45b016e3");
+            var facebookOptions = new FacebookAuthenticationOptions();
+            facebookOptions.AppId = "765954726889523";
+            facebookOptions.AppSecret = "f68e55d5533abfdc2c9e43db45b016e3";
+            facebookOptions.BackchannelHttpHandler = new FacebookBackChannelHandler();
+            facebookOptions.UserInformationEndpoint = "https://graph.facebook.com/v2.4/me?fields=id,name,email";
+            facebookOptions.Scope.Add("email");
+            app.UseFacebookAuthentication(facebookOptions);
         }
     }
 }

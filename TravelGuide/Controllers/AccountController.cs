@@ -157,13 +157,20 @@ namespace TravelGuide.Controllers
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await this.AuthenticationManager.GetExternalLoginInfoAsync();
-            if (loginInfo == null)
+            if (loginInfo == null || loginInfo.Email == null)
             {
-                return this.RedirectToAction("Login");
+                return this.View("ExternalLoginFailure");
             }
 
             // Sign in the user with this external login provider if the user already has a login
             var result = await this.SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+
+            var user = this.UserManager.FindByEmail(loginInfo.Email);
+            if (user.IsDeleted)
+            {
+                result = SignInStatus.LockedOut;
+            }
+
             switch (result)
             {
                 case SignInStatus.Success:
@@ -181,6 +188,12 @@ namespace TravelGuide.Controllers
             }
         }
 
+        [AllowAnonymous]
+        public ActionResult Lockout()
+        {
+            return this.View();
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -195,7 +208,7 @@ namespace TravelGuide.Controllers
             {
                 // Get the information about the user from the external login provider
                 var info = await this.AuthenticationManager.GetExternalLoginInfoAsync();
-                if (info == null)
+                if (info == null || info.Email == null)
                 {
                     return this.View("ExternalLoginFailure");
                 }
