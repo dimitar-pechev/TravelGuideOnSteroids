@@ -5,7 +5,7 @@
         <div class="modal-header text-center">
             <h5 class="text-center">Edit @Model.UserName's info</h5>
             <hr />
-            @using (Ajax.BeginForm("EditUserInfo", "UserManager", new {  userId = Model.Id },
+            @using (Ajax.BeginForm("EditUserInfo", new { queryString = this.Request.UrlReferrer.Query, userId = Model.Id },
                  new AjaxOptions()
                  {
                      InsertionMode = InsertionMode.Replace,
@@ -13,7 +13,7 @@
                      UpdateTargetId = "users",
                      OnSuccess = "userEdited",
                      OnFailure = "userEditFailed"
-                 }, new { }))
+                 }, new { id = "edit-form" }))
             {
                 @Html.AntiForgeryToken()
                 <div class="input-field">

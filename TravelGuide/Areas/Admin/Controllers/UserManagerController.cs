@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using TravelGuide.Areas.Admin.ViewModels;
 using TravelGuide.Common;
@@ -32,6 +33,18 @@ namespace TravelGuide.Areas.Admin.Controllers
             return this.View(model);
         }
 
+        public ActionResult Search(string query, int? page)
+        {
+            var pagesCount = this.userService.GetPagesCount(query);
+            var currentPage = this.GetPage(page, pagesCount);
+            var users = this.userService.GetUsersByPage(query, currentPage, AppConstants.AdminPageUsersPageSize);
+            var mappedUsers = this.mappingService.Map<IEnumerable<UserViewModel>>(users);
+            var model = this.mappingService.Map<UserManagerViewModel>(mappedUsers);
+            model = this.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.AdminUserManagerBaseUrl);
+
+            return this.View("Index", model);
+        }
+
         public ActionResult UsersEditForm(UserViewModel model)
         {
             return this.PartialView("_EditUserPartial", model);
@@ -39,12 +52,15 @@ namespace TravelGuide.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditUserInfo(string userId, UserViewModel user, string query, int? page)
+        public ActionResult EditUserInfo(string userId, UserViewModel user, string queryString)
         {
             if (!this.ModelState.IsValid)
             {
                 throw new InvalidOperationException();
             }
+
+            var page = this.ExtractPageFromQuery(queryString);
+            var query = this.ExtractSearchQueryFromQuery(queryString);
 
             this.userService.UpdateUserInfo(userId, user.UserName, user.Email, user.FirstName, user.LastName, user.PhoneNumber, user.Address, user.IsDeleted);
 
@@ -83,6 +99,42 @@ namespace TravelGuide.Areas.Admin.Controllers
             model.BaseUrl = baseUrl;
 
             return model;
+        }
+
+        private int? ExtractPageFromQuery(string query)
+        {
+            var queryParams = query.Split('?', '&').Where(x => !string.IsNullOrEmpty(x)).Select(x => x.Trim()).ToList();
+
+            var pageQuery = queryParams.FirstOrDefault(x => x.Contains("page"));
+            if (pageQuery == null)
+            {
+                return null;
+            }
+
+            int page;
+            var isParsable = int.TryParse(pageQuery.Split('=').ToList().Last(), out page);
+
+            if (page == 0)
+            {
+                return null;
+            }
+
+            return page;
+        }
+
+        private string ExtractSearchQueryFromQuery(string query)
+        {
+            var queryParams = query.Split('?', '&').Where(x => !string.IsNullOrEmpty(x)).Select(x => x.Trim()).ToList();
+
+            var searchQuery = queryParams.FirstOrDefault(x => x.Contains("query"));
+            if (searchQuery == null)
+            {
+                return null;
+            }
+
+            var result = searchQuery.Split('=').ToList().Last();
+
+            return result;
         }
     }
 }

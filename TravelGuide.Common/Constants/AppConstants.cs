@@ -8,7 +8,7 @@
         
         public const int StorePageSize = 6;
 
-        public const int AdminPageUsersPageSize = 10;
+        public const int AdminPageUsersPageSize = 4;
 
         public const string CartCookieName = "store-items";
 
