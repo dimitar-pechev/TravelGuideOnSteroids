@@ -8,7 +8,7 @@
         <ul class="nav navbar-nav navbar-right">
             @if (this.User.IsInRole("admin"))
             {
-                <li>@Html.ActionLink("Admin", "Index", "Admin", new { Area = "" }, htmlAttributes: new { id = "btn-cart", @class = "waves-effect waves-light" })</li>
+                <li>@Html.ActionLink("Admin", "Index", "UserManager", new { Area = "Admin" }, htmlAttributes: new { id = "btn-cart", @class = "waves-effect waves-light" })</li>
             }
             <li>@Html.ActionLink("Cart", "Index", "Cart", new { Area = "Store" }, htmlAttributes: new { id = "btn-cart", @class = "waves-effect waves-light" })</li>
             <li>

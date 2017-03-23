@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TravelGuide.Common;
 using TravelGuide.Data.Contracts;
 using TravelGuide.Models;
 using TravelGuide.Services.Account.Contracts;
@@ -104,12 +105,66 @@ namespace TravelGuide.Services
             this.context.SaveChanges();
         }
 
-        public bool IsExternalAccountActive(string username)
+        public IEnumerable<User> GetUsersByPage(string query, int page, int pageSize)
         {
-            var user = this.context.Users                
-                .FirstOrDefault(x => x.UserName == username);
+            var users = new List<User>();
+            if (!string.IsNullOrEmpty(query))
+            {
+                users = this.context.Users
+                     .Where(x => x.UserName.ToLower().Contains(query.ToLower()) ||
+                     x.Email.ToLower().Contains(query.ToLower()) ||
+                     x.FirstName.ToLower().Contains(query.ToLower()) ||
+                     x.LastName.ToLower().Contains(query.ToLower()) ||
+                     x.Address.ToLower().Contains(query.ToLower()))
+                     .ToList()
+                     .OrderByDescending(x => x.RegisteredOn)
+                     .Skip((page - 1) * pageSize)
+                     .Take(pageSize)
+                     .ToList();
+            }
+            else
+            {
+                users = this.context.Users
+                    .ToList()
+                    .OrderByDescending(x => x.RegisteredOn)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+            }
 
-            return !user.IsDeleted;
+            return users;
+        }
+
+        public int GetPagesCount(string query)
+        {
+            int usersCount;
+            if (!string.IsNullOrEmpty(query))
+            {
+                usersCount = this.context.Users
+                    .Where(x => x.UserName.ToLower().Contains(query.ToLower()) ||
+                     x.Email.ToLower().Contains(query.ToLower()) ||
+                     x.FirstName.ToLower().Contains(query.ToLower()) ||
+                     x.LastName.ToLower().Contains(query.ToLower()) ||
+                     x.Address.ToLower().Contains(query.ToLower()))
+                    .Count();
+            }
+            else
+            {
+                usersCount = this.context.Users
+                    .Count();
+            }
+
+            int pagesCount;
+            if (usersCount == 0)
+            {
+                pagesCount = 1;
+            }
+            else
+            {
+                pagesCount = (int)Math.Ceiling((decimal)usersCount / AppConstants.AdminPageUsersPageSize);
+            }
+
+            return pagesCount;
         }
     }
 }

@@ -1,17 +1,18 @@
-﻿@model TravelGuide.ViewModels.AdminPageViewModels.UserViewModel
+﻿@model TravelGuide.Areas.Admin.ViewModels.UserViewModel
 
 <div class="modal-dialog edit-box" role="document">
     <div class="modal-content">
         <div class="modal-header text-center">
             <h5 class="text-center">Edit @Model.UserName's info</h5>
             <hr />
-            @using (Ajax.BeginForm("EditUserInfo", new { userId = Model.Id },
+            @using (Ajax.BeginForm("EditUserInfo", "UserManager", new {  userId = Model.Id },
                  new AjaxOptions()
                  {
                      InsertionMode = InsertionMode.Replace,
                      HttpMethod = "POST",
                      UpdateTargetId = "users",
-                     OnSuccess = "userEdited"
+                     OnSuccess = "userEdited",
+                     OnFailure = "userEditFailed"
                  }, new { }))
             {
                 @Html.AntiForgeryToken()
@@ -47,7 +48,7 @@
                 </div>
                 <div class="text-left">
                     @Html.LabelFor(m => m.IsDeleted, new { @class = "active" })
-                    <select id="IsDeleted", name="IsDeleted" class="form-control">
+                    <select id="IsDeleted" , name="IsDeleted" class="form-control">
                         <option value="false">Active</option>
                         <option value="true">Deactivated</option>
                     </select>
@@ -62,3 +63,7 @@
         </div>
     </div>
 </div>
+
+<script>
+    $.validator.unobtrusive.parse("#users-edit-box");
+</script>

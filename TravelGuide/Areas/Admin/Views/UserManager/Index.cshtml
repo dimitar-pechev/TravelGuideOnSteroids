@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TravelGuide.ViewModels.AdminPageViewModels.UserViewModel>
+﻿@model TravelGuide.Areas.Admin.ViewModels.UserManagerViewModel
 
 @{
     ViewBag.Title = "Admin Page";
@@ -60,6 +60,10 @@
             notify('success', 'User edited successfully!');
 
             $('#users-dismiss-modal').click();
+        }
+
+        function userEditFailed() {
+            notify('error', 'An error occured! Make sure username or/and email don\'t already exist!');
         }
 
         function bindUsersEditEvents() {

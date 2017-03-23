@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TravelGuide.ViewModels.AdminPageViewModels.UserViewModel>
+﻿@model TravelGuide.Areas.Admin.ViewModels.UserManagerViewModel
 
 <table class="table table-responsive table-bordered table-hover">
     <thead>
@@ -14,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var user in Model)
+        @foreach (var user in Model.Users)
         {
             <tr>
                 <td>@user.UserName</td>
@@ -32,7 +32,7 @@
                     <td>Active</td>
                 }
                 <td class="text-center">
-                    @using (Ajax.BeginForm("UsersEditForm", "Admin", user,
+                    @using (Ajax.BeginForm("UsersEditForm", "UserManager", user,
                     new AjaxOptions()
                     {
                         HttpMethod = "GET",
@@ -51,3 +51,6 @@
         }
     </tbody>
 </table>
+<div class="text-center">
+    @Html.Partial("_PagerPartial", Model)
+</div>

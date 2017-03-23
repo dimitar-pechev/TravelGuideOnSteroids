@@ -11,19 +11,24 @@ namespace TravelGuide.Tests.Services.Account.UserServiceTests
     public class UpdateUserInfo_Should
     {
         [Test]
-        public void ThrowArgumentNullException_WhenUserIdIsNull()
+        [TestCase("")]
+        [TestCase(null)]
+        public void ThrowArgumentNullException_WhenUserIdIsNull(string id)
         {
             // Arrange
             var contextMock = new Mock<ITravelGuideContext>();
             var service = new UserService(contextMock.Object);
 
+            var username = "username";
+            var email = "email";
             var firstName = "firstName";
             var lastName = "lastName";
             var phone = "phone";
             var address = "address";
+            var isDeleted = true;
 
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => service.UpdateUserInfo(null, firstName, lastName, phone, address));
+            Assert.Throws<ArgumentNullException>(() => service.UpdateUserInfo(id, username, email, firstName, lastName, phone, address, isDeleted));
         }
 
         [Test]
@@ -37,13 +42,64 @@ namespace TravelGuide.Tests.Services.Account.UserServiceTests
             contextMock.Setup(x => x.Users.Find(user.Id)).Returns((User)null);
             var service = new UserService(contextMock.Object);
 
+            var username = "username";
+            var email = "email";
             var firstName = "firstName";
             var lastName = "lastName";
             var phone = "phone";
             var address = "address";
+            var isDeleted = true;
 
             // Act & Assert
-            Assert.Throws<InvalidOperationException>(() => service.UpdateUserInfo(id, firstName, lastName, phone, address));
+            Assert.Throws<InvalidOperationException>(() => service.UpdateUserInfo(id, username, email, firstName, lastName, phone, address, isDeleted));
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase(null)]
+        public void ThrowArgumentNullException_WhenUsernameIsNull(string username)
+        {
+            // Arrange
+            var contextMock = new Mock<ITravelGuideContext>();
+            var user = new User();
+            var id = user.Id;
+
+            contextMock.Setup(x => x.Users.Find(user.Id)).Returns((User)user);
+            var service = new UserService(contextMock.Object);
+
+            var email = "email";
+            var firstName = "firstName";
+            var lastName = "lastName";
+            var phone = "phone";
+            var address = "address";
+            var isDeleted = true;
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => service.UpdateUserInfo(id, username, email, firstName, lastName, phone, address, isDeleted));
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase(null)]
+        public void ThrowArgumentNullException_WhenEmailIsNull(string email)
+        {
+            // Arrange
+            var contextMock = new Mock<ITravelGuideContext>();
+            var user = new User();
+            var id = user.Id;
+
+            contextMock.Setup(x => x.Users.Find(user.Id)).Returns((User)user);
+            var service = new UserService(contextMock.Object);
+
+            var username = "username";
+            var firstName = "firstName";
+            var lastName = "lastName";
+            var phone = "phone";
+            var address = "address";
+            var isDeleted = true;
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => service.UpdateUserInfo(id, username, email, firstName, lastName, phone, address, isDeleted));
         }
 
         [Test]
@@ -57,13 +113,16 @@ namespace TravelGuide.Tests.Services.Account.UserServiceTests
             contextMock.Setup(x => x.Users.Find(user.Id)).Returns(user);
             var service = new UserService(contextMock.Object);
 
+            var username = "username";
+            var email = "email";
             var firstName = "firstName";
             var lastName = "lastName";
             var phone = "phone";
             var address = "address";
+            var isDeleted = true;
 
             // Act
-            service.UpdateUserInfo(id, firstName, lastName, phone, address);
+            service.UpdateUserInfo(id, username, email, firstName, lastName, phone, address, isDeleted);
 
             // Assert
             Assert.AreEqual(firstName, user.FirstName);
@@ -80,13 +139,16 @@ namespace TravelGuide.Tests.Services.Account.UserServiceTests
             contextMock.Setup(x => x.Users.Find(user.Id)).Returns(user);
             var service = new UserService(contextMock.Object);
 
+            var username = "username";
+            var email = "email";
             var firstName = "firstName";
             var lastName = "lastName";
             var phone = "phone";
             var address = "address";
+            var isDeleted = true;
 
             // Act
-            service.UpdateUserInfo(id, firstName, lastName, phone, address);
+            service.UpdateUserInfo(id, username, email, firstName, lastName, phone, address, isDeleted);
 
             // Assert
             Assert.AreEqual(lastName, user.LastName);
@@ -103,13 +165,16 @@ namespace TravelGuide.Tests.Services.Account.UserServiceTests
             contextMock.Setup(x => x.Users.Find(user.Id)).Returns(user);
             var service = new UserService(contextMock.Object);
 
+            var username = "username";
+            var email = "email";
             var firstName = "firstName";
             var lastName = "lastName";
             var phone = "phone";
             var address = "address";
+            var isDeleted = true;
 
             // Act
-            service.UpdateUserInfo(id, firstName, lastName, phone, address);
+            service.UpdateUserInfo(id, username, email, firstName, lastName, phone, address, isDeleted);
 
             // Assert
             Assert.AreEqual(phone, user.PhoneNumber);
@@ -126,16 +191,97 @@ namespace TravelGuide.Tests.Services.Account.UserServiceTests
             contextMock.Setup(x => x.Users.Find(user.Id)).Returns(user);
             var service = new UserService(contextMock.Object);
 
+            var username = "username";
+            var email = "email";
             var firstName = "firstName";
             var lastName = "lastName";
             var phone = "phone";
             var address = "address";
+            var isDeleted = true;
 
             // Act
-            service.UpdateUserInfo(id, firstName, lastName, phone, address);
+            service.UpdateUserInfo(id, username, email, firstName, lastName, phone, address, isDeleted);
 
             // Assert
             Assert.AreEqual(address, user.Address);
+        }
+
+        [Test]
+        public void CorrectlyAssignUsernameValue_WhenParamsAreValid()
+        {
+            // Arrange
+            var contextMock = new Mock<ITravelGuideContext>();
+            var user = new User();
+            var id = user.Id;
+
+            contextMock.Setup(x => x.Users.Find(user.Id)).Returns(user);
+            var service = new UserService(contextMock.Object);
+
+            var username = "username";
+            var email = "email";
+            var firstName = "firstName";
+            var lastName = "lastName";
+            var phone = "phone";
+            var address = "address";
+            var isDeleted = true;
+
+            // Act
+            service.UpdateUserInfo(id, username, email, firstName, lastName, phone, address, isDeleted);
+
+            // Assert
+            Assert.AreEqual(username, user.UserName);
+        }
+
+        [Test]
+        public void CorrectlyAssignEmailValue_WhenParamsAreValid()
+        {
+            // Arrange
+            var contextMock = new Mock<ITravelGuideContext>();
+            var user = new User();
+            var id = user.Id;
+
+            contextMock.Setup(x => x.Users.Find(user.Id)).Returns(user);
+            var service = new UserService(contextMock.Object);
+
+            var username = "username";
+            var email = "email";
+            var firstName = "firstName";
+            var lastName = "lastName";
+            var phone = "phone";
+            var address = "address";
+            var isDeleted = true;
+
+            // Act
+            service.UpdateUserInfo(id, username, email, firstName, lastName, phone, address, isDeleted);
+
+            // Assert
+            Assert.AreEqual(email, user.Email);
+        }
+
+        [Test]
+        public void CorrectlyAssignIsDeletedValue_WhenParamsAreValid()
+        {
+            // Arrange
+            var contextMock = new Mock<ITravelGuideContext>();
+            var user = new User();
+            var id = user.Id;
+
+            contextMock.Setup(x => x.Users.Find(user.Id)).Returns(user);
+            var service = new UserService(contextMock.Object);
+
+            var username = "username";
+            var email = "email";
+            var firstName = "firstName";
+            var lastName = "lastName";
+            var phone = "phone";
+            var address = "address";
+            var isDeleted = true;
+
+            // Act
+            service.UpdateUserInfo(id, username, email, firstName, lastName, phone, address, isDeleted);
+
+            // Assert
+            Assert.AreEqual(isDeleted, user.IsDeleted);
         }
 
         [Test]
@@ -149,13 +295,16 @@ namespace TravelGuide.Tests.Services.Account.UserServiceTests
             contextMock.Setup(x => x.Users.Find(user.Id)).Returns(user);
             var service = new UserService(contextMock.Object);
 
+            var username = "username";
+            var email = "email";
             var firstName = "firstName";
             var lastName = "lastName";
             var phone = "phone";
             var address = "address";
+            var isDeleted = true;
 
             // Act
-            service.UpdateUserInfo(id, firstName, lastName, phone, address);
+            service.UpdateUserInfo(id, username, email, firstName, lastName, phone, address, isDeleted);
 
             // Assert
             contextMock.Verify(x => x.SaveChanges(), Times.Once);

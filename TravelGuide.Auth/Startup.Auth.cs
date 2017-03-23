@@ -3,10 +3,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Facebook;
 using Owin;
 using TravelGuide.Data;
 using TravelGuide.Models;
-using Microsoft.Owin.Security.Facebook;
 
 [assembly: OwinStartupAttribute(typeof(TravelGuide.Auth.Startup))]
 namespace TravelGuide.Auth
