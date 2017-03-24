@@ -1,4 +1,5 @@
-﻿
+﻿@model TravelGuide.Areas.Blog.ViewModels.StoriesListViewModel
+
 @{
     ViewBag.Title = "Stories";
 }
@@ -33,6 +34,6 @@
         }
     </div>
     <div class="row stories-entries-container" id="stories-entries-container">
-        
+        @Html.Partial("_StoriesListPartial", Model)
     </div>
 </div>

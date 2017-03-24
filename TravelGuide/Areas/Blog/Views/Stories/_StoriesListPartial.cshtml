@@ -1,0 +1,44 @@
+﻿@model TravelGuide.Areas.Blog.ViewModels.StoriesListViewModel
+
+@foreach (var story in Model.Stories)
+{
+
+}
+@if (Model.Stories.Count() == 0)
+{
+    <div class="row">
+        <h5 class="text-center">No results found... Try something else!</h5>
+    </div>
+}
+else
+{
+    foreach (var item in Model.Stories)
+    {
+        <a href="/blog/stories/details/@item.Id" class="link-entry">
+            <div class="card destination-card">
+                <div class="card-content col-md-3 card-destinations-image" style="background-image: url('@item.ImageUrl');">
+                    <div class="image-info text-right">
+                        <div class="col-md-3 col-md-offset-6 text-right"><span class="glyphicon glyphicon-thumbs-up"></span> @item.LikesCount</div>
+                        <div class="col-md-3 text-center"><span class="glyphicon glyphicon-comment"></span> @item.CommentsCount</div>
+                    </div>
+                </div>
+                <div class="card-content col-md-9 card-destinations-entry">
+                    <h5 class="destinations-entry-city">@item.Title</h5>
+                    <h6 class="destinations-entry-title">@item.RelatedDestination</h6>
+                    <span class="destinations-entry-date">
+                        Author: @item.Author
+                    </span>
+                    <br />
+                    <span class="destinations-entry-date">
+                        Posted on: @item.CreatedOn
+                    </span>
+                    <p class="destinations-entry-content">@item.Content</p>
+                </div>
+            </div>
+        </a>
+    }
+
+    <div class="text-center">
+        @Html.Partial("_PagerPartial", Model)
+    </div>
+}

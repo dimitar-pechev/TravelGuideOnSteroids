@@ -227,6 +227,8 @@
     <Compile Include="Areas\Blog\ViewModels\CreateEditStoryViewModel.cs" />
     <Compile Include="Areas\Blog\ViewModels\GalleryItemViewModel.cs" />
     <Compile Include="Areas\Blog\ViewModels\GalleryListViewModel.cs" />
+    <Compile Include="Areas\Blog\ViewModels\StoriesListViewModel.cs" />
+    <Compile Include="Areas\Blog\ViewModels\StoryItemViewModel.cs" />
     <Compile Include="Areas\Store\Controllers\CartController.cs" />
     <Compile Include="Areas\Store\Controllers\StoreItemsController.cs" />
     <Compile Include="Areas\Store\StoreAreaRegistration.cs" />
@@ -354,6 +356,7 @@
     <Content Include="Areas\Admin\Views\UserManager\_EditUserPartial.cshtml" />
     <Content Include="Areas\Blog\Views\Stories\Index.cshtml" />
     <Content Include="Areas\Blog\Views\Stories\CreateStory.cshtml" />
+    <Content Include="Areas\Blog\Views\Stories\_StoriesListPartial.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

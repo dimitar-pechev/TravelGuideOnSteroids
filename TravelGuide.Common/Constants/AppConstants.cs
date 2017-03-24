@@ -10,6 +10,8 @@
 
         public const int AdminPageUsersPageSize = 4;
 
+        public const int StoriesPageSize = 5;
+
         public const string CartCookieName = "store-items";
 
         public const string GalleryListBaseUrl = "/blog/gallery/index";
@@ -17,5 +19,7 @@
         public const string StoreListBaseUrl = "/store/storeitems/index";
 
         public const string AdminUserManagerBaseUrl = "/admin/usermanager/index";
+
+        public const string StorisBaseUrl = "/blog/stories/index";
     }
 }
