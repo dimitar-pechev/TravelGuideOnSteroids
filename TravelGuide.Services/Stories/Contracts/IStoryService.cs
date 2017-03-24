@@ -6,6 +6,14 @@ namespace TravelGuide.Services.Stories.Contracts
 {
     public interface IStoryService
     {
+        void DeleteComment(Guid commentId);
+
+        void AddComment(Guid storyId, string userId, string content);
+
+        void ToggleLike(Guid storyId, string userId);
+
+        bool IsStoryLiked(Guid storyId, string userId);
+
         Story GetById(Guid id);
 
         int GetPagesCount(string query);

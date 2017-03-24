@@ -6,10 +6,40 @@
 <div class="row discover-heading">
     <img src="~/App_Themes/Blog/stories-cover.png" class="img-responsive" alt="heading" />
 </div>
-<div class="container stories-details-container">   
+<div class="container stories-details-container">
     <div class="col-md-4">
         <img src="@Model.ImageUrl" data-toggle="modal" data-target="#details-photo" class="img-responsive img-thumbnail cursor-pointer" alt="@Model.RelatedDestination" />
-    </div> 
+        <div class="like-comment-section">
+            @if (!this.User.Identity.IsAuthenticated)
+            {
+                <div class="text-center">
+                    <button class="btn btn-success btn-black btn-likes disabled">Likes (@Model.Likes.Count())</button>
+                </div>
+            }
+            else
+            {
+                <div>
+                    <div class="col-md-6" id="like-btn-panel">
+                        @if (Model.IsStoryLiked)
+                        {
+                            @Html.Partial("_UnlikeButtonStoryPartial", Model);
+                        }
+                        else
+                        {
+                            @Html.Partial("_LikeButtonStoryPartial", Model)
+                        }
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-success btn-black btn-add-comment"><span class="glyphicon glyphicon-comment"></span> Comment</button>
+                    </div>
+                </div>
+            }
+        </div>
+        <hr />
+        <div id="comment-box">
+            @Html.Partial("_StoryCommentBoxPartial", Model)
+        </div>
+    </div>
     <div class="col-md-8">
         <h4>@Model.Title</h4>
         <h5>@Model.RelatedDestination</h5>
@@ -35,4 +65,43 @@
 
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryajax")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/toastr")
+    <script>
+        function storyLiked() {
+            notify('success', 'Story liked!');
+        }
+
+        function storyUnliked() {
+            notify('success', 'Like removed!');
+        }
+
+        function commentSubmitted() {
+            $.validator.unobtrusive.parse("#comment-box");
+
+            $('.comment-box-textarea').on('focus', () => {
+                $('.btn-submit-box').show();
+            });
+
+            $('.comment-box-textarea').val('');
+        }
+
+        function commentDeleted() {
+            $.validator.unobtrusive.parse("#comment-box");
+
+            $('.comment-box-textarea').on('focus', () => {
+                $('.btn-submit-box').show();
+            });
+        }
+
+        $('.btn-add-comment').on('click', () => {
+            $('.comment-box-textarea').focus();
+            $('.btn-submit-box').show();
+        });
+
+        $('.comment-box-textarea').on('focus', () => {
+            $('.btn-submit-box').show();
+        });
+
+    </script>
 }

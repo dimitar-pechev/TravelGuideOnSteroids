@@ -359,6 +359,9 @@
     <Content Include="Areas\Blog\Views\Stories\CreateStory.cshtml" />
     <Content Include="Areas\Blog\Views\Stories\_StoriesListPartial.cshtml" />
     <Content Include="Areas\Blog\Views\Stories\Details.cshtml" />
+    <Content Include="Areas\Blog\Views\Stories\_UnlikeButtonStoryPartial.cshtml" />
+    <Content Include="Areas\Blog\Views\Stories\_LikeButtonStoryPartial.cshtml" />
+    <Content Include="Areas\Blog\Views\Stories\_StoryCommentBoxPartial.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

@@ -1,0 +1,15 @@
+﻿@model TravelGuide.Areas.Blog.ViewModels.StoryDetailsViewModel
+
+@using (Ajax.BeginForm("UnlikeStory", "Stories", new { Area = "Blog", storyId = Model.Id },
+                new AjaxOptions()
+                {
+                    UpdateTargetId = "like-btn-panel",
+                    InsertionMode = InsertionMode.Replace,
+                    HttpMethod = "POST",
+                    OnSuccess = "storyUnliked",
+                }))
+{
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-success btn-black btn-like-image"><span class="glyphicon glyphicon-thumbs-up"></span> Liked! (@Model.Likes.Count())</button>
+}
+

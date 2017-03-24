@@ -14,11 +14,15 @@ namespace TravelGuide.Services.Stories
     {
         private readonly ITravelGuideContext context;
         private readonly IStoryFactory storyFactory;
+        private readonly IStoryLikeFactory likesFactory;
+        private readonly IStoryCommentFactory commentsFactory;
 
-        public StoryService(ITravelGuideContext context, IStoryFactory storyFactory)
+        public StoryService(ITravelGuideContext context, IStoryFactory storyFactory, IStoryLikeFactory likesFactory, IStoryCommentFactory commentsFactory)
         {
             this.context = context;
             this.storyFactory = storyFactory;
+            this.likesFactory = likesFactory;
+            this.commentsFactory = commentsFactory;
         }
 
         public void CreateStory(string title, string content, string relatedDestination, string imageUrl, string userId)
@@ -128,6 +132,72 @@ namespace TravelGuide.Services.Stories
             }
 
             return images;
+        }
+
+        public bool IsStoryLiked(Guid storyId, string userId)
+        {
+            if (this.context.StoryLikes.Any(x => x.UserId == userId && x.StoryId == storyId))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public void ToggleLike(Guid storyId, string userId)
+        {
+            if (string.IsNullOrEmpty(userId))
+            {
+                throw new ArgumentNullException();
+            }
+
+            var story = this.context.Stories.Find(storyId);
+            var like = story.Likes.FirstOrDefault(x => x.UserId == userId);
+
+            if (like != null)
+            {
+                this.context.StoryLikes.Remove(like);
+            }
+            else
+            {
+                like = this.likesFactory.CreateStoreLike(userId, storyId);
+                story.Likes.Add(like);
+            }
+
+            this.context.SaveChanges();
+        }
+
+        public void AddComment(Guid storyId, string userId, string content)
+        {
+            if (string.IsNullOrEmpty(userId))
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (string.IsNullOrEmpty(content))
+            {
+                throw new ArgumentNullException();
+            }
+
+            var user = this.context.Users.Find(userId);
+
+            if (user == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            var comment = this.commentsFactory.CreateStoryComment(userId, user, content, storyId);
+            var story = this.context.Stories.Find(storyId);
+
+            story.Comments.Add(comment);
+            this.context.SaveChanges();
+        }
+
+        public void DeleteComment(Guid commentId)
+        {
+            var comment = this.context.StoryComments.Find(commentId);
+            this.context.StoryComments.Remove(comment);
+            this.context.SaveChanges();
         }
     }
 }

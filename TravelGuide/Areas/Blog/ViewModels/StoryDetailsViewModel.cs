@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using TravelGuide.Common.Contracts;
 using TravelGuide.Models;
@@ -22,6 +23,15 @@ namespace TravelGuide.Areas.Blog.ViewModels
         public virtual User Author { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
+        public User CurrentUser { get; set; }
+
+        public bool IsStoryLiked { get; set; }
+
+        [Required]
+        [StringLength(30, MinimumLength = 3)]
+        [Display(Name = "Content")]
+        public string NewCommentContent { get; set; }
 
         public virtual ICollection<StoryComment> Comments { get; set; }
 

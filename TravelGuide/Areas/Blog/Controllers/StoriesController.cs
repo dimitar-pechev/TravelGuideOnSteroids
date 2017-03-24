@@ -5,8 +5,8 @@ using Microsoft.AspNet.Identity;
 using TravelGuide.Areas.Blog.ViewModels;
 using TravelGuide.Common;
 using TravelGuide.Common.Contracts;
+using TravelGuide.Services.Account.Contracts;
 using TravelGuide.Services.Stories.Contracts;
-using TravelGuide.Models.Stories;
 
 namespace TravelGuide.Areas.Blog.Controllers
 {
@@ -14,11 +14,13 @@ namespace TravelGuide.Areas.Blog.Controllers
     {
         private readonly IStoryService storyService;
         private readonly IMappingService mappingService;
+        private readonly IUserService userService;
 
-        public StoriesController(IStoryService storyService, IMappingService mappingService)
+        public StoriesController(IStoryService storyService, IMappingService mappingService, IUserService userService)
         {
             this.storyService = storyService;
             this.mappingService = mappingService;
+            this.userService = userService;
         }
 
         public ActionResult Index(string query, int? page)
@@ -84,7 +86,70 @@ namespace TravelGuide.Areas.Blog.Controllers
 
             var model = this.mappingService.Map<StoryDetailsViewModel>(story);
 
+            var userId = this.User.Identity.GetUserId();
+            var currentUser = this.userService.GetById(userId);
+            if (currentUser != null)
+            {
+                model.CurrentUser = currentUser;
+                model.IsStoryLiked = this.storyService.IsStoryLiked(story.Id, currentUser.Id);
+            }
+
             return this.View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LikeStory(Guid storyId)
+        {
+            var userId = this.User.Identity.GetUserId();
+            this.storyService.ToggleLike(storyId, userId);
+            var story = this.storyService.GetById(storyId);
+            var model = this.mappingService.Map<StoryDetailsViewModel>(story);
+
+            return this.PartialView("_UnlikeButtonStoryPartial", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UnlikeStory(Guid storyId)
+        {
+            var userId = this.User.Identity.GetUserId();
+            this.storyService.ToggleLike(storyId, userId);
+            var story = this.storyService.GetById(storyId);
+            var model = this.mappingService.Map<StoryDetailsViewModel>(story);
+
+            return this.PartialView("_LikeButtonStoryPartial", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Comment(StoryDetailsViewModel model, Guid? storyId)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.PartialView("_StoryCommentBoxPartial", model);
+            }
+
+            var userId = this.User.Identity.GetUserId();
+
+            this.storyService.AddComment((Guid)storyId, userId, model.NewCommentContent);
+
+            var story = this.storyService.GetById((Guid)storyId);
+            model = this.mappingService.Map<StoryDetailsViewModel>(story);
+
+            return this.PartialView("_StoryCommentBoxPartial", model);
+        }
+
+        [HttpDelete]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteComment(Guid? commentId, Guid? storyId)
+        {
+            this.storyService.DeleteComment((Guid)commentId);
+
+            var story = this.storyService.GetById((Guid)storyId);
+            var model = this.mappingService.Map<StoryDetailsViewModel>(story);
+
+            return this.PartialView("_StoryCommentBoxPartial", model);
         }
 
         private int GetPage(int? page, int pagesCount)
