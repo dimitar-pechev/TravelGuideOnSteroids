@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using TravelGuide.Areas.Blog.ViewModels;
 using TravelGuide.Common;
 using TravelGuide.Common.Contracts;
 using TravelGuide.Services.Stories.Contracts;
+using TravelGuide.Models.Stories;
 
 namespace TravelGuide.Areas.Blog.Controllers
 {
@@ -64,6 +66,25 @@ namespace TravelGuide.Areas.Blog.Controllers
             this.storyService.CreateStory(model.Title, model.Content, model.RelatedDestination, model.ImageUrl, userId);
 
             return this.RedirectToAction("Index");
+        }
+
+        public ActionResult Details(Guid? id)
+        {
+            if (id == null)
+            {
+                return this.RedirectToAction("Index");
+            }
+
+            var story = this.storyService.GetById((Guid)id);
+
+            if (story == null)
+            {
+                return this.HttpNotFound();
+            }
+
+            var model = this.mappingService.Map<StoryDetailsViewModel>(story);
+
+            return this.View(model);
         }
 
         private int GetPage(int? page, int pagesCount)

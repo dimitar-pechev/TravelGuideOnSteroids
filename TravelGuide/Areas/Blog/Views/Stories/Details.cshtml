@@ -1,0 +1,38 @@
+﻿@model TravelGuide.Areas.Blog.ViewModels.StoryDetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+<div class="row discover-heading">
+    <img src="~/App_Themes/Blog/stories-cover.png" class="img-responsive" alt="heading" />
+</div>
+<div class="container stories-details-container">   
+    <div class="col-md-4">
+        <img src="@Model.ImageUrl" data-toggle="modal" data-target="#details-photo" class="img-responsive img-thumbnail cursor-pointer" alt="@Model.RelatedDestination" />
+    </div> 
+    <div class="col-md-8">
+        <h4>@Model.Title</h4>
+        <h5>@Model.RelatedDestination</h5>
+        <h6>Author: @Model.Author.UserName</h6>
+        <h6>Posted On: @Model.CreatedOn</h6>
+        <hr />
+        <p>@Model.Content</p>
+    </div>
+    <hr />
+</div>
+
+@*photos modal*@
+<div class="modal fade modal-close" id="details-photo" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <span class="glyphicon glyphicon-remove white-text icon-close" data-dismiss="modal"></span>
+            <div class="modal-body">
+                <img src="@Model.ImageUrl" id="details-img-modal" class="img-responsive modal-img-articles" alt="@Model.RelatedDestination">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryajax")
+}

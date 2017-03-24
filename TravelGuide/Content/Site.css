@@ -942,3 +942,13 @@ li.active a.tab-admin {
      border-top-color: #fff !important;
     border-bottom-color: #fff !important;
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.stories-details-container {
+    background-color: white;
+    padding-top: 5%;
+    margin-top: -3%;
+}

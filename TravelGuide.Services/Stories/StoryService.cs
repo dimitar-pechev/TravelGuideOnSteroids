@@ -60,6 +60,12 @@ namespace TravelGuide.Services.Stories
             this.context.SaveChanges();
         }
 
+        public Story GetById(Guid id)
+        {
+            var story = this.context.Stories.Find(id);
+            return story;
+        }
+
         public int GetPagesCount(string query)
         {
             int storiesCount;
