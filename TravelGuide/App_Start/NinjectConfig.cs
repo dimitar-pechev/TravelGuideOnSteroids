@@ -19,6 +19,8 @@ using TravelGuide.Services.Requests;
 using TravelGuide.Services.Requests.Contracts;
 using TravelGuide.Services.Store;
 using TravelGuide.Services.Store.Contracts;
+using TravelGuide.Services.Stories;
+using TravelGuide.Services.Stories.Contracts;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(TravelGuide.App_Start.NinjectConfig), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(TravelGuide.App_Start.NinjectConfig), "Stop")]
@@ -85,6 +87,7 @@ namespace TravelGuide.App_Start
             kernel.Bind<ICartService>().To<CartService>();
             kernel.Bind<IRequestService>().To<RequestService>();
             kernel.Bind<IGalleryImageService>().To<GalleryImageService>();
+            kernel.Bind<IStoryService>().To<StoryService>();
 
             kernel.Bind<IArticleFactory>().ToFactory().InSingletonScope();
             kernel.Bind<IArticleCommentFactory>().ToFactory().InSingletonScope();

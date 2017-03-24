@@ -1,7 +1,7 @@
-﻿@model TravelGuide.Areas.Blog.ViewModels.CreateImageViewModel
+﻿@model TravelGuide.Areas.Blog.ViewModels.CreateEditStoryViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Share Your Story";
 }
 
 <div class="container">
@@ -10,9 +10,9 @@
             <div class="col-md-6 col-md-offset-3 text-center">
                 <div class="card">
                     <div class="card-content form-add">
-                        <h5>Add a New Photo</h5>
+                        <h5>Share Your Story</h5>
                         <hr />
-                        @using (Html.BeginForm("Create", "Gallery", FormMethod.Post))
+                        @using (Html.BeginForm("CreateStory", "Stories", FormMethod.Post))
                         {
                             @Html.AntiForgeryToken()
                             <div class="input-field">
@@ -22,12 +22,24 @@
                             </div>
                             <br />
                             <div class="input-field">
+                                @Html.LabelFor(m => m.RelatedDestination)
+                                @Html.TextBoxFor(m => m.RelatedDestination)
+                                @Html.ValidationMessageFor(m => m.RelatedDestination, "", new { @class = "text-danger" })
+                            </div>
+                            <br />
+                            <div class="input-field">
                                 @Html.LabelFor(m => m.ImageUrl)
                                 @Html.TextBoxFor(m => m.ImageUrl)
                                 @Html.ValidationMessageFor(m => m.ImageUrl, "", new { @class = "text-danger" })
                             </div>
                             <br />
-                            <input type="submit" class="btn btn-success btn-login" value="Add" />
+                            <div>
+                                @Html.LabelFor(m => m.Content)
+                                @Html.TextAreaFor(m => m.Content, new { @class = "form-control", placeholder = "Tell us your story...", rows = 5 })
+                                @Html.ValidationMessageFor(m => m.Content, "", new { @class = "text-danger" })
+                            </div>
+                            <br />
+                            <input type="submit" class="btn btn-success btn-login" value="Share" />
                             <br />
                         }
                     </div>

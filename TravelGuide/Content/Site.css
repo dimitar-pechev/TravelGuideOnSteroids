@@ -887,13 +887,13 @@ li.active a.tab-admin {
     cursor: pointer;
 }
 
-li.active a.tab-admin:hover {
-    color: white;
-    cursor: pointer;
-}
+    li.active a.tab-admin:hover {
+        color: white;
+        cursor: pointer;
+    }
 
 .table-header-admin {
-    background-color:  #5A5A5A;
+    background-color: #5A5A5A;
     color: white;
 }
 
@@ -908,4 +908,37 @@ li.active a.tab-admin:hover {
 
 .preloader-wrapper {
     z-index: 9999;
+}
+
+.dropdown-content {
+    top: 51px !important;
+    background-color: black;
+}
+
+    .dropdown-content a, .dropdown-content.active a {
+        color: white;
+        background-color: black;
+    }
+
+        .dropdown-content a:hover, .dropdown-content a:focus {
+            text-decoration: none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: white;
+            color: black;
+        }
+
+    .dropdown-content li:hover {
+        background-color: black;
+    }
+
+.caret-blog {
+    border-top-color: #999999 !important;
+    border-bottom-color: #999999 !important;
+}
+
+.dropdown-button.waves-effect.waves-light:hover .caret-blog {
+     border-top-color: #fff !important;
+    border-bottom-color: #fff !important;
 }

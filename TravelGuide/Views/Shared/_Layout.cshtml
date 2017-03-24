@@ -21,10 +21,15 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { Area = "" }, new { @class = "waves-effect waves-light" })</li>
-                    <li>@Html.ActionLink("Destinations", "Index", "Articles", new { Area = "" }, new { @class = "waves-effect waves-light" })</li>
-                    <li>@Html.ActionLink("Gallery", "Index", "Gallery", new { Area = "Blog" }, new { @class = "waves-effect waves-light" })</li>
+                    <li>@Html.ActionLink("Destinations", "Index", "Articles", new { Area = "" }, new { @class = "waves-effect waves-light" })</li>                                       
                     <li>@Html.ActionLink("Store", "Index", "StoreItems", new { Area = "Store" } , new { @class = "waves-effect waves-light" })</li>
+                    <li><a class='dropdown-button waves-effect waves-light' href='#' data-activates='blog-menu'>Blog <span class="caret caret-blog"></span></a></li>
                 </ul>
+                <ul id='blog-menu' class='dropdown-content'>
+                    <li>@Html.ActionLink("Gallery", "Index", "Gallery", new { Area = "Blog" }, new { @class = "waves-effect" })</li>
+                    <li>@Html.ActionLink("Stories", "Index", "Stories", new { Area = "Blog" }, new { @class = "waves-effect" })</li>
+                </ul>
+
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

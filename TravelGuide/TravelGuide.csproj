@@ -222,7 +222,9 @@
     <Compile Include="Areas\Admin\Controllers\UserManagerController.cs" />
     <Compile Include="Areas\Blog\BlogAreaRegistration.cs" />
     <Compile Include="Areas\Blog\Controllers\GalleryController.cs" />
+    <Compile Include="Areas\Blog\Controllers\StoriesController.cs" />
     <Compile Include="Areas\Blog\ViewModels\CreateImageViewModel.cs" />
+    <Compile Include="Areas\Blog\ViewModels\CreateEditStoryViewModel.cs" />
     <Compile Include="Areas\Blog\ViewModels\GalleryItemViewModel.cs" />
     <Compile Include="Areas\Blog\ViewModels\GalleryListViewModel.cs" />
     <Compile Include="Areas\Store\Controllers\CartController.cs" />
@@ -256,6 +258,7 @@
   <ItemGroup>
     <Content Include="App_Themes\Articles\destinations-heading.png" />
     <Content Include="App_Themes\Blog\gallery-cover.png" />
+    <Content Include="App_Themes\Blog\stories-cover.png" />
     <Content Include="App_Themes\IconsSocial\1487474216_facebook.png" />
     <Content Include="App_Themes\IconsSocial\1487474227_linkedin.png" />
     <Content Include="App_Themes\IconsSocial\1487474240_youtube.png" />
@@ -349,6 +352,8 @@
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\UserManager\_EditUserPartial.cshtml" />
+    <Content Include="Areas\Blog\Views\Stories\Index.cshtml" />
+    <Content Include="Areas\Blog\Views\Stories\CreateStory.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

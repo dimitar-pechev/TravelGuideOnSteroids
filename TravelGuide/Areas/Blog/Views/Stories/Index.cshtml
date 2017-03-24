@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Stories";
+}
+
+<div class="row discover-heading">
+    <img src="~/App_Themes/Blog/stories-cover.png" class="img-responsive" alt="heading" />
+</div>
+
+<div class="container destinations-container">
+    <div class="row search-box-discover">
+        <div class="col-md-4 col-md-offset-4 text-center">
+            @using (Ajax.BeginForm("Search", null,
+               new AjaxOptions
+               {
+                   UpdateTargetId = "stories-entries-container",
+                   InsertionMode = InsertionMode.Replace,
+                   HttpMethod = "POST"
+               }, new { id = "searchForm" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Label("Search blog titles:", new { @for = "query", @class = "search-label-discover" })
+                @Html.TextBox("query", null, new { oninput = "changed()" })
+                <input type="submit" oninput="onInput()" style="display: none" />
+            }
+        </div>
+
+        @if (this.User.Identity.IsAuthenticated)
+        {
+            <div class="col-md-4 text-right">
+                @Html.ActionLink("Share your Story", "CreateStory", null, new { @class = "btn btn-success btn-create" })
+            </div>
+        }
+    </div>
+    <div class="row stories-entries-container" id="stories-entries-container">
+        
+    </div>
+</div>
