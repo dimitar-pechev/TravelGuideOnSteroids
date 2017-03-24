@@ -96,7 +96,10 @@
     <Compile Include="Factories\IGalleryImageFactory.cs" />
     <Compile Include="Factories\IGalleryLikeFactory.cs" />
     <Compile Include="Factories\IRequestFactory.cs" />
+    <Compile Include="Factories\IStoryCommentFactory.cs" />
     <Compile Include="Factories\IStoreItemFactory.cs" />
+    <Compile Include="Factories\IStoryLikeFactory.cs" />
+    <Compile Include="Factories\IStoryFactory.cs" />
     <Compile Include="Gallery\Contacts\IGalleryImageService.cs" />
     <Compile Include="Gallery\GalleryImageService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -125,7 +128,9 @@
       <Name>TravelGuide.Models</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Stories\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

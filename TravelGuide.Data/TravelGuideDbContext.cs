@@ -6,6 +6,7 @@ using TravelGuide.Models.Articles;
 using TravelGuide.Models.Gallery;
 using TravelGuide.Models.Requests;
 using TravelGuide.Models.Store;
+using TravelGuide.Models.Stories;
 
 namespace TravelGuide.Data
 {
@@ -15,6 +16,12 @@ namespace TravelGuide.Data
             : base("TravelGuideMvc")
         {
         }
+
+        public IDbSet<Story> Stories { get; set; }
+
+        public IDbSet<StoryComment> StoryComments { get; set; }
+
+        public IDbSet<StoryLike> StoryLikes { get; set; }
 
         public IDbSet<GalleryImage> GalleryImages { get; set; }
 

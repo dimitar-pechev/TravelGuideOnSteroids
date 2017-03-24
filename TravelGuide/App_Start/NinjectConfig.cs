@@ -93,6 +93,9 @@ namespace TravelGuide.App_Start
             kernel.Bind<IGalleryImageFactory>().ToFactory().InSingletonScope();
             kernel.Bind<IGalleryLikeFactory>().ToFactory().InSingletonScope();
             kernel.Bind<IGalleryCommentFactory>().ToFactory().InSingletonScope();
+            kernel.Bind<IStoryFactory>().ToFactory().InSingletonScope();
+            kernel.Bind<IStoryCommentFactory>().ToFactory().InSingletonScope();
+            kernel.Bind<IStoryLikeFactory>().ToFactory().InSingletonScope();
         }
     }
 }

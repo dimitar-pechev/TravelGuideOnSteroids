@@ -4,11 +4,18 @@ using TravelGuide.Models.Articles;
 using TravelGuide.Models.Gallery;
 using TravelGuide.Models.Requests;
 using TravelGuide.Models.Store;
+using TravelGuide.Models.Stories;
 
 namespace TravelGuide.Data.Contracts
 {
     public interface ITravelGuideContext
     {
+        IDbSet<Story> Stories { get; set; }
+
+        IDbSet<StoryComment> StoryComments { get; set; }
+
+        IDbSet<StoryLike> StoryLikes { get; set; }
+
         IDbSet<GalleryImage> GalleryImages { get; set; }
 
         IDbSet<GalleryComment> GalleryComments { get; set; }

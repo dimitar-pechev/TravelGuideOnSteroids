@@ -98,6 +98,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\Request.cs" />
     <Compile Include="Store\StoreItem.cs" />
+    <Compile Include="Stories\Story.cs" />
+    <Compile Include="Stories\StoryComment.cs" />
+    <Compile Include="Stories\StoryLike.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
