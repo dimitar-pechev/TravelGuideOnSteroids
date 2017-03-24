@@ -37,3 +37,12 @@
         @Html.Partial("_StoriesListPartial", Model)
     </div>
 </div>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryajax")
+    <script>
+        function changed() {
+            $('#searchForm').submit();
+        }
+    </script>
+}

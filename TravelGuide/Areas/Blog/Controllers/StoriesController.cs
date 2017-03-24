@@ -31,6 +31,20 @@ namespace TravelGuide.Areas.Blog.Controllers
             return this.View(model);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Search(string query, int? page)
+        {
+            var pagesCount = this.storyService.GetPagesCount(query);
+            var currentPage = this.GetPage(page, pagesCount);
+            var stories = this.storyService.GetStoriesByPage(query, currentPage, AppConstants.StoriesPageSize);
+            var mappedStories = this.mappingService.Map<IEnumerable<StoryItemViewModel>>(stories);
+            var model = this.mappingService.Map<StoriesListViewModel>(mappedStories);
+            model = this.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.StorisBaseUrl);
+
+            return this.PartialView("_StoriesListPartial", model);
+        }
+
         [HttpGet]
         public ActionResult CreateStory()
         {
