@@ -36,8 +36,8 @@
             }
         </div>
         <hr />
-        <div id="comment-box" class="comment-box-stories">
-            @Html.Partial("_StoryCommentBoxPartial", Model)
+        <div id="comment-box-@Model.Id" class="comment-box-stories">
+            @Html.Partial("_CommentBoxPartial", Model)
         </div>
     </div>
     <div class="col-md-8">

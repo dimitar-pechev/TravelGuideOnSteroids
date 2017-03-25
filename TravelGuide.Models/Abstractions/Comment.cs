@@ -1,8 +1,9 @@
 ﻿using System;
+using TravelGuide.Models.Abstractions.Contracts;
 
 namespace TravelGuide.Models.Abstractions
 {
-    public abstract class Comment
+    public abstract class Comment : IComment
     {
         public Comment()
         {

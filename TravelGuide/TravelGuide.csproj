@@ -354,7 +354,6 @@
     <Content Include="Areas\Blog\Views\Gallery\Index.cshtml" />
     <Content Include="Areas\Blog\Views\Gallery\Create.cshtml" />
     <Content Include="Areas\Blog\Views\Gallery\_GalleryListPartial.cshtml" />
-    <Content Include="Areas\Blog\Views\Gallery\_ImageCommentBoxPartial.cshtml" />
     <Content Include="Areas\Blog\Views\Gallery\_LikeButtonPartial.cshtml" />
     <Content Include="Areas\Blog\Views\Gallery\_UnlikeButtonPartial.cshtml" />
     <Content Include="Areas\Blog\Views\Gallery\_ImageDetailsPartial.cshtml" />
@@ -367,7 +366,6 @@
     <Content Include="Areas\Blog\Views\Stories\Details.cshtml" />
     <Content Include="Areas\Blog\Views\Stories\_UnlikeButtonStoryPartial.cshtml" />
     <Content Include="Areas\Blog\Views\Stories\_LikeButtonStoryPartial.cshtml" />
-    <Content Include="Areas\Blog\Views\Stories\_StoryCommentBoxPartial.cshtml" />
     <Content Include="Areas\Blog\Views\Stories\EditStory.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
@@ -423,7 +421,7 @@
     <Content Include="Views\Manage\_UserRequestsPartial.cshtml" />
     <Content Include="Views\Manage\_UserEditInfoPartial.cshtml" />
     <Content Include="Views\Manage\_UserStoriesListPartial.cshtml" />
-    <Content Include="Views\Articles\_ArticlesCommentBoxPartial.cshtml" />
+    <Content Include="Views\Shared\_CommentBoxPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -33,7 +33,7 @@ else
                      LoadingElementId = "image-loader",
                      HttpMethod = "GET",
                      UpdateTargetId = "image-details",
-                     OnSuccess = "rebindCommentEvent"
+                     OnSuccess = $"rebindCommentEvent('{image.Id.ToString()}')"
                  }))
             {
                 @Html.AntiForgeryToken()

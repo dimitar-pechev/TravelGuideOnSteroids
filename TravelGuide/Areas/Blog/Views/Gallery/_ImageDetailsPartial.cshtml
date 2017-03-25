@@ -16,7 +16,7 @@
                 InsertionMode = InsertionMode.Replace,
                 HttpMethod = "GET",
                 UpdateTargetId = "image-details",
-                OnSuccess = "rebindCommentEvent"
+                OnSuccess = $"rebindCommentEvent('{Model.Id.ToString()}')"
             }))
             {
                 @Html.AntiForgeryToken()
@@ -29,7 +29,7 @@
                 InsertionMode = InsertionMode.Replace,
                 HttpMethod = "GET",
                 UpdateTargetId = "image-details",
-                OnSuccess = "rebindCommentEvent"
+                OnSuccess = $"rebindCommentEvent('{Model.Id.ToString()}')"
             }))
             {
                 @Html.AntiForgeryToken()
@@ -46,7 +46,7 @@
                             @Model.Username
                         </p>
                         <span class="date-panel">@Model.CreatedOn</span>
-                        @if (this.User.IsInRole("admin") || Model.UserId == Model.CurrentUserId)
+                        @if (this.User.IsInRole("admin") || (this.User.Identity.IsAuthenticated && Model.UserId == Model.CurrentUser.Id))
                         {
                             using (Html.BeginForm("DeleteImage", "Gallery", new { imageId = Model.Id }, FormMethod.Post))
                             {
@@ -86,8 +86,8 @@
                     }
                     <hr />
                 </div>
-                <div id="@Model.Id" class="row details-comment-box container-fluid">
-                    @Html.Partial("_ImageCommentBoxPartial", Model)
+                <div id="comment-box-@Model.Id" class="row details-comment-box container-fluid">
+                    @Html.Partial("_CommentBoxPartial", Model)
                 </div>
             </div>
         </div>

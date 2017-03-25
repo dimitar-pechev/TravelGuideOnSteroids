@@ -5,11 +5,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using TravelGuide.Auth;
+using TravelGuide.Common.Contracts;
 using TravelGuide.Services.Account.Contracts;
 using TravelGuide.Services.Requests.Contracts;
 using TravelGuide.Services.Stories.Contracts;
 using TravelGuide.ViewModels.ManageViewModels;
-using TravelGuide.Common.Contracts;
 
 namespace TravelGuide.Controllers
 {

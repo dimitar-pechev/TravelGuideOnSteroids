@@ -6,11 +6,11 @@ function storyUnliked() {
     notify('success', 'Like removed!');
 }
 
-function commentSubmitted() {
+function commentSubmitted(args) {
+    $.validator.unobtrusive.parse('#comment-box-' + args);
+
     notify('success', 'Comment submitted!');
-
-    $.validator.unobtrusive.parse("#comment-box");
-
+    
     $('.comment-box-textarea').on('focus', () => {
         $('.btn-submit-box').show();
     });
@@ -18,10 +18,10 @@ function commentSubmitted() {
     $('.comment-box-textarea').val('');
 }
 
-function commentDeleted() {
-    notify('success', 'Comment deleted!');
+function commentDeleted(args) {
+    $.validator.unobtrusive.parse('#comment-box-' + args);
 
-    $.validator.unobtrusive.parse("#comment-box");
+    notify('success', 'Comment deleted!');
 
     $('.comment-box-textarea').on('focus', () => {
         $('.btn-submit-box').show();

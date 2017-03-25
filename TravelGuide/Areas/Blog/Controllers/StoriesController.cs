@@ -16,23 +16,25 @@ namespace TravelGuide.Areas.Blog.Controllers
         private readonly IStoryService storyService;
         private readonly IMappingService mappingService;
         private readonly IUserService userService;
+        private readonly IUtilitiesService utils;
 
-        public StoriesController(IStoryService storyService, IMappingService mappingService, IUserService userService)
+        public StoriesController(IStoryService storyService, IMappingService mappingService, IUserService userService, IUtilitiesService utils)
         {
             this.storyService = storyService;
             this.mappingService = mappingService;
             this.userService = userService;
+            this.utils = utils;
         }
 
         [AllowAnonymous]
         public ActionResult Index(string query, int? page)
         {
             var pagesCount = this.storyService.GetPagesCount(query);
-            var currentPage = this.GetPage(page, pagesCount);
+            var currentPage = this.utils.GetPage(page, pagesCount);
             var stories = this.storyService.GetStoriesByPage(query, currentPage, AppConstants.StoriesPageSize);
             var mappedStories = this.mappingService.Map<IEnumerable<StoryItemViewModel>>(stories);
             var model = this.mappingService.Map<StoriesListViewModel>(mappedStories);
-            model = this.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.StorisBaseUrl);
+            model = this.utils.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.StorisBaseUrl);
 
             return this.View(model);
         }
@@ -43,11 +45,11 @@ namespace TravelGuide.Areas.Blog.Controllers
         public ActionResult Search(string query, int? page)
         {
             var pagesCount = this.storyService.GetPagesCount(query);
-            var currentPage = this.GetPage(page, pagesCount);
+            var currentPage = this.utils.GetPage(page, pagesCount);
             var stories = this.storyService.GetStoriesByPage(query, currentPage, AppConstants.StoriesPageSize);
             var mappedStories = this.mappingService.Map<IEnumerable<StoryItemViewModel>>(stories);
             var model = this.mappingService.Map<StoriesListViewModel>(mappedStories);
-            model = this.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.StorisBaseUrl);
+            model = this.utils.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.StorisBaseUrl);
 
             return this.PartialView("_StoriesListPartial", model);
         }
@@ -89,7 +91,7 @@ namespace TravelGuide.Areas.Blog.Controllers
             }
 
             var model = this.mappingService.Map<StoryDetailsViewModel>(story);
-
+            model.ProfilePicSize = AppConstants.StoriesProfilePicSize;
             var userId = this.User.Identity.GetUserId();
             var currentUser = this.userService.GetById(userId);
             if (currentUser != null)
@@ -127,40 +129,40 @@ namespace TravelGuide.Areas.Blog.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Comment(StoryDetailsViewModel model, Guid? storyId)
+        public ActionResult Comment(StoryDetailsViewModel model, Guid? itemId)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.PartialView("_StoryCommentBoxPartial", model);
+                throw new InvalidOperationException();
             }
 
             var userId = this.User.Identity.GetUserId();
 
-            this.storyService.AddComment((Guid)storyId, userId, model.NewCommentContent);
+            this.storyService.AddComment((Guid)itemId, userId, model.NewCommentContent);
 
-            var story = this.storyService.GetById((Guid)storyId);
+            var story = this.storyService.GetById((Guid)itemId);
             model = this.mappingService.Map<StoryDetailsViewModel>(story);
-
+            model.ProfilePicSize = AppConstants.StoriesProfilePicSize;
             var user = this.userService.GetById(userId);
             model.CurrentUser = user;
 
-            return this.PartialView("_StoryCommentBoxPartial", model);
+            return this.PartialView("_CommentBoxPartial", model);
         }
 
         [HttpDelete]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteComment(Guid commentId, Guid storyId)
+        public ActionResult DeleteComment(Guid commentId, Guid itemId)
         {
             this.storyService.DeleteComment(commentId);
-            var story = this.storyService.GetById(storyId);
+            var story = this.storyService.GetById(itemId);
             var model = this.mappingService.Map<StoryDetailsViewModel>(story);
+            model.ProfilePicSize = AppConstants.StoriesProfilePicSize;
 
             var userId = this.User.Identity.GetUserId();
             var user = this.userService.GetById(userId);
-
             model.CurrentUser = user;
 
-            return this.PartialView("_StoryCommentBoxPartial", model);
+            return this.PartialView("_CommentBoxPartial", model);
         }
 
         public ActionResult EditStory(Guid? storyId)
@@ -217,33 +219,6 @@ namespace TravelGuide.Areas.Blog.Controllers
 
             this.storyService.DeleteStory((Guid)storyId);
             return this.RedirectToAction("Index");
-        }
-
-        private int GetPage(int? page, int pagesCount)
-        {
-            int result;
-            if (page == null || page < 1 || page > pagesCount)
-            {
-                result = 1;
-            }
-            else
-            {
-                result = (int)page;
-            }
-
-            return result;
-        }
-
-        private StoriesListViewModel AssignViewParams(StoriesListViewModel model, string query, int currentPage, int pagesCount, string baseUrl)
-        {
-            model.Query = query;
-            model.CurrentPage = currentPage;
-            model.PreviousPage = currentPage - 1;
-            model.NextPage = currentPage + 1;
-            model.PagesCount = pagesCount;
-            model.BaseUrl = baseUrl;
-
-            return model;
         }
     }
 }

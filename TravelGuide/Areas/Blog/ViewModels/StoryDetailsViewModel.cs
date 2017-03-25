@@ -4,11 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using TravelGuide.Common.Contracts;
 using TravelGuide.Models;
+using TravelGuide.Models.Abstractions.Contracts;
 using TravelGuide.Models.Stories;
 
 namespace TravelGuide.Areas.Blog.ViewModels
 {
-    public class StoryDetailsViewModel : IMapFrom<Story>, IHaveCustomMappings
+    public class StoryDetailsViewModel : IMapFrom<Story>, IHaveCustomMappings, ICommentable
     {
         public Guid Id { get; set; }
 
@@ -29,13 +30,15 @@ namespace TravelGuide.Areas.Blog.ViewModels
         public bool IsStoryLiked { get; set; }
 
         [Required]
-        [StringLength(30, MinimumLength = 3)]
+        [StringLength(200, MinimumLength = 3)]
         [Display(Name = "Content")]
         public string NewCommentContent { get; set; }
 
-        public virtual ICollection<StoryComment> Comments { get; set; }
+        public int ProfilePicSize { get; set; }
 
-        public virtual ICollection<StoryLike> Likes { get; set; }
+        public virtual IEnumerable<IComment> Comments { get; set; }
+
+        public virtual IEnumerable<StoryLike> Likes { get; set; }
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {

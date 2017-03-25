@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstractions\Comment.cs" />
+    <Compile Include="Abstractions\Contracts\IComment.cs" />
     <Compile Include="Abstractions\Like.cs" />
     <Compile Include="Account\User.cs" />
     <Compile Include="Articles\Article.cs" />

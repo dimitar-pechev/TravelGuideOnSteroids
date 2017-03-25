@@ -13,23 +13,24 @@ namespace TravelGuide.Areas.Store.Controllers
     {
         private readonly IStoreService storeService;
         private readonly IMappingService mappingService;
+        private readonly IUtilitiesService utils;
 
-        public StoreItemsController(IStoreService storeService, IMappingService mappingService)
+        public StoreItemsController(IStoreService storeService, IMappingService mappingService, IUtilitiesService utils)
         {
             this.storeService = storeService;
             this.mappingService = mappingService;
+            this.utils = utils;
         }
 
         [AllowAnonymous]
         public ActionResult Index(string query, int? page)
         {
             var pagesCount = this.storeService.GetPagesCount(query);
-            var currentPage = this.GetPage(page, pagesCount);
+            var currentPage = this.utils.GetPage(page, pagesCount);
             var images = this.storeService.GetFilteredItemsByPage(query, currentPage, AppConstants.StorePageSize);
             var mappedImages = this.mappingService.Map<IEnumerable<StoreItemViewModel>>(images);
             var model = this.mappingService.Map<StoreListViewModel>(mappedImages);
-
-            model = this.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.StoreListBaseUrl);
+            model = this.utils.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.StoreListBaseUrl);
 
             return this.View(model);
         }
@@ -39,12 +40,11 @@ namespace TravelGuide.Areas.Store.Controllers
         public ActionResult Search(string query, int? page)
         {
             var pagesCount = this.storeService.GetPagesCount(query);
-            var currentPage = this.GetPage(page, pagesCount);
+            var currentPage = this.utils.GetPage(page, pagesCount);
             var images = this.storeService.GetFilteredItemsByPage(query, currentPage, AppConstants.StorePageSize);
             var mappedImages = this.mappingService.Map<IEnumerable<StoreItemViewModel>>(images);
             var model = this.mappingService.Map<StoreListViewModel>(mappedImages);
-
-            model = this.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.StoreListBaseUrl);
+            model = this.utils.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.StoreListBaseUrl);
 
             return this.PartialView("_StoreItemsListPartial", model);
         }
@@ -125,33 +125,6 @@ namespace TravelGuide.Areas.Store.Controllers
             this.storeService.ChangeStatus(model.Id, isInStock);
 
             return this.PartialView("_AddToCartPartial", model);
-        }
-
-        private int GetPage(int? page, int pagesCount)
-        {
-            int result;
-            if (page == null || page < 1 || page > pagesCount)
-            {
-                result = 1;
-            }
-            else
-            {
-                result = (int)page;
-            }
-
-            return result;
-        }
-
-        private StoreListViewModel AssignViewParams(StoreListViewModel model, string query, int currentPage, int pagesCount, string baseUrl)
-        {
-            model.Query = query;
-            model.CurrentPage = currentPage;
-            model.PreviousPage = currentPage - 1;
-            model.NextPage = currentPage + 1;
-            model.PagesCount = pagesCount;
-            model.BaseUrl = baseUrl;
-
-            return model;
         }
     }
 }

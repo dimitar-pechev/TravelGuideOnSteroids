@@ -99,8 +99,8 @@
                     <span class="glyphicon glyphicon-comment icon-article"></span> Comments
                 </h4>
                 <hr />
-                <div id="comment-box">
-                    @Html.Partial("_ArticlesCommentBoxPartial", Model)
+                <div id="comment-box-@Model.Id">
+                    @Html.Partial("_CommentBoxPartial", Model)
                 </div>
             </div>
             <div class="col-md-4">
@@ -135,22 +135,22 @@
             $('#details-img-modal').attr('src', $(e.target).attr('src'));
         })
 
-        function rebindEvents() {
-            $.validator.unobtrusive.parse("#comment-box");
+        function rebindEvents(args) {
+            $.validator.unobtrusive.parse('#comment-box-' + args);
 
             $('.comment-box-textarea').on('focus', () => {
                 $('.btn-submit-box').show();
             });
         }
 
-        function commentSubmitted() {
-            rebindEvents();
+        function commentSubmitted(args) {
+            rebindEvents(args);
             notify('success', 'Comment submitted!');
             $('.comment-box-textarea').val('');
         }
 
-        function commentDeleted() {
-            rebindEvents();
+        function commentDeleted(args) {
+            rebindEvents(args);
             notify('success', 'Comment removed!');
         }
 

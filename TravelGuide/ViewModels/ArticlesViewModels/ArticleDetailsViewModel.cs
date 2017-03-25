@@ -4,12 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using TravelGuide.Common.Contracts;
 using TravelGuide.Models;
+using TravelGuide.Models.Abstractions.Contracts;
 using TravelGuide.Models.Articles;
 using TravelGuide.Models.Store;
 
 namespace TravelGuide.ViewModels.ArticlesViewModels
 {
-    public class ArticleDetailsViewModel : IMapFrom<Article>, IMapFrom<IEnumerable<StoreItem>>, IHaveCustomMappings
+    public class ArticleDetailsViewModel : IMapFrom<Article>, IMapFrom<IEnumerable<StoreItem>>, IHaveCustomMappings, ICommentable
     {
         public Guid Id { get; set; }
 
@@ -46,11 +47,13 @@ namespace TravelGuide.ViewModels.ArticlesViewModels
         [Display(Name = "Content")]
         public string NewCommentContent { get; set; }
 
-        public ICollection<ArticleLike> Likes { get; set; }
+        public IEnumerable<ArticleLike> Likes { get; set; }
 
-        public ICollection<ArticleComment> Comments { get; set; }
+        public IEnumerable<IComment> Comments { get; set; }
 
         public IEnumerable<StoreItem> StoreItems { get; set; }
+
+        public int ProfilePicSize { get; set; }
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {

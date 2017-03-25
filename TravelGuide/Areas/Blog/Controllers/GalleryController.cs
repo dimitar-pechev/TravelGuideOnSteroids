@@ -17,19 +17,21 @@ namespace TravelGuide.Areas.Blog.Controllers
         private readonly IGalleryImageService galleryService;
         private readonly IUserService userService;
         private readonly IMappingService mappingService;
+        private readonly IUtilitiesService utils;
 
-        public GalleryController(IGalleryImageService galleryService, IMappingService mappingService, IUserService userService)
+        public GalleryController(IGalleryImageService galleryService, IMappingService mappingService, IUserService userService, IUtilitiesService utils)
         {
             this.galleryService = galleryService;
             this.mappingService = mappingService;
             this.userService = userService;
+            this.utils = utils;
         }
 
         [AllowAnonymous]
         public ActionResult Index(string query, int? page)
         {
             var pagesCount = this.galleryService.GetPagesCount(query);
-            var currentPage = this.GetPage(page, pagesCount);
+            var currentPage = this.utils.GetPage(page, pagesCount);
             var images = this.galleryService.GetFilteredImagesByPage(query, currentPage, AppConstants.GalleryPageSize);
             var mappedImages = this.mappingService.Map<IEnumerable<GalleryItemViewModel>>(images);
 
@@ -39,13 +41,12 @@ namespace TravelGuide.Areas.Blog.Controllers
                 foreach (var image in mappedImages)
                 {
                     image.IsImageLiked = this.galleryService.IsImageLiked(currentUser.Id, image.Id);
-                    image.CurrentUserId = currentUser.Id;
+                    image.CurrentUser = currentUser;
                 }
             }
 
             var model = this.mappingService.Map<GalleryListViewModel>(mappedImages);
-
-            model = this.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.GalleryListBaseUrl);
+            model = this.utils.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.GalleryListBaseUrl);
 
             return this.View(model);
         }
@@ -55,7 +56,7 @@ namespace TravelGuide.Areas.Blog.Controllers
         public ActionResult Search(string query, int? page)
         {
             var pagesCount = this.galleryService.GetPagesCount(query);
-            var currentPage = this.GetPage(page, pagesCount);
+            var currentPage = this.utils.GetPage(page, pagesCount);
             var images = this.galleryService.GetFilteredImagesByPage(query, currentPage, AppConstants.GalleryPageSize);
             var mappedImages = this.mappingService.Map<IEnumerable<GalleryItemViewModel>>(images);
             var model = this.mappingService.Map<GalleryListViewModel>(mappedImages);
@@ -66,11 +67,11 @@ namespace TravelGuide.Areas.Blog.Controllers
                 foreach (var image in mappedImages)
                 {
                     image.IsImageLiked = this.galleryService.IsImageLiked(currentUser.Id, image.Id);
-                    image.CurrentUserId = currentUser.Id;
+                    image.CurrentUser = currentUser;
                 }
             }
 
-            model = this.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.GalleryListBaseUrl);
+            model = this.utils.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.GalleryListBaseUrl);
 
             return this.PartialView("_GalleryListPartial", model);
         }
@@ -96,11 +97,14 @@ namespace TravelGuide.Areas.Blog.Controllers
             model.PreviousImageId = surroundingImageIds.Item1;
             model.NextImageId = surroundingImageIds.Item2;
 
+            model.ProfilePicSize = AppConstants.GalleryProfilePicSize;
+
             var currentUserId = this.User.Identity.GetUserId();
+            var user = this.userService.GetById(currentUserId);
             if (currentUserId != null)
             {
                 model.IsImageLiked = this.galleryService.IsImageLiked(currentUserId, model.Id);
-                model.CurrentUserId = currentUserId;
+                model.CurrentUser = user;
             }
 
             return this.PartialView("_ImageDetailsPartial", model);
@@ -128,21 +132,23 @@ namespace TravelGuide.Areas.Blog.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Comment(Guid imageId, GalleryItemViewModel model)
+        public ActionResult Comment(Guid itemId, GalleryItemViewModel model)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.PartialView("_ImageCommentBoxPartial", model);
+                throw new InvalidOperationException();
             }
 
             var userId = this.User.Identity.GetUserId();
-            this.galleryService.AddComment(userId, model.NewCommentContent, imageId);
+            this.galleryService.AddComment(userId, model.NewCommentContent, itemId);
 
-            var image = this.galleryService.GetGalleryImageById(imageId);
+            var image = this.galleryService.GetGalleryImageById(itemId);
             model = this.mappingService.Map<GalleryItemViewModel>(image);
-            model.CurrentUserId = this.User.Identity.GetUserId();
+            var user = this.userService.GetById(userId);
+            model.CurrentUser = user;
+            model.ProfilePicSize = AppConstants.GalleryProfilePicSize;
 
-            return this.PartialView("_ImageCommentBoxPartial", model);
+            return this.PartialView("_CommentBoxPartial", model);
         }
 
         [HttpPost]
@@ -209,14 +215,14 @@ namespace TravelGuide.Areas.Blog.Controllers
 
         [HttpDelete]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteComment(Guid? commentId, Guid? imageId)
+        public ActionResult DeleteComment(Guid? commentId, Guid? itemId)
         {
-            if (imageId == null)
+            if (itemId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var image = this.galleryService.GetGalleryImageById((Guid)imageId);
+            var image = this.galleryService.GetGalleryImageById((Guid)itemId);
 
             if (image == null)
             {
@@ -230,11 +236,14 @@ namespace TravelGuide.Areas.Blog.Controllers
 
             this.galleryService.DeleteComment(commentId.ToString());
 
-            image = this.galleryService.GetGalleryImageById((Guid)imageId);
+            image = this.galleryService.GetGalleryImageById((Guid)itemId);
             var model = this.mappingService.Map<GalleryItemViewModel>(image);
-            model.CurrentUserId = this.User.Identity.GetUserId();
+            var userId = this.User.Identity.GetUserId();
+            var user = this.userService.GetById(userId);
+            model.CurrentUser = user;
+            model.ProfilePicSize = AppConstants.GalleryProfilePicSize;
 
-            return this.PartialView("_ImageCommentBoxPartial", model);
+            return this.PartialView("_CommentBoxPartial", model);
         }
 
         [HttpPost]
@@ -255,33 +264,6 @@ namespace TravelGuide.Areas.Blog.Controllers
 
             this.galleryService.DeleteImage((Guid)imageId);
             return this.RedirectToAction("Index");
-        }
-
-        private int GetPage(int? page, int pagesCount)
-        {
-            int result;
-            if (page == null || page < 1 || page > pagesCount)
-            {
-                result = 1;
-            }
-            else
-            {
-                result = (int)page;
-            }
-
-            return result;
-        }
-
-        private GalleryListViewModel AssignViewParams(GalleryListViewModel model, string query, int currentPage, int pagesCount, string baseUrl)
-        {
-            model.Query = query;
-            model.CurrentPage = currentPage;
-            model.PreviousPage = currentPage - 1;
-            model.NextPage = currentPage + 1;
-            model.PagesCount = pagesCount;
-            model.BaseUrl = baseUrl;
-
-            return model;
         }
     }
 }

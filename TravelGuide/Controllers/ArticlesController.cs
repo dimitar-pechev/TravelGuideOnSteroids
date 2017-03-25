@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Web.Mvc;
 using System.Collections.Generic;
+using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using TravelGuide.Common;
 using TravelGuide.Common.Contracts;
@@ -91,6 +91,7 @@ namespace TravelGuide.Controllers
             var model = this.mappingService.Map<ArticleDetailsViewModel>(article);
             model.StoreItems = storeItems;
             model.CurrentUser = user;
+            model.ProfilePicSize = AppConstants.ArticleProfilePicSize;
 
             return this.View(model);
         }
@@ -139,37 +140,39 @@ namespace TravelGuide.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Comment(ArticleDetailsViewModel model, Guid storyId)
+        public ActionResult Comment(ArticleDetailsViewModel model, Guid itemId)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.PartialView("_ArticlesCommentBoxPartial", model);
+                throw new InvalidOperationException();
             }
 
             var userId = this.User.Identity.GetUserId();
             var user = this.userService.GetById(userId);
-            this.articleService.AddComment(userId, model.NewCommentContent, storyId);
-            var article = this.articleService.GetArticleById(storyId);
+            this.articleService.AddComment(userId, model.NewCommentContent, itemId);
+            var article = this.articleService.GetArticleById(itemId);
             model = this.mappingService.Map<ArticleDetailsViewModel>(article);
             model.CurrentUser = user;
+            model.ProfilePicSize = AppConstants.ArticleProfilePicSize;
 
-            return this.PartialView("_ArticlesCommentBoxPartial", model);
+            return this.PartialView("_CommentBoxPartial", model);
         }
 
         [HttpDelete]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteComment(Guid articleId, string commentId)
+        public ActionResult DeleteComment(Guid itemId, string commentId)
         {
             this.articleService.DeleteComment(commentId);
 
             var userId = this.User.Identity.GetUserId();
             var user = this.userService.GetById(userId);
 
-            var article = this.articleService.GetArticleById(articleId);
+            var article = this.articleService.GetArticleById(itemId);
             var model = this.mappingService.Map<ArticleDetailsViewModel>(article);
             model.CurrentUser = user;
+            model.ProfilePicSize = AppConstants.ArticleProfilePicSize;
 
-            return this.PartialView("_ArticlesCommentBoxPartial", model);
+            return this.PartialView("_CommentBoxPartial", model);
         }
     }
 }

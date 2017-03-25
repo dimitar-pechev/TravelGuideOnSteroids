@@ -14,10 +14,12 @@ function reloadToolTips() {
     })
 }
 
-function deleteComment(args) {
+function commentDeleted(args) {
     notify('success', 'Comment deleted!');
 
-    var selector = $(args).attr('data-target');
+    $.validator.unobtrusive.parse('#comment-box-' + args);
+
+    var selector = 'comments-count-' + args;
     var commentsCount = $('#' + selector).html();
     $('#' + selector).html(+commentsCount - 1);
 
@@ -58,11 +60,13 @@ function unlikeImage(args) {
     }, 2000);
 }
 
-function submitComment(args) {
+function commentSubmitted(args) {
     $('.comment-box-textarea').val('');
     notify('success', 'Your comment has been submitted!')
 
-    var selector = $(args).attr('data-target');
+    $.validator.unobtrusive.parse('#comment-box-' + args);
+
+    var selector = 'comments-count-' + args;
     var commentsCount = $('#' + selector).html();
     $('#' + selector).html(+commentsCount + 1);
 
@@ -84,7 +88,9 @@ $('.comment-box-textarea').on('focus', () => {
     $('.btn-submit-box').show();
 })
 
-function rebindCommentEvent() {
+function rebindCommentEvent(args) {
+    $.validator.unobtrusive.parse('#comment-box-' + args);
+
     $('.btn-add-comment').on('click', () => {
         $('.comment-box-textarea').focus();
         $('.btn-submit-box').show();
@@ -92,7 +98,7 @@ function rebindCommentEvent() {
 
     $('.comment-box-textarea').on('focus', () => {
         $('.btn-submit-box').show();
-    })
+    });
 }
 
 $('body').keyup((ev) => {
