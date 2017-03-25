@@ -5,6 +5,7 @@ using TravelGuide.Common.Contracts;
 using TravelGuide.Models;
 using TravelGuide.Models.Requests;
 using TravelGuide.Shared;
+using System.ComponentModel.DataAnnotations;
 
 namespace TravelGuide.ViewModels.ManageViewModels
 {
@@ -14,13 +15,24 @@ namespace TravelGuide.ViewModels.ManageViewModels
 
         public IList<UserLoginInfo> Logins { get; set; }
 
-        public string PhoneNumber { get; set; }
-
         public bool TwoFactor { get; set; }
 
         public bool BrowserRemembered { get; set; }
 
         public IEnumerable<Request> Requests { get; set; }
+
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [StringLength(50, MinimumLength = 10)]
+        public string Address { get; set; }
+
+        [StringLength(15, MinimumLength = 7)]
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
 
         public string BaseUrl { get; set; }
 

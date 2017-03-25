@@ -5,7 +5,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using TravelGuide.Auth;
-using TravelGuide.Common.Contracts;
 using TravelGuide.Services.Account.Contracts;
 using TravelGuide.ViewModels.ManageViewModels;
 using TravelGuide.Services.Requests.Contracts;
@@ -31,6 +30,7 @@ namespace TravelGuide.Controllers
         private const string XsrfKey = "XsrfId";
 
         private readonly IRequestService requestService;
+        private readonly IUserService userService;
 
         private ApplicationSignInManager signInManager;
         private ApplicationUserManager userManager;
@@ -39,9 +39,10 @@ namespace TravelGuide.Controllers
         {
         }
 
-        public ManageController(IRequestService requestService)
+        public ManageController(IRequestService requestService, IUserService userService)
         {
             this.requestService = requestService;
+            this.userService = userService;
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -114,6 +115,36 @@ namespace TravelGuide.Controllers
             };
 
             return this.View(model);
+        }
+
+        public ActionResult EditUserInfo()
+        {
+            var userId = this.User.Identity.GetUserId();
+            var user = this.userService.GetById(userId);
+
+            var model = new IndexViewModel
+            {
+                PhoneNumber = user.PhoneNumber,
+                Address = user.Address,
+                FirstName = user.FirstName,
+                LastName = user.LastName
+            };
+
+            return this.PartialView("_UserEditInfoPartial", model);
+        }
+
+        [HttpPost]
+        public ActionResult EditUserInfo(IndexViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.PartialView("_UserEditInfoPartial", model);
+            }
+
+            var userId = this.User.Identity.GetUserId();
+            this.userService.UpdateUserInfoByUser(userId, model.FirstName, model.LastName, model.PhoneNumber, model.Address);
+
+            return this.PartialView("_UserEditInfoPartial", model);
         }
 
         public ActionResult GetUserRequests(int? page)

@@ -105,6 +105,28 @@ namespace TravelGuide.Services
             this.context.SaveChanges();
         }
 
+        public void UpdateUserInfoByUser(string id, string firstName, string lastName, string phone, string address)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                throw new ArgumentNullException();
+            }
+
+            var user = this.context.Users.Find(id);
+
+            if (user == null)
+            {
+                throw new InvalidOperationException();
+            }
+            
+            user.FirstName = firstName;
+            user.LastName = lastName;
+            user.PhoneNumber = phone;
+            user.Address = address;
+
+            this.context.SaveChanges();
+        }
+
         public IEnumerable<User> GetUsersByPage(string query, int page, int pageSize)
         {
             var users = new List<User>();

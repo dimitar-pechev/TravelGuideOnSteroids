@@ -11,12 +11,12 @@
                 <div class="col-md-6 text-center">
                     <h4>Welcome, @this.User.Identity.Name!</h4>
                     @using (Ajax.BeginForm("GetUserRequests",
-                        new AjaxOptions()
-                        {
-                            UpdateTargetId = "action-result-container",
-                            HttpMethod = "GET",
-                            InsertionMode = InsertionMode.Replace
-                        }))
+new AjaxOptions()
+{
+    UpdateTargetId = "action-result-container",
+    HttpMethod = "GET",
+    InsertionMode = InsertionMode.Replace
+}))
                     {
                         <input type="submit" value="Show Requests" class="btn btn-black btn-login btn-manage" />
                     }
@@ -31,7 +31,17 @@
                     <br />
                     <input type="submit" value="Change Profile Picture" class="btn btn-black btn-login btn-manage" />
                     <br />
-                    <input type="submit" value="Edit Personal Data" class="btn btn-black btn-login btn-manage" />
+                    @using (Ajax.BeginForm("EditUserInfo",
+                new AjaxOptions()
+                {
+                    UpdateTargetId = "action-result-container",
+                    HttpMethod = "GET",
+                    InsertionMode = InsertionMode.Replace,
+                    OnSuccess = "editInfoOpen"
+                }))
+                    {
+                        <input type="submit" value="Edit Personal Data" class="btn btn-black btn-login btn-manage" />
+                    }
                 </div>
                 <div class="col-md-6 text-center">
                     <div id="action-result-container">
@@ -45,4 +55,19 @@
 
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryajax")
+    @Scripts.Render("~/bundles/toastr")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        function infoUpdated() {
+            notify('success', 'Info successfully updated!');
+        }
+
+        function infoError() {
+            notify('error', 'An error occured! Make sure your data is correct or try again later!');
+        }
+
+        function editInfoOpen() {
+            $.validator.unobtrusive.parse("#action-result-container");
+        }
+    </script>
 }

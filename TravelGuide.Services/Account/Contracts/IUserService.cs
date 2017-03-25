@@ -5,6 +5,8 @@ namespace TravelGuide.Services.Account.Contracts
 {
     public interface IUserService
     {
+        void UpdateUserInfoByUser(string id, string firstName, string lastName, string phone, string address);
+
         User GetById(string id);
 
         IEnumerable<User> GetAllUsers();
