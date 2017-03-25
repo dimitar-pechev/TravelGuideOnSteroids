@@ -227,6 +227,8 @@
 
 .destinations-details-container {
     background-color: white;
+    padding: 0 10px;
+    margin-bottom: 2%;
 }
 
 .list-content-topics li {
@@ -1021,4 +1023,25 @@ li.active a.tab-admin {
 
 .related-item:hover {
     box-shadow: 0 0 10px grey;
+}
+
+.profile-pic-comment {
+    max-width: 90%;
+}
+
+.section-heading {
+    font-size: 1.1rem;
+}
+
+.icon-seaction-heading {
+    font-size: 0.9rem;
+}
+
+.comment-panel-dest {
+    padding: 0 30px;
+}
+
+.hashtag-fix {
+    padding-top: 60px;
+    margin-top: -60px;
 }

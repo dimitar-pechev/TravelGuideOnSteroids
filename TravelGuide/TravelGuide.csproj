@@ -262,6 +262,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Themes\Articles\destinations-heading.png" />
+    <Content Include="App_Themes\Articles\gallery-link.png" />
+    <Content Include="App_Themes\Articles\store-link.png" />
+    <Content Include="App_Themes\Articles\stories-link.png" />
     <Content Include="App_Themes\Blog\gallery-cover.png" />
     <Content Include="App_Themes\Blog\stories-cover.png" />
     <Content Include="App_Themes\IconsSocial\1487474216_facebook.png" />
@@ -420,6 +423,7 @@
     <Content Include="Views\Manage\_UserRequestsPartial.cshtml" />
     <Content Include="Views\Manage\_UserEditInfoPartial.cshtml" />
     <Content Include="Views\Manage\_UserStoriesListPartial.cshtml" />
+    <Content Include="Views\Articles\_ArticlesCommentBoxPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

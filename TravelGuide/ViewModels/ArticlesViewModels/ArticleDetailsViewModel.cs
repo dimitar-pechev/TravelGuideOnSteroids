@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using TravelGuide.Common.Contracts;
 using TravelGuide.Models;
 using TravelGuide.Models.Articles;
 using TravelGuide.Models.Store;
-using TravelGuide.Shared;
 
 namespace TravelGuide.ViewModels.ArticlesViewModels
 {
@@ -38,6 +38,13 @@ namespace TravelGuide.ViewModels.ArticlesViewModels
         public string ThirdImageUrl { get; set; }
 
         public string CoverImageUrl { get; set; }
+
+        public User CurrentUser { get; set; }
+
+        [Required]
+        [StringLength(200, MinimumLength = 3)]
+        [Display(Name = "Content")]
+        public string NewCommentContent { get; set; }
 
         public ICollection<ArticleLike> Likes { get; set; }
 

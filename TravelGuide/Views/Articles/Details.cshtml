@@ -12,11 +12,11 @@
     <hr />
     <div class="row text-center">
         <ul class="list-inline list-content-topics">
-            <li><a href="#about"><span class="glyphicon glyphicon-globe"></span><span> </span>About</a></li>
-            <li><a href="#must-see"><span class="glyphicon glyphicon-camera"></span><span> </span>Must-See Places</a></li>
-            <li><a href="#tips"><span class="glyphicon glyphicon-euro"></span><span> </span>Budget Tips</a></li>
-            <li><a href="#accomodation"><span class="glyphicon glyphicon-home"></span><span> </span>Accomodation</a></li>
-            <li><a href="#comments"><span class="glyphicon glyphicon-comment"></span><span> </span>Comments</a></li>
+            <li><a class="section-heading" href="#about"><span class="glyphicon glyphicon-globe icon-seaction-heading"></span><span> </span>About</a></li>
+            <li><a class="section-heading" href="#must-see"><span class="glyphicon glyphicon-camera icon-seaction-heading"></span><span> </span>Must-See Places</a></li>
+            <li><a class="section-heading" href="#tips"><span class="glyphicon glyphicon-euro icon-seaction-heading"></span><span> </span>Budget Tips</a></li>
+            <li><a class="section-heading" href="#accomodation"><span class="glyphicon glyphicon-home icon-seaction-heading"></span><span> </span>Accomodation</a></li>
+            <li><a class="section-heading" href="#comments"><span class="glyphicon glyphicon-comment icon-seaction-heading"></span><span> </span>Comments</a></li>
         </ul>
         <hr />
     </div>
@@ -55,26 +55,26 @@
                 }
             </div>
         </div>
-        <p id="about"><span class="glyphicon glyphicon-globe"></span> @Model.Title</p>
+        <h5 id="about" class="hashtag-fix"><span class="glyphicon glyphicon-globe"></span> @Model.Title</h5>
         @Model.ContentMain
     </div>
     <hr />
     <div class="row article-text">
         <img src="@Model.SecondImageUrl" data-toggle="modal" data-target="#details-photo"
              class="thumb-photo thumbnail thumb-photo-right img-responsive" alt="Alternate Text" />
-        <p id="must-see"><span class="glyphicon glyphicon-camera"></span> The places you absolutely must visit in @Model.City</p>
+        <h5 id="must-see" class="hashtag-fix"><span class="glyphicon glyphicon-camera"></span> The places you absolutely must visit in @Model.City</h5>
         @Model.ContentMustSee
     </div>
     <hr />
     <div class="row article-text">
-        <p id="tips"><span class="glyphicon glyphicon-euro"></span> Our assessment on the budget needed...</p>
+        <h5 id="tips" class="hashtag-fix"><span class="glyphicon glyphicon-euro"></span> Our assessment on the budget needed...</h5>
         @Model.ContentBudgetTips
     </div>
     <hr />
     <div class="row article-text">
         <img src="@Model.ThirdImageUrl" data-toggle="modal" data-target="#details-photo"
              class="thumb-photo thumbnail thumb-photo-left img-responsive" alt="Alternate Text" />
-        <p id="accomodation"><span class="glyphicon glyphicon-home"></span> Finally, a few tips on the accomodation in @Model.City</p>
+        <h5 id="accomodation" class="hashtag-fix"><span class="glyphicon glyphicon-home"></span> Finally, a few tips on the accomodation in @Model.City</h5>
         @Model.ContentAccomodation
     </div>
     <hr />
@@ -92,23 +92,16 @@
             <hr />
         </div>
     }
-    <div id="comments" class="row comment-panel-dest">
-        <div class="row">
+    <div id="comments" class="row comment-panel-dest no-margin">
+        <div class="row no-margin">
             <div class="col-md-8">
                 <h4 class="text-center">
                     <span class="glyphicon glyphicon-comment icon-article"></span> Comments
                 </h4>
                 <hr />
-                @if (Model.Comments == null || Model.Comments.Count == 0)
-                {
-                    <div class="row">
-                        <p class="text-center">Be the first to comment...</p>
-                    </div>
-                }
-                else
-                {
-
-                }
+                <div id="comment-box">
+                    @Html.Partial("_ArticlesCommentBoxPartial", Model)
+                </div>
             </div>
             <div class="col-md-4">
                 <h4 class="text-center"><span class="glyphicon glyphicon-transfer icon-article"></span> Related</h4>
@@ -134,10 +127,36 @@
 </div>
 
 @section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryajax")
+    @Scripts.Render("~/bundles/toastr")
     <script>
         $('.thumb-photo').on('click', (e) => {
             $('#details-img-modal').attr('src', $(e.target).attr('src'));
         })
+
+        function rebindEvents() {
+            $.validator.unobtrusive.parse("#comment-box");
+
+            $('.comment-box-textarea').on('focus', () => {
+                $('.btn-submit-box').show();
+            });
+        }
+
+        function commentSubmitted() {
+            rebindEvents();
+            notify('success', 'Comment submitted!');
+            $('.comment-box-textarea').val('');
+        }
+
+        function commentDeleted() {
+            rebindEvents();
+            notify('success', 'Comment removed!');
+        }
+
+        $('.comment-box-textarea').on('focus', () => {
+            $('.btn-submit-box').show();
+        });
     </script>
 }
 

@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using TravelGuide.Common;
 using TravelGuide.Common.Contracts;
+using TravelGuide.Services.Account.Contracts;
 using TravelGuide.Services.Articles.Contracts;
 using TravelGuide.Services.Store.Contracts;
 using TravelGuide.ViewModels.ArticlesViewModels;
@@ -15,12 +16,14 @@ namespace TravelGuide.Controllers
         private readonly IArticleService articleService;
         private readonly IMappingService mappingService;
         private readonly IStoreService storeService;
+        private readonly IUserService userService;
 
-        public ArticlesController(IArticleService articleService, IMappingService mappingService, IStoreService storeService)
+        public ArticlesController(IArticleService articleService, IMappingService mappingService, IStoreService storeService, IUserService userService)
         {
             this.articleService = articleService;
             this.mappingService = mappingService;
             this.storeService = storeService;
+            this.userService = userService;
         }
 
         [AllowAnonymous]
@@ -82,10 +85,13 @@ namespace TravelGuide.Controllers
                 return this.RedirectToAction("Index");
             }
 
+            var userId = this.User.Identity.GetUserId();
+            var user = this.userService.GetById(userId);
             var article = this.articleService.GetArticleById((Guid)id);
             var storeItems = this.storeService.GetItemsByKeyword(article.City);
             var model = this.mappingService.Map<ArticleDetailsViewModel>(article);
             model.StoreItems = storeItems;
+            model.CurrentUser = user;
 
             return this.View(model);
         }
@@ -130,6 +136,41 @@ namespace TravelGuide.Controllers
             this.articleService.DeleteArticle(article);
 
             return this.RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Comment(ArticleDetailsViewModel model, Guid storyId)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.PartialView("_ArticlesCommentBoxPartial", model);
+            }
+
+            var userId = this.User.Identity.GetUserId();
+            var user = this.userService.GetById(userId);
+            this.articleService.AddComment(userId, model.NewCommentContent, storyId);
+            var article = this.articleService.GetArticleById(storyId);
+            model = this.mappingService.Map<ArticleDetailsViewModel>(article);
+            model.CurrentUser = user;
+
+            return this.PartialView("_ArticlesCommentBoxPartial", model);
+        }
+
+        [HttpDelete]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteComment(Guid articleId, string commentId)
+        {
+            this.articleService.DeleteComment(commentId);
+
+            var userId = this.User.Identity.GetUserId();
+            var user = this.userService.GetById(userId);
+
+            var article = this.articleService.GetArticleById(articleId);
+            var model = this.mappingService.Map<ArticleDetailsViewModel>(article);
+            model.CurrentUser = user;
+
+            return this.PartialView("_ArticlesCommentBoxPartial", model);
         }
 
         private int GetPage(int? page, int pagesCount)
