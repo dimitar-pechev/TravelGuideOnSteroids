@@ -39,6 +39,24 @@
         <div id="comment-box-@Model.Id" class="comment-box-stories">
             @Html.Partial("_CommentBoxPartial", Model)
         </div>
+        <hr />
+        <h5 class="text-center"><span class="glyphicon glyphicon-transfer icon-article"></span> Related</h5>
+        <hr />
+        <a href="/store/storeitems?query=@Model.RelatedDestination">
+            <div class="related-stuff-container">
+                <img src="~/App_Themes/Articles/store-link.png" class="img-responsive related-item" alt="store" />
+            </div>
+        </a>
+        <a href="/blog/gallery?query=@Model.RelatedDestination">
+            <div class="related-stuff-container">
+                <img src="~/App_Themes/Articles/gallery-link.png" class="img-responsive related-item" alt="store" />
+            </div>
+        </a>
+        <a href="/blog/stories?query=@Model.RelatedDestination">
+            <div class="related-stuff-container">
+                <img src="~/App_Themes/Articles/stories-link.png" class="img-responsive related-item" alt="store" />
+            </div>
+        </a>
     </div>
     <div class="col-md-8">
         <div>

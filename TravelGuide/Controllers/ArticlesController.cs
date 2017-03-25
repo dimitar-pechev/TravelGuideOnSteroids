@@ -11,7 +11,7 @@ using TravelGuide.ViewModels.ArticlesViewModels;
 
 namespace TravelGuide.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize]
     public class ArticlesController : Controller
     {
         private readonly IArticleService articleService;
@@ -63,6 +63,7 @@ namespace TravelGuide.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public ActionResult CreateArticle(CreateEditArticleViewModel article)
         {
             if (!this.ModelState.IsValid)
@@ -96,6 +97,7 @@ namespace TravelGuide.Controllers
             return this.View(model);
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult EditArticle(Guid? id)
         {
             if (id == null)
@@ -111,6 +113,7 @@ namespace TravelGuide.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public ActionResult EditArticle(CreateEditArticleViewModel article)
         {
             if (!this.ModelState.IsValid)
@@ -125,6 +128,7 @@ namespace TravelGuide.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public ActionResult DeleteArticle(Guid? id)
         {
             if (id == null)
