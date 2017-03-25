@@ -5,7 +5,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using TravelGuide.Auth;
+using TravelGuide.Common.Contracts;
+using TravelGuide.Services.Account.Contracts;
 using TravelGuide.ViewModels.ManageViewModels;
+using TravelGuide.Services.Requests.Contracts;
+using TravelGuide.Shared;
 
 namespace TravelGuide.Controllers
 {
@@ -26,11 +30,18 @@ namespace TravelGuide.Controllers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
+        private readonly IRequestService requestService;
+
         private ApplicationSignInManager signInManager;
         private ApplicationUserManager userManager;
 
         public ManageController()
         {
+        }
+
+        public ManageController(IRequestService requestService)
+        {
+            this.requestService = requestService;
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -73,7 +84,7 @@ namespace TravelGuide.Controllers
             }
         }
 
-        public async Task<ActionResult> Index(ManageMessageId? message)
+        public async Task<ActionResult> Index(ManageMessageId? message, int? page)
         {
             this.ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
@@ -85,15 +96,43 @@ namespace TravelGuide.Controllers
                 : string.Empty;
 
             var userId = this.User.Identity.GetUserId();
+            var pagesCount = this.requestService.GetRequestsPagesCount(userId);
+            var currentPage = Utils.GetPage(page, pagesCount);
+            var requests = this.requestService.GetRequestsForUser(userId, currentPage);
             var model = new IndexViewModel
             {
                 HasPassword = this.HasPassword(),
                 PhoneNumber = await this.UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await this.UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await this.UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await this.AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await this.AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                Requests = requests,
+                PagesCount = pagesCount,
+                CurrentPage = currentPage,
+                PreviousPage = currentPage - 1,
+                NextPage = currentPage + 1
             };
+
             return this.View(model);
+        }
+
+        public ActionResult GetUserRequests(int? page)
+        {
+            var userId = this.User.Identity.GetUserId();
+            var pagesCount = this.requestService.GetRequestsPagesCount(userId);
+            var currentPage = Utils.GetPage(page, pagesCount);
+            var requests = this.requestService.GetRequestsForUser(userId, currentPage);
+
+            var model = new IndexViewModel
+            {
+                Requests = requests,
+                PagesCount = pagesCount,
+                CurrentPage = currentPage,
+                PreviousPage = currentPage - 1,
+                NextPage = currentPage + 1
+            };
+
+            return this.PartialView("_UserRequestsPartial", model);
         }
 
         [HttpPost]

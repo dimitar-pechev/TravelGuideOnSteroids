@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TravelGuide.Common;
 using TravelGuide.Data.Contracts;
 using TravelGuide.Models.Requests;
 using TravelGuide.Models.Store;
@@ -81,7 +82,7 @@ namespace TravelGuide.Services.Requests
                 var request = this.factory.CreateRequest(item.Id, item, user.Id, user, firstName, lastName, phone, address);
                 this.context.Requests.Add(request);
             }
-            
+
             this.context.SaveChanges();
         }
 
@@ -108,6 +109,37 @@ namespace TravelGuide.Services.Requests
 
             request.Status = "Confirmed!";
             this.context.SaveChanges();
+        }
+
+        public IEnumerable<Request> GetRequestsForUser(string userId, int page)
+        {
+            var requests = this.context.Requests
+                .Where(x => x.UserId == userId)
+                .OrderBy(x => x.CreatedOn)
+                .ToList()
+                .Skip((page - 1) * AppConstants.ProfilePageCount)
+                .Take(AppConstants.ProfilePageCount)
+                .ToList();
+            return requests;
+        }
+
+        public int GetRequestsPagesCount(string userId)
+        {
+            var requestsCount = this.context.Requests
+                .Where(x => x.UserId == userId)
+                .Count();
+
+            int pagesCount;
+            if (requestsCount == 0)
+            {
+                pagesCount = 1;
+            }
+            else
+            {
+                pagesCount = (int)Math.Ceiling((decimal)requestsCount / AppConstants.ProfilePageCount);
+            }
+
+            return pagesCount;
         }
     }
 }

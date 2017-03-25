@@ -246,6 +246,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Shared\IPager.cs" />
+    <Compile Include="Shared\Utils.cs" />
     <Compile Include="ViewModels\AccountViewModels\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModels\ExternalLoginListViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModels\LoginViewModel.cs" />
@@ -415,6 +416,7 @@
     <Content Include="Areas\Admin\Views\UserManager\_UsersManagementPartial.cshtml" />
     <Content Include="Areas\Admin\Views\UserManager\_RequestsManagementPartial.cshtml" />
     <Content Include="Views\Account\Lockout.cshtml" />
+    <Content Include="Views\Manage\_UserRequestsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

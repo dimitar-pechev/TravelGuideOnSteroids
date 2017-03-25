@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using TravelGuide.Models.Requests;
 
 namespace TravelGuide.Models
 {
@@ -13,6 +15,7 @@ namespace TravelGuide.Models
         {
             this.IsDeleted = false;
             this.RegisteredOn = DateTime.Now;
+            this.Requests = new HashSet<Request>();
         }
 
         public string FirstName { get; set; }
@@ -24,6 +27,8 @@ namespace TravelGuide.Models
         public bool IsDeleted { get; set; }
 
         public string Address { get; set; }
+
+        public virtual IEnumerable<Request> Requests { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {

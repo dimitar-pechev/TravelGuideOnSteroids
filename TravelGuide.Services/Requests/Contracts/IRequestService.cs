@@ -6,6 +6,10 @@ namespace TravelGuide.Services.Requests.Contracts
 {
     public interface IRequestService
     {
+        int GetRequestsPagesCount(string userId);
+
+        IEnumerable<Request> GetRequestsForUser(string userId, int page);
+
         void MakeRequest(IEnumerable<StoreItem> items, string id, string firstName, string lastName, string phone, string address);
 
         IEnumerable<Request> GetAllRequests();

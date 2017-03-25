@@ -12,6 +12,8 @@
 
         public const int StoriesPageSize = 5;
 
+        public const int ProfilePageCount = 3;
+
         public const string CartCookieName = "store-items";
 
         public const string GalleryListBaseUrl = "/blog/gallery/index";
