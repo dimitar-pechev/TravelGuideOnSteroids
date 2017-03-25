@@ -1,0 +1,29 @@
+﻿@model IEnumerable<TravelGuide.Models.Stories.Story>
+
+<h4 class="text-center">Stories</h4>
+@if (Model.Count() == 0)
+{
+    <h5 class="text-center">No stories added yet...</h5>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="no-padding"></th>
+                <th class="text-center">Title</th>
+                <th class="text-center">Related Destination</th>
+                <th class="text-center">Added On:</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-center no-padding"><img src="@item.ImageUrl" alt="@item.Title" class="img-story-profile" /></td>
+                <td class="text-center"><a href="/blog/stories/details/@item.Id">@item.Title</a></td>
+                <td class="text-center">@item.RelatedDestination</td>
+                <td class="text-center">@item.CreatedOn</td>
+            </tr>
+        }
+    </table>
+}

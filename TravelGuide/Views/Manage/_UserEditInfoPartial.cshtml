@@ -2,41 +2,43 @@
 
 <h4 class="text-center">Update Info</h4>
 
-@using (Ajax.BeginForm("EditUserInfo", "Manage",
-     new AjaxOptions()
-     {
-         HttpMethod = "POST",
-         InsertionMode = InsertionMode.Replace,
-         UpdateTargetId = "action-result-container",
-         OnSuccess = "infoUpdated",
-         OnFailure = "infoError"
-     }))
-{
-    @Html.AntiForgeryToken()
-    <hr />
-    <div class="login-credentials">
-        <div class="input-field">
-            @Html.LabelFor(m => m.FirstName, new { @class = "control-label active" })
-            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+<div class="edit-info-form">
+    @using (Ajax.BeginForm("EditUserInfo", "Manage",
+             new AjaxOptions()
+             {
+                 HttpMethod = "POST",
+                 InsertionMode = InsertionMode.Replace,
+                 UpdateTargetId = "action-result-container",
+                 OnSuccess = "infoUpdated",
+                 OnFailure = "infoError"
+             }))
+    {
+        @Html.AntiForgeryToken()
+        <hr />
+        <div>
+            <div class="input-field">
+                @Html.LabelFor(m => m.FirstName, new { @class = "control-label active" })
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+            </div>
+            <div class="input-field login-password-fieldbox">
+                @Html.LabelFor(m => m.LastName, new { @class = "control-label active" })
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+            </div>
+            <div class="input-field login-password-fieldbox">
+                @Html.LabelFor(m => m.Address, new { @class = "control-label active" })
+                @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+            </div>
+            <div class="input-field login-password-fieldbox">
+                @Html.LabelFor(m => m.PhoneNumber, new { @class = "control-label active" })
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+            </div>
         </div>
-        <div class="input-field login-password-fieldbox">
-            @Html.LabelFor(m => m.LastName, new { @class = "control-label active" })
-            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+        <div class="form-group text-center">
+            <input type="submit" value="Update" class="btn btn-success btn-login" />
         </div>
-        <div class="input-field login-password-fieldbox">
-            @Html.LabelFor(m => m.Address, new { @class = "control-label active" })
-            @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
-        </div>
-        <div class="input-field login-password-fieldbox">
-            @Html.LabelFor(m => m.PhoneNumber, new { @class = "control-label active" })
-            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group text-center">
-        <input type="submit" value="Update" class="btn btn-success btn-login" />
-    </div>
-}
+    }
+</div>

@@ -7,16 +7,16 @@
     <img src="https://cdn2.iconfinder.com/data/icons/circle-icons-1/64/profle-256.png" alt="profile-picture" class="profile-picture img-circle" />
     <div class="card card-profile">
         <div class="card-content">
-            <div class="row">
+            <div class="row no-margin">
                 <div class="col-md-6 text-center">
                     <h4>Welcome, @this.User.Identity.Name!</h4>
                     @using (Ajax.BeginForm("GetUserRequests",
-new AjaxOptions()
-{
-    UpdateTargetId = "action-result-container",
-    HttpMethod = "GET",
-    InsertionMode = InsertionMode.Replace
-}))
+                        new AjaxOptions()
+                        {
+                            UpdateTargetId = "action-result-container",
+                            HttpMethod = "GET",
+                            InsertionMode = InsertionMode.Replace
+                        }))
                     {
                         <input type="submit" value="Show Requests" class="btn btn-black btn-login btn-manage" />
                     }
@@ -32,15 +32,25 @@ new AjaxOptions()
                     <input type="submit" value="Change Profile Picture" class="btn btn-black btn-login btn-manage" />
                     <br />
                     @using (Ajax.BeginForm("EditUserInfo",
-                new AjaxOptions()
-                {
-                    UpdateTargetId = "action-result-container",
-                    HttpMethod = "GET",
-                    InsertionMode = InsertionMode.Replace,
-                    OnSuccess = "editInfoOpen"
-                }))
+                        new AjaxOptions()
+                        {
+                            UpdateTargetId = "action-result-container",
+                            HttpMethod = "GET",
+                            InsertionMode = InsertionMode.Replace,
+                            OnSuccess = "editInfoOpen"
+                        }))
                     {
                         <input type="submit" value="Edit Personal Data" class="btn btn-black btn-login btn-manage" />
+                    }
+                    @using (Ajax.BeginForm("StoriesList",
+                        new AjaxOptions()
+                        {
+                            UpdateTargetId = "action-result-container",
+                            HttpMethod = "GET",
+                            InsertionMode = InsertionMode.Replace
+                        }))
+                    {
+                        <input type="submit" value="Added Stories" class="btn btn-black btn-login btn-manage" />
                     }
                 </div>
                 <div class="col-md-6 text-center">

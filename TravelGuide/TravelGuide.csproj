@@ -418,6 +418,7 @@
     <Content Include="Views\Account\Lockout.cshtml" />
     <Content Include="Views\Manage\_UserRequestsPartial.cshtml" />
     <Content Include="Views\Manage\_UserEditInfoPartial.cshtml" />
+    <Content Include="Views\Manage\_UserStoriesListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

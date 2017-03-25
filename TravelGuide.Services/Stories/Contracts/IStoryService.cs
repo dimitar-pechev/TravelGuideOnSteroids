@@ -18,6 +18,8 @@ namespace TravelGuide.Services.Stories.Contracts
 
         int GetPagesCount(string query);
 
+        IEnumerable<Story> GetStoriesByUser(string userId);
+
         IEnumerable<Story> GetStoriesByPage(string query, int page, int pageSize);
 
         void CreateStory(string title, string content, string relatedDestination, string imageUrl, string userId);

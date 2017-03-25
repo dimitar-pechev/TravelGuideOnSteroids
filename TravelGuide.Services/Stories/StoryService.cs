@@ -249,5 +249,15 @@ namespace TravelGuide.Services.Stories
 
             this.context.SaveChanges();
         }
+
+        public IEnumerable<Story> GetStoriesByUser(string userId)
+        {
+            var stories = this.context.Stories
+                .Where(x => x.UserId == userId)
+                .Where(x => !x.IsDeleted)
+                .ToList();
+
+            return stories;
+        }
     }
 }

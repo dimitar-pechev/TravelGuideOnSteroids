@@ -6,9 +6,10 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using TravelGuide.Auth;
 using TravelGuide.Services.Account.Contracts;
-using TravelGuide.ViewModels.ManageViewModels;
 using TravelGuide.Services.Requests.Contracts;
 using TravelGuide.Shared;
+using TravelGuide.ViewModels.ManageViewModels;
+using TravelGuide.Services.Stories.Contracts;
 
 namespace TravelGuide.Controllers
 {
@@ -31,6 +32,7 @@ namespace TravelGuide.Controllers
 
         private readonly IRequestService requestService;
         private readonly IUserService userService;
+        private readonly IStoryService storyService;
 
         private ApplicationSignInManager signInManager;
         private ApplicationUserManager userManager;
@@ -39,10 +41,11 @@ namespace TravelGuide.Controllers
         {
         }
 
-        public ManageController(IRequestService requestService, IUserService userService)
+        public ManageController(IRequestService requestService, IUserService userService, IStoryService storyService)
         {
             this.requestService = requestService;
             this.userService = userService;
+            this.storyService = storyService;
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -164,6 +167,14 @@ namespace TravelGuide.Controllers
             };
 
             return this.PartialView("_UserRequestsPartial", model);
+        }
+
+        public ActionResult StoriesList()
+        {
+            var userId = this.User.Identity.GetUserId();
+            var stories = this.storyService.GetStoriesByUser(userId);
+
+            return this.PartialView("_UserStoriesListPartial", stories);
         }
 
         [HttpPost]

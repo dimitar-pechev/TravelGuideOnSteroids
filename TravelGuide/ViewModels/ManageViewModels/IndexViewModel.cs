@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using TravelGuide.Common.Contracts;
 using TravelGuide.Models;
 using TravelGuide.Models.Requests;
 using TravelGuide.Shared;
-using System.ComponentModel.DataAnnotations;
 
 namespace TravelGuide.ViewModels.ManageViewModels
 {

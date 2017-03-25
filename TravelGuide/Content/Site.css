@@ -540,7 +540,7 @@
 }
 
 .img-request-profile {
-    max-height: 100px;
+    max-height: 80px;
 }
 
 .pager-profile {
@@ -997,4 +997,16 @@ li.active a.tab-admin {
 
 .btn-manage {
     margin: 15px 0 0 0;
+}
+
+.img-story-profile {
+    max-height: 70px;
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.edit-info-form {
+    padding: 0 90px;
 }
