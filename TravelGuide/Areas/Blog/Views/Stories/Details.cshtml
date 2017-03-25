@@ -41,12 +41,26 @@
         </div>
     </div>
     <div class="col-md-8">
-        <h4 class="h4-stories">@Model.Title</h4>
-        <h5>@Model.RelatedDestination</h5>
-        <h6 class="italic small">Author: @Model.Author.UserName</h6>
-        <h6 class="italic small">Posted On: @Model.CreatedOn</h6>
-        <hr />
-        <p class="story-content">@Model.Content</p>
+        <div>
+            <h4 class="h4-stories">@Model.Title</h4>
+            <h5>@Model.RelatedDestination</h5>
+            <h6 class="italic small">Author: @Model.Author.UserName</h6>
+            <h6 class="italic small">Posted On: @Model.CreatedOn</h6>
+            <hr />
+            <p class="story-content">@Model.Content</p>
+            <hr />
+        </div>
+        @if (this.User.IsInRole("admin") || (this.User.Identity.IsAuthenticated && Model.CurrentUser.Id == Model.Author.Id))
+        {
+            <div class="text-right">
+                @Html.ActionLink("Edit", "EditStory", new { storyId = Model.Id }, new { @class = "btn btn-black" })
+                @using (Html.BeginForm("DeleteStory", "Stories", new { storyId = Model.Id }, FormMethod.Post, new { @class = "form-inline" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this article?')" class="btn btn-black" />
+                }
+            </div>
+        }
     </div>
     <hr />
 </div>
@@ -66,41 +80,5 @@
     @Scripts.Render("~/bundles/jqueryajax")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/toastr")
-    <script>
-        function storyLiked() {
-            notify('success', 'Story liked!');
-        }
-
-        function storyUnliked() {
-            notify('success', 'Like removed!');
-        }
-
-        function commentSubmitted() {
-            $.validator.unobtrusive.parse("#comment-box");
-
-            $('.comment-box-textarea').on('focus', () => {
-                $('.btn-submit-box').show();
-            });
-
-            $('.comment-box-textarea').val('');
-        }
-
-        function commentDeleted() {
-            $.validator.unobtrusive.parse("#comment-box");
-
-            $('.comment-box-textarea').on('focus', () => {
-                $('.btn-submit-box').show();
-            });
-        }
-
-        $('.btn-add-comment').on('click', () => {
-            $('.comment-box-textarea').focus();
-            $('.btn-submit-box').show();
-        });
-
-        $('.comment-box-textarea').on('focus', () => {
-            $('.btn-submit-box').show();
-        });
-
-    </script>
+    @Scripts.Render("~/bundles/story-details")
 }

@@ -10,6 +10,7 @@ using TravelGuide.Services.Stories.Contracts;
 
 namespace TravelGuide.Areas.Blog.Controllers
 {
+    [Authorize]
     public class StoriesController : Controller
     {
         private readonly IStoryService storyService;
@@ -23,6 +24,7 @@ namespace TravelGuide.Areas.Blog.Controllers
             this.userService = userService;
         }
 
+        [AllowAnonymous]
         public ActionResult Index(string query, int? page)
         {
             var pagesCount = this.storyService.GetPagesCount(query);
@@ -37,6 +39,7 @@ namespace TravelGuide.Areas.Blog.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult Search(string query, int? page)
         {
             var pagesCount = this.storyService.GetPagesCount(query);
@@ -70,6 +73,7 @@ namespace TravelGuide.Areas.Blog.Controllers
             return this.RedirectToAction("Index");
         }
 
+        [AllowAnonymous]
         public ActionResult Details(Guid? id)
         {
             if (id == null)
@@ -199,7 +203,20 @@ namespace TravelGuide.Areas.Blog.Controllers
                 viewModel.IsStoryLiked = this.storyService.IsStoryLiked(story.Id, currentUser.Id);
             }
 
-            return this.RedirectToAction("Details", viewModel);
+            return this.View("Details", viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteStory(Guid? storyId)
+        {
+            if (storyId == null)
+            {
+                return this.RedirectToAction("Index");
+            }
+
+            this.storyService.DeleteStory((Guid)storyId);
+            return this.RedirectToAction("Index");
         }
 
         private int GetPage(int? page, int pagesCount)

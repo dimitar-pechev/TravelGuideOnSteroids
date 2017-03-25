@@ -26,16 +26,19 @@ namespace TravelGuide
                         "~/Scripts/app/gallery-main-page.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/store-list").Include(
-            "~/Scripts/app/store-list.js"));
+                        "~/Scripts/app/store-list.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/store-details").Include(
-           "~/Scripts/app/store-details.js"));
+                        "~/Scripts/app/store-details.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/articles-list").Include(
-          "~/Scripts/app/articles-list.js"));
+                        "~/Scripts/app/articles-list.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/cart").Include(
-          "~/Scripts/app/cart.js"));
+                        "~/Scripts/app/cart.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/story-details").Include(
+                        "~/Scripts/app/story-details.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -43,14 +46,14 @@ namespace TravelGuide
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                        "~/Scripts/bootstrap.js",
+                        "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/materialize/css/materialize.css",
-                      "~/Content/toastr.css",
-                      "~/Content/site.css"));
+                        "~/Content/bootstrap.css",
+                        "~/Content/materialize/css/materialize.css",
+                        "~/Content/toastr.css",
+                        "~/Content/site.css"));
         }
     }
 }

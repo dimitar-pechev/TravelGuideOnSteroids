@@ -986,3 +986,7 @@ li.active a.tab-admin {
 .small {
     font-size: smaller;
 }
+
+.form-inline {
+    display: inline;
+}

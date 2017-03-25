@@ -209,7 +209,7 @@ namespace TravelGuide.Services.Stories
                 throw new InvalidOperationException("No such story could be found!");
             }
 
-            this.context.Stories.Remove(story);
+            story.IsDeleted = true;
             this.context.SaveChanges();
         }
 
