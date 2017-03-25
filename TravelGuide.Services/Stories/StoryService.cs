@@ -199,5 +199,55 @@ namespace TravelGuide.Services.Stories
             this.context.StoryComments.Remove(comment);
             this.context.SaveChanges();
         }
+
+        public void DeleteStory(Guid storyId)
+        {
+            var story = this.context.Stories.Find(storyId);
+
+            if (story == null)
+            {
+                throw new InvalidOperationException("No such story could be found!");
+            }
+
+            this.context.Stories.Remove(story);
+            this.context.SaveChanges();
+        }
+
+        public void EditStory(Guid storyId, string title, string content, string relatedDestination, string imageUrl)
+        {
+            if (string.IsNullOrEmpty(title))
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (string.IsNullOrEmpty(content))
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (string.IsNullOrEmpty(relatedDestination))
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (string.IsNullOrEmpty(imageUrl))
+            {
+                throw new ArgumentNullException();
+            }
+
+            var story = this.context.Stories.Find(storyId);
+
+            if (story == null)
+            {
+                throw new InvalidOperationException("No such story could be found!");
+            }
+
+            story.Title = title;
+            story.Content = content;
+            story.RelatedDestination = relatedDestination;
+            story.ImageUrl = imageUrl;
+
+            this.context.SaveChanges();
+        }
     }
 }

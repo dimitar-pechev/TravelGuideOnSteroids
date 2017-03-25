@@ -362,6 +362,7 @@
     <Content Include="Areas\Blog\Views\Stories\_UnlikeButtonStoryPartial.cshtml" />
     <Content Include="Areas\Blog\Views\Stories\_LikeButtonStoryPartial.cshtml" />
     <Content Include="Areas\Blog\Views\Stories\_StoryCommentBoxPartial.cshtml" />
+    <Content Include="Areas\Blog\Views\Stories\EditStory.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

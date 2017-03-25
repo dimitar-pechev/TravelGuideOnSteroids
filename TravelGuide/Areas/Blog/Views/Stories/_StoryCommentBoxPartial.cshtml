@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-10 comment-content">
             <span class="username-panel">@comment.User.UserName</span><span class="date-panel"> @comment.CreatedOn</span>
-            @if (this.User.IsInRole("admin") || Model.CurrentUser.Id == comment.UserId)
+            @if (this.User.IsInRole("admin") || (this.User.Identity.IsAuthenticated && Model.CurrentUser.Id == comment.UserId))
             {
                 using (Ajax.BeginForm("DeleteComment", new { commentId = comment.Id, storyId = Model.Id },
                          new AjaxOptions()

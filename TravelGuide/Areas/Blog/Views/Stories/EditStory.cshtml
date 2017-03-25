@@ -1,0 +1,59 @@
+﻿@model TravelGuide.Areas.Blog.ViewModels.CreateEditStoryViewModel
+
+@{
+    ViewBag.Title = "Edit Story";
+}
+
+<div class="container">
+    <div class="row card-only">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-6 col-md-offset-3 text-center">
+                <div class="card">
+                    <div class="card-content form-add">
+                        <h5>Share Your Story</h5>
+                        <hr />
+                        @using (Html.BeginForm("EditStory", "Stories", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(x => x.Id)
+                            <div class="input-field">
+                                @Html.LabelFor(m => m.Title)
+                                @Html.TextBoxFor(m => m.Title)
+                                @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+                            </div>
+                            <br />
+                            <div class="input-field">
+                                @Html.LabelFor(m => m.RelatedDestination)
+                                @Html.TextBoxFor(m => m.RelatedDestination)
+                                @Html.ValidationMessageFor(m => m.RelatedDestination, "", new { @class = "text-danger" })
+                            </div>
+                            <br />
+                            <div class="input-field">
+                                @Html.LabelFor(m => m.ImageUrl)
+                                @Html.TextBoxFor(m => m.ImageUrl)
+                                @Html.ValidationMessageFor(m => m.ImageUrl, "", new { @class = "text-danger" })
+                            </div>
+                            <br />
+                            <div>
+                                @Html.LabelFor(m => m.Content)
+                                @Html.TextAreaFor(m => m.Content, new { @class = "form-control", placeholder = "Tell us your story...", rows = 5 })
+                                @Html.ValidationMessageFor(m => m.Content, "", new { @class = "text-danger" })
+                            </div>
+                            <br />
+                            <input type="submit" class="btn btn-success btn-login" value="Edit" />
+                            <br />
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+

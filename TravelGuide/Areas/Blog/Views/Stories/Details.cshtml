@@ -7,7 +7,7 @@
     <img src="~/App_Themes/Blog/stories-cover.png" class="img-responsive" alt="heading" />
 </div>
 <div class="container stories-details-container">
-    <div class="col-md-4">
+    <div class="col-md-4 story-aside">
         <img src="@Model.ImageUrl" data-toggle="modal" data-target="#details-photo" class="img-responsive img-thumbnail cursor-pointer" alt="@Model.RelatedDestination" />
         <div class="like-comment-section">
             @if (!this.User.Identity.IsAuthenticated)
@@ -19,7 +19,7 @@
             else
             {
                 <div>
-                    <div class="col-md-6" id="like-btn-panel">
+                    <div class="col-md-6 button-div text-center" id="like-btn-panel">
                         @if (Model.IsStoryLiked)
                         {
                             @Html.Partial("_UnlikeButtonStoryPartial", Model);
@@ -29,29 +29,28 @@
                             @Html.Partial("_LikeButtonStoryPartial", Model)
                         }
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 button-div text-center">
                         <button class="btn btn-success btn-black btn-add-comment"><span class="glyphicon glyphicon-comment"></span> Comment</button>
                     </div>
                 </div>
             }
         </div>
         <hr />
-        <div id="comment-box">
+        <div id="comment-box" class="comment-box-stories">
             @Html.Partial("_StoryCommentBoxPartial", Model)
         </div>
     </div>
     <div class="col-md-8">
-        <h4>@Model.Title</h4>
+        <h4 class="h4-stories">@Model.Title</h4>
         <h5>@Model.RelatedDestination</h5>
-        <h6>Author: @Model.Author.UserName</h6>
-        <h6>Posted On: @Model.CreatedOn</h6>
+        <h6 class="italic small">Author: @Model.Author.UserName</h6>
+        <h6 class="italic small">Posted On: @Model.CreatedOn</h6>
         <hr />
-        <p>@Model.Content</p>
+        <p class="story-content">@Model.Content</p>
     </div>
     <hr />
 </div>
 
-@*photos modal*@
 <div class="modal fade modal-close" id="details-photo" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

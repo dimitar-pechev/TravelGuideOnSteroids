@@ -21,5 +21,9 @@ namespace TravelGuide.Services.Stories.Contracts
         IEnumerable<Story> GetStoriesByPage(string query, int page, int pageSize);
 
         void CreateStory(string title, string content, string relatedDestination, string imageUrl, string userId);
+
+        void DeleteStory(Guid storyId);
+
+        void EditStory(Guid storyId, string title, string content, string relatedDestination, string imageUrl);
     }
 }

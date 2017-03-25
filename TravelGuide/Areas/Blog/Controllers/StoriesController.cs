@@ -137,19 +137,69 @@ namespace TravelGuide.Areas.Blog.Controllers
             var story = this.storyService.GetById((Guid)storyId);
             model = this.mappingService.Map<StoryDetailsViewModel>(story);
 
+            var user = this.userService.GetById(userId);
+            model.CurrentUser = user;
+
             return this.PartialView("_StoryCommentBoxPartial", model);
         }
 
         [HttpDelete]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteComment(Guid? commentId, Guid? storyId)
+        public ActionResult DeleteComment(Guid commentId, Guid storyId)
         {
-            this.storyService.DeleteComment((Guid)commentId);
-
-            var story = this.storyService.GetById((Guid)storyId);
+            this.storyService.DeleteComment(commentId);
+            var story = this.storyService.GetById(storyId);
             var model = this.mappingService.Map<StoryDetailsViewModel>(story);
 
+            var userId = this.User.Identity.GetUserId();
+            var user = this.userService.GetById(userId);
+
+            model.CurrentUser = user;
+
             return this.PartialView("_StoryCommentBoxPartial", model);
+        }
+
+        public ActionResult EditStory(Guid? storyId)
+        {
+            if (storyId == null)
+            {
+                this.RedirectToAction("Index");
+            }
+
+            var story = this.storyService.GetById((Guid)storyId);
+
+            if (story == null)
+            {
+                return this.HttpNotFound();
+            }
+
+            var model = this.mappingService.Map<CreateEditStoryViewModel>(story);
+
+            return this.View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditStory(CreateEditStoryViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            this.storyService.EditStory(model.Id, model.Title, model.Content, model.RelatedDestination, model.ImageUrl);
+
+            var story = this.storyService.GetById(model.Id);
+            var viewModel = this.mappingService.Map<StoryDetailsViewModel>(story);
+            var userId = this.User.Identity.GetUserId();
+            var currentUser = this.userService.GetById(userId);
+            if (currentUser != null)
+            {
+                viewModel.CurrentUser = currentUser;
+                viewModel.IsStoryLiked = this.storyService.IsStoryLiked(story.Id, currentUser.Id);
+            }
+
+            return this.RedirectToAction("Details", viewModel);
         }
 
         private int GetPage(int? page, int pagesCount)
