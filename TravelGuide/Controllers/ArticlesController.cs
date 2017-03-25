@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using System.Collections.Generic;
 using Microsoft.AspNet.Identity;
 using TravelGuide.Common;
 using TravelGuide.Common.Contracts;
@@ -17,28 +18,28 @@ namespace TravelGuide.Controllers
         private readonly IMappingService mappingService;
         private readonly IStoreService storeService;
         private readonly IUserService userService;
+        private readonly IUtilitiesService utils;
 
-        public ArticlesController(IArticleService articleService, IMappingService mappingService, IStoreService storeService, IUserService userService)
+        public ArticlesController(IArticleService articleService, IMappingService mappingService, IStoreService storeService, IUserService userService, IUtilitiesService utils)
         {
             this.articleService = articleService;
             this.mappingService = mappingService;
             this.storeService = storeService;
             this.userService = userService;
+            this.utils = utils;
         }
 
         [AllowAnonymous]
         public ActionResult Index(string query, int? page)
         {
             var pagesCount = this.articleService.GetPagesCount(query);
-            var currentPage = this.GetPage(page, pagesCount);
-
+            var currentPage = this.utils.GetPage(page, pagesCount);
             var articles = this.articleService.GetFilteredArticlesByPage(query, currentPage, AppConstants.ArticlePageSize);
+            var mappedArticles = this.mappingService.Map<IEnumerable<ArticleItemViewModel>>(articles);
+            var model = this.mappingService.Map<ArticlesListViewModel>(mappedArticles);
+            model = this.utils.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.ArticlesBaseUrl);
 
-            this.ViewBag.Query = query;
-            this.ViewBag.PagesCount = pagesCount;
-            this.ViewBag.CurrentPage = currentPage;
-
-            return this.View(articles);
+            return this.View(model);
         }
 
         [AllowAnonymous]
@@ -46,15 +47,13 @@ namespace TravelGuide.Controllers
         public ActionResult Search(string query, int? page)
         {
             var pagesCount = this.articleService.GetPagesCount(query);
-            var currentPage = this.GetPage(page, pagesCount);
-
+            var currentPage = this.utils.GetPage(page, pagesCount);
             var articles = this.articleService.GetFilteredArticlesByPage(query, currentPage, AppConstants.ArticlePageSize);
+            var mappedArticles = this.mappingService.Map<IEnumerable<ArticleItemViewModel>>(articles);
+            var model = this.mappingService.Map<ArticlesListViewModel>(mappedArticles);
+            model = this.utils.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.ArticlesBaseUrl);
 
-            this.ViewBag.Query = query;
-            this.ViewBag.PagesCount = pagesCount;
-            this.ViewBag.CurrentPage = currentPage;
-
-            return this.PartialView("_ArticlesListPartial", articles);
+            return this.PartialView("_ArticlesListPartial", model);
         }
 
         public ActionResult CreateArticle()
@@ -171,21 +170,6 @@ namespace TravelGuide.Controllers
             model.CurrentUser = user;
 
             return this.PartialView("_ArticlesCommentBoxPartial", model);
-        }
-
-        private int GetPage(int? page, int pagesCount)
-        {
-            int result;
-            if (page == null || page < 1 || page > pagesCount)
-            {
-                result = 1;
-            }
-            else
-            {
-                result = (int)page;
-            }
-
-            return result;
         }
     }
 }

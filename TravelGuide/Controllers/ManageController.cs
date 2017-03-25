@@ -8,8 +8,8 @@ using TravelGuide.Auth;
 using TravelGuide.Services.Account.Contracts;
 using TravelGuide.Services.Requests.Contracts;
 using TravelGuide.Services.Stories.Contracts;
-using TravelGuide.Shared;
 using TravelGuide.ViewModels.ManageViewModels;
+using TravelGuide.Common.Contracts;
 
 namespace TravelGuide.Controllers
 {
@@ -33,6 +33,7 @@ namespace TravelGuide.Controllers
         private readonly IRequestService requestService;
         private readonly IUserService userService;
         private readonly IStoryService storyService;
+        private readonly IUtilitiesService utils;
 
         private ApplicationSignInManager signInManager;
         private ApplicationUserManager userManager;
@@ -41,11 +42,12 @@ namespace TravelGuide.Controllers
         {
         }
 
-        public ManageController(IRequestService requestService, IUserService userService, IStoryService storyService)
+        public ManageController(IRequestService requestService, IUserService userService, IStoryService storyService, IUtilitiesService utils)
         {
             this.requestService = requestService;
             this.userService = userService;
             this.storyService = storyService;
+            this.utils = utils;
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -101,7 +103,7 @@ namespace TravelGuide.Controllers
 
             var userId = this.User.Identity.GetUserId();
             var pagesCount = this.requestService.GetRequestsPagesCount(userId);
-            var currentPage = Utils.GetPage(page, pagesCount);
+            var currentPage = this.utils.GetPage(page, pagesCount);
             var requests = this.requestService.GetRequestsForUser(userId, currentPage);
             var model = new IndexViewModel
             {
@@ -154,7 +156,7 @@ namespace TravelGuide.Controllers
         {
             var userId = this.User.Identity.GetUserId();
             var pagesCount = this.requestService.GetRequestsPagesCount(userId);
-            var currentPage = Utils.GetPage(page, pagesCount);
+            var currentPage = this.utils.GetPage(page, pagesCount);
             var requests = this.requestService.GetRequestsForUser(userId, currentPage);
 
             var model = new IndexViewModel

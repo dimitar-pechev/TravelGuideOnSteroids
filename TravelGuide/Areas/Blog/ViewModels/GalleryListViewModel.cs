@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AutoMapper;
 using TravelGuide.Common.Contracts;
-using TravelGuide.Shared;
 
 namespace TravelGuide.Areas.Blog.ViewModels
 {

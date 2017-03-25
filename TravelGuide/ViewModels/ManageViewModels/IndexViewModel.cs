@@ -4,7 +4,6 @@ using Microsoft.AspNet.Identity;
 using TravelGuide.Common.Contracts;
 using TravelGuide.Models;
 using TravelGuide.Models.Requests;
-using TravelGuide.Shared;
 
 namespace TravelGuide.ViewModels.ManageViewModels
 {

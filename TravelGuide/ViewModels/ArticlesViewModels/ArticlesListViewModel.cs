@@ -2,11 +2,11 @@
 using AutoMapper;
 using TravelGuide.Common.Contracts;
 
-namespace TravelGuide.Areas.Blog.ViewModels
+namespace TravelGuide.ViewModels.ArticlesViewModels
 {
-    public class StoriesListViewModel : IMapFrom<IEnumerable<StoryItemViewModel>>, IHaveCustomMappings, IPager
+    public class ArticlesListViewModel : IPager, IMapFrom<IEnumerable<ArticleItemViewModel>>, IHaveCustomMappings
     {
-        public IEnumerable<StoryItemViewModel> Stories { get; set; }
+        public IEnumerable<ArticleItemViewModel> Articles { get; set; }
 
         public string BaseUrl { get; set; }
 
@@ -22,8 +22,8 @@ namespace TravelGuide.Areas.Blog.ViewModels
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
-            configuration.CreateMap<IEnumerable<StoryItemViewModel>, StoriesListViewModel>()
-                .ForMember(dest => dest.Stories, s => s.MapFrom(src => src));
+            configuration.CreateMap<IEnumerable<ArticleItemViewModel>, ArticlesListViewModel>()
+                .ForMember(dest => dest.Articles, s => s.MapFrom(src => src));
         }
     }
 }

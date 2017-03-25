@@ -245,8 +245,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Shared\IPager.cs" />
-    <Compile Include="Shared\Utils.cs" />
     <Compile Include="ViewModels\AccountViewModels\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModels\ExternalLoginListViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModels\LoginViewModel.cs" />
@@ -255,6 +253,8 @@
     <Compile Include="Areas\Admin\ViewModels\UserManagerViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\UserViewModel.cs" />
     <Compile Include="ViewModels\ArticlesViewModels\ArticleDetailsViewModel.cs" />
+    <Compile Include="ViewModels\ArticlesViewModels\ArticleItemViewModel.cs" />
+    <Compile Include="ViewModels\ArticlesViewModels\ArticlesListViewModel.cs" />
     <Compile Include="ViewModels\ArticlesViewModels\CreateEditArticleViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels\IndexViewModel.cs" />

@@ -1,4 +1,4 @@
-﻿namespace TravelGuide.Shared
+﻿namespace TravelGuide.Common.Contracts
 {
     public interface IPager
     {

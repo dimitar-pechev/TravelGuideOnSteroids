@@ -23,5 +23,7 @@
         public const string AdminUserManagerBaseUrl = "/admin/usermanager/index";
 
         public const string StorisBaseUrl = "/blog/stories/index";
+
+        public const string ArticlesBaseUrl = "/articles/index";
     }
 }

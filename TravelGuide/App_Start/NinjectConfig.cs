@@ -88,6 +88,7 @@ namespace TravelGuide.App_Start
             kernel.Bind<IRequestService>().To<RequestService>();
             kernel.Bind<IGalleryImageService>().To<GalleryImageService>();
             kernel.Bind<IStoryService>().To<StoryService>();
+            kernel.Bind<IUtilitiesService>().To<UtilitiesService>();
 
             kernel.Bind<IArticleFactory>().ToFactory().InSingletonScope();
             kernel.Bind<IArticleCommentFactory>().ToFactory().InSingletonScope();
