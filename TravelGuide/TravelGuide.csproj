@@ -254,6 +254,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Areas\Admin\ViewModels\UserManagerViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\UserViewModel.cs" />
+    <Compile Include="ViewModels\ArticlesViewModels\ArticleDetailsViewModel.cs" />
     <Compile Include="ViewModels\ArticlesViewModels\CreateEditArticleViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels\IndexViewModel.cs" />

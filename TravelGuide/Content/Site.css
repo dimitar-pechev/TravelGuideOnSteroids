@@ -1010,3 +1010,15 @@ li.active a.tab-admin {
 .edit-info-form {
     padding: 0 90px;
 }
+
+.icon-article {
+    font-size: 1.5rem;
+}
+
+.related-item {
+    margin-bottom: 25px;
+}
+
+.related-item:hover {
+    box-shadow: 0 0 10px grey;
+}

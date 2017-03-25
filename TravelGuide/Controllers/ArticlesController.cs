@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity;
 using TravelGuide.Common;
 using TravelGuide.Common.Contracts;
 using TravelGuide.Services.Articles.Contracts;
+using TravelGuide.Services.Store.Contracts;
 using TravelGuide.ViewModels.ArticlesViewModels;
 
 namespace TravelGuide.Controllers
@@ -13,11 +14,13 @@ namespace TravelGuide.Controllers
     {
         private readonly IArticleService articleService;
         private readonly IMappingService mappingService;
+        private readonly IStoreService storeService;
 
-        public ArticlesController(IArticleService articleService, IMappingService mappingService)
+        public ArticlesController(IArticleService articleService, IMappingService mappingService, IStoreService storeService)
         {
             this.articleService = articleService;
             this.mappingService = mappingService;
+            this.storeService = storeService;
         }
 
         [AllowAnonymous]
@@ -80,8 +83,11 @@ namespace TravelGuide.Controllers
             }
 
             var article = this.articleService.GetArticleById((Guid)id);
+            var storeItems = this.storeService.GetItemsByKeyword(article.City);
+            var model = this.mappingService.Map<ArticleDetailsViewModel>(article);
+            model.StoreItems = storeItems;
 
-            return this.View(article);
+            return this.View(model);
         }
 
         public ActionResult EditArticle(Guid? id)

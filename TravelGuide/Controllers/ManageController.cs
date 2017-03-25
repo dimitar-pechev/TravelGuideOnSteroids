@@ -7,9 +7,9 @@ using Microsoft.Owin.Security;
 using TravelGuide.Auth;
 using TravelGuide.Services.Account.Contracts;
 using TravelGuide.Services.Requests.Contracts;
+using TravelGuide.Services.Stories.Contracts;
 using TravelGuide.Shared;
 using TravelGuide.ViewModels.ManageViewModels;
-using TravelGuide.Services.Stories.Contracts;
 
 namespace TravelGuide.Controllers
 {
