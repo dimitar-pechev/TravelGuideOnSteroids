@@ -204,5 +204,31 @@ namespace TravelGuide.Services.Requests
 
             return pagesCount;
         }
+
+        public Request GetById(Guid orderId)
+        {
+            var request = this.context.Requests.Find(orderId);
+            return request;
+        }
+
+        public void UpdateRequestInfo(Guid orderId, string firstName, string lastName, string phone, string address, bool status)
+        {
+            var request = this.context.Requests.Find(orderId);
+
+            if (request == null)
+            {
+                throw new InvalidOperationException("No such request found!");
+            }
+
+            var parsedStatus = status == true ? "Confirmed!" : "Awaiting Confirmation";
+
+            request.Address = address;
+            request.Phone = phone;
+            request.FirstName = firstName;
+            request.LastName = lastName;
+            request.Status = parsedStatus;
+
+            this.context.SaveChanges();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TravelGuide.Models.Requests;
 using TravelGuide.Models.Store;
 
@@ -19,5 +20,9 @@ namespace TravelGuide.Services.Requests.Contracts
         IEnumerable<Request> GetRequestsByPage(string query, int page, int pageSize);
 
         int GetTotalPagesCount(string query);
+
+        Request GetById(Guid orderId);
+
+        void UpdateRequestInfo(Guid orderId, string firstName, string lastName, string phone, string address, bool status);
     }
 }

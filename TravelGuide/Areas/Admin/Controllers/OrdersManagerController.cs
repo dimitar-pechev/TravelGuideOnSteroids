@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using TravelGuide.Areas.Admin.ViewModels;
 using TravelGuide.Common;
@@ -34,6 +35,38 @@ namespace TravelGuide.Areas.Admin.Controllers
             model = this.utils.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.AdminOrdersBaseUrl);
 
             return this.View(model);
-        }        
+        }
+
+        [HttpGet]
+        public ActionResult EditOrderInfo(Guid? orderId)
+        {
+            var order = this.requestService.GetById((Guid)orderId);
+
+            if (order == null)
+            {
+                return this.HttpNotFound();
+            }
+
+            var model = this.mappingService.Map<EditOrderViewModel>(order);
+
+            return this.PartialView("_EditOrderInfoPartial", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditOrderInfo(EditOrderViewModel model, Guid orderId, string queryString)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                throw new InvalidOperationException();
+            }
+
+            var page = this.utils.ExtractPageFromQuery(queryString);
+            var query = this.utils.ExtractSearchQueryFromQuery(queryString);
+
+            this.requestService.UpdateRequestInfo(orderId, model.FirstName, model.LastName, model.Phone, model.Address, model.BoolStatus);
+
+            return this.RedirectToAction("Index", new { query, page });
+        }
     }
 }

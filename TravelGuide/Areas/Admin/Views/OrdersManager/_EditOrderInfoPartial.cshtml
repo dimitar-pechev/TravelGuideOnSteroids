@@ -1,0 +1,47 @@
+﻿@model TravelGuide.Areas.Admin.ViewModels.EditOrderViewModel
+
+<div class="modal-dialog edit-box" role="document">
+    <div class="modal-content">
+        <div class="modal-header text-center">
+            <h5 class="text-center">Updawte Order Info</h5>
+            <hr />
+            @using (Html.BeginForm("EditOrderInfo", "OrdersManager", new { orderId = Model.Id, queryString = this.Request.UrlReferrer.Query }, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="input-field">
+                    @Html.LabelFor(m => m.FirstName, new { @class = "active" })
+                    @Html.TextBoxFor(m => m.FirstName)
+                    @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                </div>
+                <div class="input-field">
+                    @Html.LabelFor(m => m.LastName, new { @class = "active" })
+                    @Html.TextBoxFor(m => m.LastName)
+                    @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                </div>
+                <div class="input-field">
+                    @Html.LabelFor(m => m.Phone, new { @class = "active" })
+                    @Html.TextBoxFor(m => m.Phone)
+                    @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+                </div>
+                <div class="input-field">
+                    @Html.LabelFor(m => m.Address, new { @class = "active" })
+                    @Html.TextBoxFor(m => m.Address)
+                    @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+                </div>
+                <div class="text-left">
+                    @Html.LabelFor(m => m.BoolStatus, new { @class = "active" })
+                    <select id="BoolStatus" , name="BoolStatus" class="form-control">
+                        <option value="false">Awaiting Confirmation</option>
+                        <option value="true">Conifirmed</option>
+                    </select>
+                </div>
+                <hr />
+                <div class="text-right">
+                    <input type="button" class="hidden" data-dismiss="modal" id="users-dismiss-modal" />
+                    <input type="submit" id="btn-submit-user-changes" value="Edit" class="btn btn-success" />
+                    <input type="button" value="Discard" class="btn btn-black" data-dismiss="modal" />
+                </div>
+            }
+        </div>
+    </div>
+</div>

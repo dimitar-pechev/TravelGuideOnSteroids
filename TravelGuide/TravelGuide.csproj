@@ -213,6 +213,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\OrdersManagerController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserManagerController.cs" />
+    <Compile Include="Areas\Admin\ViewModels\EditOrderViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\OrdersManagerViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModels\OrderViewModel.cs" />
     <Compile Include="Areas\Blog\BlogAreaRegistration.cs" />
@@ -363,6 +364,7 @@
     <Content Include="Areas\Blog\Views\Stories\_LikeButtonStoryPartial.cshtml" />
     <Content Include="Areas\Blog\Views\Stories\EditStory.cshtml" />
     <Content Include="Areas\Admin\Views\OrdersManager\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\OrdersManager\_EditOrderInfoPartial.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

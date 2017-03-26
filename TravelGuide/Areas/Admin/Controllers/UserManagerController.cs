@@ -14,33 +14,35 @@ namespace TravelGuide.Areas.Admin.Controllers
     {
         private readonly IUserService userService;
         private readonly IMappingService mappingService;
+        private readonly IUtilitiesService utils;
 
-        public UserManagerController(IUserService userService, IMappingService mappingService)
+        public UserManagerController(IUserService userService, IMappingService mappingService, IUtilitiesService utils)
         {
             this.userService = userService;
             this.mappingService = mappingService;
+            this.utils = utils;
         }
 
-        public ActionResult Index(string query, int? page)
+        public ActionResult Index(string query, int? page, string filter, string sort)
         {
             var pagesCount = this.userService.GetPagesCount(query);
-            var currentPage = this.GetPage(page, pagesCount);
+            var currentPage = this.utils.GetPage(page, pagesCount);
             var users = this.userService.GetUsersByPage(query, currentPage, AppConstants.AdminPageUsersPageSize);
             var mappedUsers = this.mappingService.Map<IEnumerable<UserViewModel>>(users);
             var model = this.mappingService.Map<UserManagerViewModel>(mappedUsers);
-            model = this.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.AdminUserManagerBaseUrl);
+            model = this.utils.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.AdminUserManagerBaseUrl);
 
             return this.View(model);
         }
 
-        public ActionResult Search(string query, int? page)
+        public ActionResult Search(string query, int? page, string filter, string sort)
         {
             var pagesCount = this.userService.GetPagesCount(query);
-            var currentPage = this.GetPage(page, pagesCount);
+            var currentPage = this.utils.GetPage(page, pagesCount);
             var users = this.userService.GetUsersByPage(query, currentPage, AppConstants.AdminPageUsersPageSize);
             var mappedUsers = this.mappingService.Map<IEnumerable<UserViewModel>>(users);
             var model = this.mappingService.Map<UserManagerViewModel>(mappedUsers);
-            model = this.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.AdminUserManagerBaseUrl);
+            model = this.utils.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.AdminUserManagerBaseUrl);
 
             return this.View("Index", model);
         }
@@ -59,82 +61,19 @@ namespace TravelGuide.Areas.Admin.Controllers
                 throw new InvalidOperationException();
             }
 
-            var page = this.ExtractPageFromQuery(queryString);
-            var query = this.ExtractSearchQueryFromQuery(queryString);
+            var page = this.utils.ExtractPageFromQuery(queryString);
+            var query = this.utils.ExtractSearchQueryFromQuery(queryString);
 
             this.userService.UpdateUserInfo(userId, user.UserName, user.Email, user.FirstName, user.LastName, user.PhoneNumber, user.Address, user.IsDeleted);
 
             var pagesCount = this.userService.GetPagesCount(query);
-            var currentPage = this.GetPage(page, pagesCount);
+            var currentPage = this.utils.GetPage(page, pagesCount);
             var users = this.userService.GetUsersByPage(query, currentPage, AppConstants.AdminPageUsersPageSize);
             var mappedUsers = this.mappingService.Map<IEnumerable<UserViewModel>>(users);
             var model = this.mappingService.Map<UserManagerViewModel>(mappedUsers);
-            model = this.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.AdminUserManagerBaseUrl);
+            model = this.utils.AssignViewParams(model, query, currentPage, pagesCount, AppConstants.AdminUserManagerBaseUrl);
 
             return this.PartialView("_UsersManagementPartial", model);
-        }
-
-        private int GetPage(int? page, int pagesCount)
-        {
-            int result;
-            if (page == null || page < 1 || page > pagesCount)
-            {
-                result = 1;
-            }
-            else
-            {
-                result = (int)page;
-            }
-
-            return result;
-        }
-
-        private UserManagerViewModel AssignViewParams(UserManagerViewModel model, string query, int currentPage, int pagesCount, string baseUrl)
-        {
-            model.Query = query;
-            model.CurrentPage = currentPage;
-            model.PreviousPage = currentPage - 1;
-            model.NextPage = currentPage + 1;
-            model.PagesCount = pagesCount;
-            model.BaseUrl = baseUrl;
-
-            return model;
-        }
-
-        private int? ExtractPageFromQuery(string query)
-        {
-            var queryParams = query.Split('?', '&').Where(x => !string.IsNullOrEmpty(x)).Select(x => x.Trim()).ToList();
-
-            var pageQuery = queryParams.FirstOrDefault(x => x.Contains("page"));
-            if (pageQuery == null)
-            {
-                return null;
-            }
-
-            int page;
-            var isParsable = int.TryParse(pageQuery.Split('=').ToList().Last(), out page);
-
-            if (page == 0)
-            {
-                return null;
-            }
-
-            return page;
-        }
-
-        private string ExtractSearchQueryFromQuery(string query)
-        {
-            var queryParams = query.Split('?', '&').Where(x => !string.IsNullOrEmpty(x)).Select(x => x.Trim()).ToList();
-
-            var searchQuery = queryParams.FirstOrDefault(x => x.Contains("query"));
-            if (searchQuery == null)
-            {
-                return null;
-            }
-
-            var result = searchQuery.Split('=').ToList().Last();
-
-            return result;
         }
     }
 }

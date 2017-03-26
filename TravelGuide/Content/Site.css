@@ -1021,9 +1021,9 @@ li.active a.tab-admin {
     margin-bottom: 25px;
 }
 
-.related-item:hover {
-    box-shadow: 0 0 10px grey;
-}
+    .related-item:hover {
+        box-shadow: 0 0 10px grey;
+    }
 
 .profile-pic-comment {
     max-width: 90%;
@@ -1044,4 +1044,17 @@ li.active a.tab-admin {
 .hashtag-fix {
     padding-top: 60px;
     margin-top: -60px;
+}
+
+.admin-container .nav > li {
+    display: inline-block;
+    float: none;
+}
+
+.admin-container .nav.nav-tabs {
+    text-align: center;
+}
+
+.dropdown-admin {
+    margin-top: 1.7rem;
 }
