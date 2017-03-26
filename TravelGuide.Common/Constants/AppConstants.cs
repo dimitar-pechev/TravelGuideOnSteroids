@@ -12,6 +12,8 @@
 
         public const int StoriesPageSize = 5;
 
+        public const int AdminOrdersPageSize = 8;
+
         public const int ProfilePageCount = 3;
 
         public const int StoriesProfilePicSize = 2;
@@ -31,5 +33,7 @@
         public const string StorisBaseUrl = "/blog/stories/index";
 
         public const string ArticlesBaseUrl = "/articles/index";
+
+        public const string AdminOrdersBaseUrl = "/admin/ordersmanager/index";
     }
 }

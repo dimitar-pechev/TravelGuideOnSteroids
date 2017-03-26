@@ -1,0 +1,117 @@
+﻿@model TravelGuide.Areas.Admin.ViewModels.OrdersManagerViewModel
+
+    @{
+        ViewBag.Title = "Admin Page";
+    }
+
+    <div class="container admin-container">
+        <h3 class="text-center">Admin Panel</h3>
+        <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
+            <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                <li>
+                    <a href="/admin/usermanager" class="tab-admin">Users</a>
+                </li>
+                <li class="active">
+                    <a href="/admin/ordersmanager" class="tab-admin">Orders</a>
+                </li>
+            </ul>
+
+            <div class="admin-options-menu">
+                <div class="col-md-4 col-md-offset-4 text-center">
+                    @using (Html.BeginForm("Index", "OrdersManager", FormMethod.Get))
+                    {
+                        @Html.Label("Search product names:", new { @for = "query", @class = "search-label-discover" })
+                        @Html.TextBox("query")
+                    }
+                </div>
+            </div>
+            <div class="tab-pane fade active in" role="tabpanel" id="requests" aria-labelledby="requests-tab">
+                <table class="table table-responsive table-bordered table-hover">
+                    <thead>
+                        <tr class="table-header-admin">
+                            <th>Item</th>
+                            <th>Username</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>Order Status</th>
+                            <th>Ordered On</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Orders)
+                        {
+                            <tr>
+                                <td><a href="/store/storeitems/details/@item.ItemId">@item.ItemName</a></td>
+                                <td>@item.Username</td>
+                                <td>@item.FirstName</td>
+                                <td>@item.LastName</td>
+                                <td>@item.Phone</td>
+                                <td>@item.Address</td>
+                                <td>@item.Status</td>
+                                <td>@item.CreatedOn</td>
+                                <td class="text-center">
+                                    <input type="button" value="Update Info" class="btn btn-black" />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    @Html.Partial("_PagerPartial", Model)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="users-edit-box" role="dialog">
+    </div>
+
+    <div id="image-loader" class="preloader-wrapper big active" style="display:none;">
+        <div class="spinner-layer">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div><div class="gap-patch">
+                <div class="circle"></div>
+            </div><div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryajax")
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/bundles/toastr")
+        <script>
+            $('#users-edit-box').on('hidden.bs.modal', () => {
+                $('#users-edit-box').html('');
+            })
+
+            function openModalUsers() {
+                $('#activate-modal-users').click();
+            }
+
+            function userEdited() {
+                notify('success', 'User edited successfully!');
+
+                $('#users-dismiss-modal').click();
+            }
+
+            function userEditFailed() {
+                notify('error', 'An error occured! Make sure username or/and email don\'t already exist!');
+            }
+
+            function bindUsersEditEvents() {
+                $('#btn-submit-user-changes').on('click', () => {
+                    $('#btn-submit-user-changes').addClass('disabled');
+
+                    setTimeout(() => {
+                        $('#btn-submit-user-changes').removeClass('disabled');
+                    }, 3000);
+                });
+            }
+        </script>
+    }

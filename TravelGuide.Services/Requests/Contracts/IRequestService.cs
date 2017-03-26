@@ -15,5 +15,9 @@ namespace TravelGuide.Services.Requests.Contracts
         IEnumerable<Request> GetAllRequests();
 
         void ChangeStatus(string id);
+
+        IEnumerable<Request> GetRequestsByPage(string query, int page, int pageSize);
+
+        int GetTotalPagesCount(string query);
     }
 }

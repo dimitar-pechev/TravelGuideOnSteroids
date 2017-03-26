@@ -211,7 +211,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\ViewEnginesConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrdersManagerController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserManagerController.cs" />
+    <Compile Include="Areas\Admin\ViewModels\OrdersManagerViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\OrderViewModel.cs" />
     <Compile Include="Areas\Blog\BlogAreaRegistration.cs" />
     <Compile Include="Areas\Blog\Controllers\GalleryController.cs" />
     <Compile Include="Areas\Blog\Controllers\StoriesController.cs" />
@@ -359,6 +362,7 @@
     <Content Include="Areas\Blog\Views\Stories\_UnlikeButtonStoryPartial.cshtml" />
     <Content Include="Areas\Blog\Views\Stories\_LikeButtonStoryPartial.cshtml" />
     <Content Include="Areas\Blog\Views\Stories\EditStory.cshtml" />
+    <Content Include="Areas\Admin\Views\OrdersManager\Index.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -408,7 +412,6 @@
     <Content Include="Views\Shared\_PagerPartial.cshtml" />
     <Content Include="Areas\Admin\Views\UserManager\Index.cshtml" />
     <Content Include="Areas\Admin\Views\UserManager\_UsersManagementPartial.cshtml" />
-    <Content Include="Areas\Admin\Views\UserManager\_RequestsManagementPartial.cshtml" />
     <Content Include="Views\Account\Lockout.cshtml" />
     <Content Include="Views\Manage\_UserRequestsPartial.cshtml" />
     <Content Include="Views\Manage\_UserEditInfoPartial.cshtml" />

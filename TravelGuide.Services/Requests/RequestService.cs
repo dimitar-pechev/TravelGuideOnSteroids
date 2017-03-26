@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using TravelGuide.Common;
 using TravelGuide.Data.Contracts;
@@ -137,6 +138,68 @@ namespace TravelGuide.Services.Requests
             else
             {
                 pagesCount = (int)Math.Ceiling((decimal)requestsCount / AppConstants.ProfilePageCount);
+            }
+
+            return pagesCount;
+        }
+
+        public IEnumerable<Request> GetRequestsByPage(string query, int page, int pageSize)
+        {
+            var requests = new List<Request>();
+            if (!string.IsNullOrEmpty(query))
+            {
+                requests = this.context.Requests
+                     .Include(x => x.StoreItem)
+                     .Where(x => x.User.UserName.ToLower().Contains(query.ToLower()) ||
+                     x.StoreItem.ItemName.ToLower().Contains(query.ToLower()) ||
+                     x.FirstName.ToLower().Contains(query.ToLower()) ||
+                     x.LastName.ToLower().Contains(query.ToLower()))
+                     .ToList()
+                     .OrderByDescending(x => x.CreatedOn)
+                     .Skip((page - 1) * pageSize)
+                     .Take(pageSize)
+                     .ToList();
+            }
+            else
+            {
+                requests = this.context.Requests
+                    .Include(x => x.StoreItem)
+                    .ToList()
+                    .OrderByDescending(x => x.CreatedOn)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+            }
+
+            return requests;
+        }
+
+        public int GetTotalPagesCount(string query)
+        {
+            int requestsCount;
+            if (!string.IsNullOrEmpty(query))
+            {
+                requestsCount = this.context.Requests
+                   .Where(x => x.User.UserName.ToLower().Contains(query.ToLower()) ||
+                     x.StoreItem.ItemName.ToLower().Contains(query.ToLower()) ||
+                     x.FirstName.ToLower().Contains(query.ToLower()) ||
+                     x.LastName.ToLower().Contains(query.ToLower()))
+                    .Count();
+            }
+            else
+            {
+                requestsCount = this.context.Requests
+                    .Count();
+            }
+
+            int pagesCount;
+            if (requestsCount == 0)
+            {
+                pagesCount = 1;
+            }
+            else
+            {
+                pagesCount = (int)Math.Ceiling((decimal)requestsCount / AppConstants.AdminOrdersPageSize);
             }
 
             return pagesCount;
