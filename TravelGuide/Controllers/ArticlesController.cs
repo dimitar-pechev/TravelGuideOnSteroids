@@ -14,14 +14,39 @@ namespace TravelGuide.Controllers
     [Authorize]
     public class ArticlesController : Controller
     {
-        private readonly IArticleService articleService;
-        private readonly IMappingService mappingService;
-        private readonly IStoreService storeService;
-        private readonly IUserService userService;
-        private readonly IUtilitiesService utils;
+        protected readonly IArticleService articleService;
+        protected readonly IMappingService mappingService;
+        protected readonly IStoreService storeService;
+        protected readonly IUserService userService;
+        protected readonly IUtilitiesService utils;
 
         public ArticlesController(IArticleService articleService, IMappingService mappingService, IStoreService storeService, IUserService userService, IUtilitiesService utils)
         {
+            if (articleService == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (mappingService == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (storeService == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (userService == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (utils == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             this.articleService = articleService;
             this.mappingService = mappingService;
             this.storeService = storeService;
