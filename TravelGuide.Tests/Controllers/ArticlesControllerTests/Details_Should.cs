@@ -1,19 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Security.Principal;
+using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
 using TestStack.FluentMVCTesting;
 using TravelGuide.Common.Contracts;
 using TravelGuide.Controllers;
+using TravelGuide.Models;
 using TravelGuide.Models.Articles;
+using TravelGuide.Models.Store;
 using TravelGuide.Services.Account.Contracts;
 using TravelGuide.Services.Articles.Contracts;
 using TravelGuide.Services.Store.Contracts;
 using TravelGuide.ViewModels.ArticlesViewModels;
-using System.Security.Principal;
-using System.Web.Mvc;
-using System;
-using TravelGuide.Models;
-using TravelGuide.Models.Store;
 
 namespace TravelGuide.Tests.Controllers.ArticlesControllerTests.Mocks
 {
