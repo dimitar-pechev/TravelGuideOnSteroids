@@ -114,6 +114,8 @@
     <Compile Include="Controllers\ArticlesControllerTests\PostEditArticle_Should.cs" />
     <Compile Include="Controllers\ArticlesControllerTests\Search_Should.cs" />
     <Compile Include="Controllers\GalleryControllerTests\Comment_Should.cs" />
+    <Compile Include="Controllers\GalleryControllerTests\DeleteComment_Should.cs" />
+    <Compile Include="Controllers\GalleryControllerTests\DeleteImage_Should.cs" />
     <Compile Include="Controllers\GalleryControllerTests\GetCreate_Should.cs" />
     <Compile Include="Controllers\GalleryControllerTests\LikeImage_Should.cs" />
     <Compile Include="Controllers\GalleryControllerTests\PopulateModal_Should.cs" />
