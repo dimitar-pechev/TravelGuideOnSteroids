@@ -1,8 +1,8 @@
-﻿using Moq;
-using NUnit.Framework;
-using System;
+﻿using System;
 using System.Security.Principal;
 using System.Web.Mvc;
+using Moq;
+using NUnit.Framework;
 using TestStack.FluentMVCTesting;
 using TravelGuide.Common.Contracts;
 using TravelGuide.Controllers;

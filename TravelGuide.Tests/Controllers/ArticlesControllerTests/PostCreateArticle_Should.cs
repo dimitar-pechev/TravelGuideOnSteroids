@@ -50,7 +50,6 @@ namespace TravelGuide.Tests.Controllers.ArticlesControllerTests
             var controller = new ArticlesController(articleServiceMock.Object, mappingServiceMock.Object, storeServiceMock.Object, userServiceMock.Object, utilsMock.Object);
 
             var controllerContext = new Mock<ControllerContext>();
-
             var user = new Mock<IPrincipal>();
             user.Setup(p => p.IsInRole("admin")).Returns(true);
             user.SetupGet(x => x.Identity.Name).Returns("username");

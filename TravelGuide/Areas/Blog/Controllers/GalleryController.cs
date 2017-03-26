@@ -14,13 +14,33 @@ namespace TravelGuide.Areas.Blog.Controllers
     [Authorize]
     public class GalleryController : Controller
     {
-        private readonly IGalleryImageService galleryService;
-        private readonly IUserService userService;
-        private readonly IMappingService mappingService;
-        private readonly IUtilitiesService utils;
+        protected readonly IGalleryImageService galleryService;
+        protected readonly IUserService userService;
+        protected readonly IMappingService mappingService;
+        protected readonly IUtilitiesService utils;
 
         public GalleryController(IGalleryImageService galleryService, IMappingService mappingService, IUserService userService, IUtilitiesService utils)
         {
+            if (galleryService == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (mappingService == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (userService == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (utils == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             this.galleryService = galleryService;
             this.mappingService = mappingService;
             this.userService = userService;
