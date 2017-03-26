@@ -101,9 +101,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ArticlesControllerTests\Comment_Should.cs" />
     <Compile Include="Controllers\ArticlesControllerTests\Constructor_Should.cs" />
+    <Compile Include="Controllers\ArticlesControllerTests\DeleteArticle_Should.cs" />
+    <Compile Include="Controllers\ArticlesControllerTests\DeleteComment_Should.cs" />
+    <Compile Include="Controllers\ArticlesControllerTests\GetCreateArticle_Should.cs" />
+    <Compile Include="Controllers\ArticlesControllerTests\PostCreateArticle_Should.cs" />
+    <Compile Include="Controllers\ArticlesControllerTests\GetEditArticle_Should.cs" />
     <Compile Include="Controllers\ArticlesControllerTests\Index_Should.cs" />
     <Compile Include="Controllers\ArticlesControllerTests\Mocks\ArticleControllerMock.cs" />
+    <Compile Include="Controllers\ArticlesControllerTests\Details_Should.cs" />
+    <Compile Include="Controllers\ArticlesControllerTests\PostEditArticle_Should.cs" />
+    <Compile Include="Controllers\ArticlesControllerTests\Search_Should.cs" />
     <Compile Include="Data\TravelGuideContextTests\Constructor_Should.cs" />
     <Compile Include="Data\TravelGuideContextTests\Create_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
