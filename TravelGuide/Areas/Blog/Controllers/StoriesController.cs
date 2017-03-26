@@ -13,13 +13,33 @@ namespace TravelGuide.Areas.Blog.Controllers
     [Authorize]
     public class StoriesController : Controller
     {
-        private readonly IStoryService storyService;
-        private readonly IMappingService mappingService;
-        private readonly IUserService userService;
-        private readonly IUtilitiesService utils;
+        protected readonly IStoryService storyService;
+        protected readonly IMappingService mappingService;
+        protected readonly IUserService userService;
+        protected readonly IUtilitiesService utils;
 
         public StoriesController(IStoryService storyService, IMappingService mappingService, IUserService userService, IUtilitiesService utils)
         {
+            if (storyService == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (mappingService == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (userService == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (utils == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             this.storyService = storyService;
             this.mappingService = mappingService;
             this.userService = userService;
