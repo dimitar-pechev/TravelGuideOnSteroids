@@ -1,8 +1,8 @@
-﻿using Moq;
-using NUnit.Framework;
-using System;
+﻿using System;
 using System.Security.Principal;
 using System.Web.Mvc;
+using Moq;
+using NUnit.Framework;
 using TestStack.FluentMVCTesting;
 using TravelGuide.Areas.Blog.Controllers;
 using TravelGuide.Areas.Blog.ViewModels;
@@ -14,7 +14,7 @@ using TravelGuide.Services.Stories.Contracts;
 namespace TravelGuide.Tests.Controllers.StoriesControllerTests
 {
     [TestFixture]
-    public class LikeStory_Should
+    public class UnlikeStory_Should
     {
         [Test]
         public void ReturnPartialViewWithRespectiveModel_WhenParamsAreValid()
@@ -41,8 +41,8 @@ namespace TravelGuide.Tests.Controllers.StoriesControllerTests
             mappingServiceMock.Setup(x => x.Map<StoryDetailsViewModel>(story)).Returns(model);
 
             // Act & Assert
-            controller.WithCallTo(x => x.LikeStory(Guid.NewGuid()))
-                .ShouldRenderPartialView("_UnlikeButtonStoryPartial")
+            controller.WithCallTo(x => x.UnlikeStory(Guid.NewGuid()))
+                .ShouldRenderPartialView("_LikeButtonStoryPartial")
                 .WithModel<StoryDetailsViewModel>(x => x == model);
         }
 
@@ -71,7 +71,7 @@ namespace TravelGuide.Tests.Controllers.StoriesControllerTests
             mappingServiceMock.Setup(x => x.Map<StoryDetailsViewModel>(story)).Returns(model);
 
             // Act
-            controller.LikeStory(Guid.NewGuid());
+            controller.UnlikeStory(Guid.NewGuid());
 
             // Assert
             storyServiceMock.Verify(x => x.ToggleLike(It.IsAny<Guid>(), It.IsAny<string>()), Times.Once);

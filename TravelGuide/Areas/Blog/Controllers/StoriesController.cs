@@ -189,7 +189,7 @@ namespace TravelGuide.Areas.Blog.Controllers
         {
             if (storyId == null)
             {
-                this.RedirectToAction("Index");
+                return this.RedirectToAction("Index");
             }
 
             var story = this.storyService.GetById((Guid)storyId);

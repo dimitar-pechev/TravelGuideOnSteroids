@@ -1,12 +1,13 @@
-﻿using Moq;
-using NUnit.Framework;
-using System;
+﻿using System;
 using System.Security.Principal;
 using System.Web.Mvc;
+using Moq;
+using NUnit.Framework;
 using TestStack.FluentMVCTesting;
 using TravelGuide.Areas.Blog.Controllers;
 using TravelGuide.Areas.Blog.ViewModels;
 using TravelGuide.Common.Contracts;
+using TravelGuide.Models;
 using TravelGuide.Models.Stories;
 using TravelGuide.Services.Account.Contracts;
 using TravelGuide.Services.Stories.Contracts;
@@ -14,10 +15,10 @@ using TravelGuide.Services.Stories.Contracts;
 namespace TravelGuide.Tests.Controllers.StoriesControllerTests
 {
     [TestFixture]
-    public class LikeStory_Should
+    public class DeleteComment_Should
     {
         [Test]
-        public void ReturnPartialViewWithRespectiveModel_WhenParamsAreValid()
+        public void RetundPartialViewWithRespectiveModel_WhenParamsAreValid()
         {
             // Arrange
             var storyServiceMock = new Mock<IStoryService>();
@@ -34,20 +35,25 @@ namespace TravelGuide.Tests.Controllers.StoriesControllerTests
             controllerContext.SetupGet(x => x.HttpContext.User).Returns(user.Object);
             controller.ControllerContext = controllerContext.Object;
 
-            storyServiceMock.Setup(x => x.ToggleLike(It.IsAny<Guid>(), It.IsAny<string>()));
+            storyServiceMock.Setup(x => x.DeleteComment(It.IsAny<Guid>()));
+
             var story = new Story();
             storyServiceMock.Setup(x => x.GetById(It.IsAny<Guid>())).Returns(story);
+
             var model = new StoryDetailsViewModel();
             mappingServiceMock.Setup(x => x.Map<StoryDetailsViewModel>(story)).Returns(model);
 
+            var userModel = new User();
+            userServiceMock.Setup(x => x.GetById(It.IsAny<string>())).Returns(userModel);
+
             // Act & Assert
-            controller.WithCallTo(x => x.LikeStory(Guid.NewGuid()))
-                .ShouldRenderPartialView("_UnlikeButtonStoryPartial")
-                .WithModel<StoryDetailsViewModel>(x => x == model);
+            controller.WithCallTo(x => x.DeleteComment(Guid.NewGuid(), Guid.NewGuid()))
+                .ShouldRenderPartialView("_CommentBoxPartial")
+                .WithModel<StoryDetailsViewModel>();
         }
 
         [Test]
-        public void CallToggleLikeMethod_WhenParamsAreValid()
+        public void CallDeleteCommentMethod_WhenParamsAreValid()
         {
             // Arrange
             var storyServiceMock = new Mock<IStoryService>();
@@ -64,17 +70,22 @@ namespace TravelGuide.Tests.Controllers.StoriesControllerTests
             controllerContext.SetupGet(x => x.HttpContext.User).Returns(user.Object);
             controller.ControllerContext = controllerContext.Object;
 
-            storyServiceMock.Setup(x => x.ToggleLike(It.IsAny<Guid>(), It.IsAny<string>()));
+            storyServiceMock.Setup(x => x.DeleteComment(It.IsAny<Guid>()));
+
             var story = new Story();
             storyServiceMock.Setup(x => x.GetById(It.IsAny<Guid>())).Returns(story);
+
             var model = new StoryDetailsViewModel();
             mappingServiceMock.Setup(x => x.Map<StoryDetailsViewModel>(story)).Returns(model);
 
+            var userModel = new User();
+            userServiceMock.Setup(x => x.GetById(It.IsAny<string>())).Returns(userModel);
+
             // Act
-            controller.LikeStory(Guid.NewGuid());
+            controller.DeleteComment(Guid.NewGuid(), Guid.NewGuid());
 
             // Assert
-            storyServiceMock.Verify(x => x.ToggleLike(It.IsAny<Guid>(), It.IsAny<string>()), Times.Once);
+            storyServiceMock.Verify(x => x.DeleteComment(It.IsAny<Guid>()), Times.Once);
         }
     }
 }
