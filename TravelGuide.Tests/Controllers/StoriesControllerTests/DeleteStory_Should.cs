@@ -1,6 +1,6 @@
-﻿using Moq;
+﻿using System;
+using Moq;
 using NUnit.Framework;
-using System;
 using TestStack.FluentMVCTesting;
 using TravelGuide.Areas.Blog.Controllers;
 using TravelGuide.Common.Contracts;

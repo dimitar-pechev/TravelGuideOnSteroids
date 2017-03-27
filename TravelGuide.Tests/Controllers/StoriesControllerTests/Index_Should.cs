@@ -1,8 +1,8 @@
-﻿using Moq;
-using NUnit.Framework;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Security.Principal;
 using System.Web.Mvc;
+using Moq;
+using NUnit.Framework;
 using TestStack.FluentMVCTesting;
 using TravelGuide.Areas.Blog.Controllers;
 using TravelGuide.Areas.Blog.ViewModels;

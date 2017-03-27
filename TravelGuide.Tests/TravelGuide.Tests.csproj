@@ -125,6 +125,17 @@
     <Compile Include="Controllers\GalleryControllerTests\Index_Should.cs" />
     <Compile Include="Controllers\GalleryControllerTests\Mocks\GalleryControllerMock.cs" />
     <Compile Include="Controllers\GalleryControllerTests\UnlikeImage_Should.cs" />
+    <Compile Include="Controllers\StoreControllerTests\ChangeStatus_Should.cs" />
+    <Compile Include="Controllers\StoreControllerTests\Constructor_Should.cs" />
+    <Compile Include="Controllers\StoreControllerTests\Delete_Should.cs" />
+    <Compile Include="Controllers\StoreControllerTests\Details_Should.cs" />
+    <Compile Include="Controllers\StoreControllerTests\GetCreate_Should.cs" />
+    <Compile Include="Controllers\StoreControllerTests\GetEdit_Should.cs" />
+    <Compile Include="Controllers\StoreControllerTests\Index_Should.cs" />
+    <Compile Include="Controllers\StoreControllerTests\Mocks\StoreControllerMock.cs" />
+    <Compile Include="Controllers\StoreControllerTests\PostCreate_Should.cs" />
+    <Compile Include="Controllers\StoreControllerTests\PostEdit_Should.cs" />
+    <Compile Include="Controllers\StoreControllerTests\Search_Should.cs" />
     <Compile Include="Controllers\StoriesControllerTests\Comment_Should.cs" />
     <Compile Include="Controllers\StoriesControllerTests\Constructor_Should.cs" />
     <Compile Include="Controllers\StoriesControllerTests\DeleteComment_Should.cs" />

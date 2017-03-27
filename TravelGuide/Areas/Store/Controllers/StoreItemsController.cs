@@ -11,12 +11,27 @@ namespace TravelGuide.Areas.Store.Controllers
     [Authorize(Roles = "admin")]
     public class StoreItemsController : Controller
     {
-        private readonly IStoreService storeService;
-        private readonly IMappingService mappingService;
-        private readonly IUtilitiesService utils;
+        protected readonly IStoreService storeService;
+        protected readonly IMappingService mappingService;
+        protected readonly IUtilitiesService utils;
 
         public StoreItemsController(IStoreService storeService, IMappingService mappingService, IUtilitiesService utils)
         {
+            if (storeService == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (mappingService == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (utils == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             this.storeService = storeService;
             this.mappingService = mappingService;
             this.utils = utils;
