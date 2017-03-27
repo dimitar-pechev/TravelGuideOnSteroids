@@ -257,6 +257,9 @@
     <Compile Include="ViewModels\ManageViewModels\SetPasswordViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Themes\1.jpg" />
+    <Content Include="App_Themes\2.jpg" />
+    <Content Include="App_Themes\3.jpg" />
     <Content Include="App_Themes\Articles\destinations-heading.png" />
     <Content Include="App_Themes\Articles\gallery-link.png" />
     <Content Include="App_Themes\Articles\store-link.png" />
@@ -279,6 +282,8 @@
     <Content Include="Content\materialize\font\material-design-icons\Material-Design-Icons.svg" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
+    <Content Include="ErrorPages\generic.html" />
+    <Content Include="ErrorPages\not-found.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
