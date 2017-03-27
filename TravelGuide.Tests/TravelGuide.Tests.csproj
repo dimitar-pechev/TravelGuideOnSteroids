@@ -192,6 +192,8 @@
     <Compile Include="Services\Store\StoreServiceTests\DeleteItem_Should.cs" />
     <Compile Include="Services\Store\StoreServiceTests\EditItem_Should.cs" />
     <Compile Include="Services\Store\StoreServiceTests\GetItemById_Should.cs" />
+    <Compile Include="Services\Stories\StoryServiceTests\Constructor_Should.cs" />
+    <Compile Include="Services\Stories\StoryServiceTests\CreateStory_Should.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

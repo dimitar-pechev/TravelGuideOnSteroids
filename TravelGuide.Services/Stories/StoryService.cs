@@ -19,6 +19,26 @@ namespace TravelGuide.Services.Stories
 
         public StoryService(ITravelGuideContext context, IStoryFactory storyFactory, IStoryLikeFactory likesFactory, IStoryCommentFactory commentsFactory)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (storyFactory == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (likesFactory == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (commentsFactory == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             this.context = context;
             this.storyFactory = storyFactory;
             this.likesFactory = likesFactory;
