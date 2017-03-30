@@ -8,7 +8,7 @@
 
 ---------------
 
-TravelGuide is a web app where travel lovers can read articles on popular destinations, buy related stuff to the proposed places, as well as share their own stories on the trips they've already made or simply upload or browse other user-uploaded photos. 
+TravelGuide is a web app where travel lovers can read articles on popular destinations, buy related stuff to the proposed places, as well as share their own stories on the trips they've already made or simply upload or browse other user-uploaded photos. Most of the stuff can be commented or liked.
 
 - all of the public content can be administered (creating new entries, updating, deleting)
 
