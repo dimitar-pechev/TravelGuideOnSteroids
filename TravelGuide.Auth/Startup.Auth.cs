@@ -53,10 +53,10 @@ namespace TravelGuide.Auth
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
             var facebookOptions = new FacebookAuthenticationOptions();
-            facebookOptions.AppId = "765954726889523";
-            facebookOptions.AppSecret = "f68e55d5533abfdc2c9e43db45b016e3";
+            facebookOptions.AppId = "310601499356479";
+            facebookOptions.AppSecret = "7e5453abda7b4c5aad8bfd72f6d38808";
             facebookOptions.BackchannelHttpHandler = new FacebookBackChannelHandler();
-            facebookOptions.UserInformationEndpoint = "https://graph.facebook.com/v2.4/me?fields=id,name,email";
+            facebookOptions.UserInformationEndpoint = "https://graph.facebook.com/v2.8/me?fields=id,name,email";
             facebookOptions.Scope.Add("email");
             app.UseFacebookAuthentication(facebookOptions);
         }

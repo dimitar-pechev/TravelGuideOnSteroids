@@ -111,3 +111,7 @@ $('body').keyup((ev) => {
         ev.preventDefault();
     }
 });
+
+$('#image-details').on('hidden.bs.modal', () => {
+    $('#image-details').html('');
+})
