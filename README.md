@@ -22,4 +22,4 @@ TravelGuide is a web app where travel lovers can read articles on popular destin
 
 ---------------
 
-![home-page](https://github.com/dimitar-pechev/TravelGuideOnSteroids/tree/master/TravelGuide/App_Data/cover.png)
+![home-page](https://github.com/dimitar-pechev/TravelGuideOnSteroids/blob/master/TravelGuide/App_Data/cover.PNG)
