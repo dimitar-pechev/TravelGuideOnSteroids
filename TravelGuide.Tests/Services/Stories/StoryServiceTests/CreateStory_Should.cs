@@ -2,10 +2,10 @@
 using Moq;
 using NUnit.Framework;
 using TravelGuide.Data.Contracts;
+using TravelGuide.Models;
+using TravelGuide.Models.Stories;
 using TravelGuide.Services.Factories;
 using TravelGuide.Services.Stories;
-using TravelGuide.Models.Stories;
-using TravelGuide.Models;
 
 namespace TravelGuide.Tests.Services.Stories.StoryServiceTests
 {

@@ -27,7 +27,7 @@ namespace TravelGuide.Areas.Admin.Controllers
 
         public ActionResult Index(string query, int? page)
         {
-            var pagesCount = this.requestService.GetTotalPagesCount(query);
+            var pagesCount = this.requestService.GetTotalPagesCount(query, AppConstants.AdminOrdersPageSize);
             var currentPage = this.utils.GetPage(page, pagesCount);
             var requests = this.requestService.GetRequestsByPage(query, currentPage, AppConstants.AdminOrdersPageSize);
             var mappedRequests = this.mappingService.Map<IEnumerable<OrderViewModel>>(requests);

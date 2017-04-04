@@ -38,7 +38,18 @@
       <HintPath>..\packages\Castle.Core.4.0.0\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FakeDbSet, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FakeDbSet.1.4.0.0\lib\net40\FakeDbSet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
@@ -176,9 +187,15 @@
     <Compile Include="Services\Gallery\GalleryImageServiceTests\ToggleLike_Should.cs" />
     <Compile Include="Services\Gallery\Mocks\GalleryImageServiceMock.cs" />
     <Compile Include="Services\Requests\Mocks\RequestServiceMock.cs" />
-    <Compile Include="Services\Requests\RequestServiceTests\ChangeStatus_Should.cs" />
     <Compile Include="Services\Requests\RequestServiceTests\Constructor_Should.cs" />
+    <Compile Include="Services\Requests\RequestServiceTests\GetAllRequests_Should.cs" />
+    <Compile Include="Services\Requests\RequestServiceTests\GetById_Should.cs" />
+    <Compile Include="Services\Requests\RequestServiceTests\GetRequestsByPage_Should.cs" />
+    <Compile Include="Services\Requests\RequestServiceTests\GetRequestsForUser_Should.cs" />
+    <Compile Include="Services\Requests\RequestServiceTests\GetRequestsPagesCountForUser_Should.cs" />
+    <Compile Include="Services\Requests\RequestServiceTests\GetTotalPagesCount_Should.cs" />
     <Compile Include="Services\Requests\RequestServiceTests\MakeRequest_Should.cs" />
+    <Compile Include="Services\Requests\RequestServiceTests\UpdateRequestInfo_Should.cs" />
     <Compile Include="Services\Store\CartServiceTests\Constructor_Should.cs" />
     <Compile Include="Services\Store\CartServiceTests\DeleteItemFormCookie_Should.cs" />
     <Compile Include="Services\Store\CartServiceTests\ExtractItemsFromCookie_Should.cs" />

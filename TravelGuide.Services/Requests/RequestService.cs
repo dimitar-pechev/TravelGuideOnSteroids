@@ -93,38 +93,19 @@ namespace TravelGuide.Services.Requests
             return requests;
         }
 
-        public void ChangeStatus(string id)
-        {
-            if (string.IsNullOrEmpty(id))
-            {
-                throw new ArgumentNullException();
-            }
-
-            var parsedId = Guid.Parse(id);
-            var request = this.context.Requests.Find(parsedId);
-
-            if (request == null)
-            {
-                throw new InvalidOperationException();
-            }
-
-            request.Status = "Confirmed!";
-            this.context.SaveChanges();
-        }
-
-        public IEnumerable<Request> GetRequestsForUser(string userId, int page)
+        public IEnumerable<Request> GetRequestsForUser(string userId, int page, int pageSize)
         {
             var requests = this.context.Requests
                 .Where(x => x.UserId == userId)
                 .OrderBy(x => x.CreatedOn)
                 .ToList()
-                .Skip((page - 1) * AppConstants.ProfilePageCount)
-                .Take(AppConstants.ProfilePageCount)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToList();
             return requests;
         }
 
-        public int GetRequestsPagesCount(string userId)
+        public int GetRequestsPagesCountForUser(string userId, int pageSize)
         {
             var requestsCount = this.context.Requests
                 .Where(x => x.UserId == userId)
@@ -137,7 +118,7 @@ namespace TravelGuide.Services.Requests
             }
             else
             {
-                pagesCount = (int)Math.Ceiling((decimal)requestsCount / AppConstants.ProfilePageCount);
+                pagesCount = (int)Math.Ceiling((decimal)requestsCount / pageSize);
             }
 
             return pagesCount;
@@ -174,7 +155,7 @@ namespace TravelGuide.Services.Requests
             return requests;
         }
 
-        public int GetTotalPagesCount(string query)
+        public int GetTotalPagesCount(string query, int pageSize)
         {
             int requestsCount;
             if (!string.IsNullOrEmpty(query))
@@ -199,7 +180,7 @@ namespace TravelGuide.Services.Requests
             }
             else
             {
-                pagesCount = (int)Math.Ceiling((decimal)requestsCount / AppConstants.AdminOrdersPageSize);
+                pagesCount = (int)Math.Ceiling((decimal)requestsCount / pageSize);
             }
 
             return pagesCount;

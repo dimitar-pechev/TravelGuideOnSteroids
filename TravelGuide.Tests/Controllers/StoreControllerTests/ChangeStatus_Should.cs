@@ -1,10 +1,6 @@
-﻿using Moq;
+﻿using System;
+using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestStack.FluentMVCTesting;
 using TravelGuide.Areas.Store.Controllers;
 using TravelGuide.Common.Contracts;

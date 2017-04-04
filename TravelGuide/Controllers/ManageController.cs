@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using TravelGuide.Auth;
+using TravelGuide.Common;
 using TravelGuide.Common.Contracts;
 using TravelGuide.Services.Account.Contracts;
 using TravelGuide.Services.Requests.Contracts;
@@ -102,9 +103,9 @@ namespace TravelGuide.Controllers
                 : string.Empty;
 
             var userId = this.User.Identity.GetUserId();
-            var pagesCount = this.requestService.GetRequestsPagesCount(userId);
+            var pagesCount = this.requestService.GetRequestsPagesCountForUser(userId, AppConstants.ProfilePageCount);
             var currentPage = this.utils.GetPage(page, pagesCount);
-            var requests = this.requestService.GetRequestsForUser(userId, currentPage);
+            var requests = this.requestService.GetRequestsForUser(userId, currentPage, AppConstants.ProfilePageCount);
             var model = new IndexViewModel
             {
                 HasPassword = this.HasPassword(),
@@ -155,9 +156,9 @@ namespace TravelGuide.Controllers
         public ActionResult GetUserRequests(int? page)
         {
             var userId = this.User.Identity.GetUserId();
-            var pagesCount = this.requestService.GetRequestsPagesCount(userId);
+            var pagesCount = this.requestService.GetRequestsPagesCountForUser(userId, AppConstants.ProfilePageCount);
             var currentPage = this.utils.GetPage(page, pagesCount);
-            var requests = this.requestService.GetRequestsForUser(userId, currentPage);
+            var requests = this.requestService.GetRequestsForUser(userId, currentPage, AppConstants.ProfilePageCount);
 
             var model = new IndexViewModel
             {

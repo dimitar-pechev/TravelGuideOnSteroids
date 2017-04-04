@@ -7,19 +7,17 @@ namespace TravelGuide.Services.Requests.Contracts
 {
     public interface IRequestService
     {
-        int GetRequestsPagesCount(string userId);
+        int GetRequestsPagesCountForUser(string userId, int pageSize);
 
-        IEnumerable<Request> GetRequestsForUser(string userId, int page);
+        IEnumerable<Request> GetRequestsForUser(string userId, int page, int pageSize);
 
         void MakeRequest(IEnumerable<StoreItem> items, string id, string firstName, string lastName, string phone, string address);
 
         IEnumerable<Request> GetAllRequests();
-
-        void ChangeStatus(string id);
-
+        
         IEnumerable<Request> GetRequestsByPage(string query, int page, int pageSize);
 
-        int GetTotalPagesCount(string query);
+        int GetTotalPagesCount(string query, int pageSize);
 
         Request GetById(Guid orderId);
 
