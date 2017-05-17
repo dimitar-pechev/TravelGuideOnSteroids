@@ -4,7 +4,7 @@
 
 ---------------
 
-### [TravelGuide (Hosted at Azure)](http://travelguidemvc.azurewebsites.net/)
+### [TravelGuide (Hosted at AppHarbor)](http://travelguide-6.apphb.com)
 
 ---------------
 
